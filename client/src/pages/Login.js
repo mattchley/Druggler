@@ -39,7 +39,7 @@ const LoginPage = ({history,toggleAuthenticateStatus}) => {
     event.preventDefault();
 
     // create a string for an HTTP body message
-    const { email, password } = this.state.user;
+    const { email, password } = user;
 
     API.login({email, password}).then(res => {
         // save the token

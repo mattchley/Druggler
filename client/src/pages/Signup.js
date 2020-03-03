@@ -1,29 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import SignUpForm from '../components/SignUpForm';
 import API from '../utils/API';
 
-class SignUpPage extends React.Component {
+const SignUpPage = ({history}) => {
   // set the initial component A
-  state = {
-    errors: {},
-    user: {
-      email: '',
-      name: '',
-      password: ''
-    }
-  }
+  const [errors,setErrors] = useState({});
+  const [user, setUser] = useState({
+      email: "",
+      name:"",
+      password:""
+  })
+
 
   /**
    * Process the form.
    *
    * @param {object} event - the JavaScript event object
    */
-  processForm = event => {
+  const processForm = event => {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
     
     // create a string for an HTTP body message
-    const { name, email, password } = this.state.user;
+    const { name, email, password } = user;
 
     //const formData = `email=${email}&password=${password}`;
     API.signUp({name, email, password}).then(res => {
@@ -32,19 +31,15 @@ class SignUpPage extends React.Component {
         localStorage.setItem('successMessage', res.data.message);
 
         // redirect user after sign up to login page
-        this.props.history.push('/login');
-        this.setState({
-          errors: {}
-        });
+        history.push('/login');
+        setErrors({});
 
     }).catch(( {response} ) => {
 
         const errors = response.data.errors ? response.data.errors : {};
         errors.summary = response.data.message;
 
-        this.setState({
-          errors
-        });
+        setErrors({...errors,errors});
       });
   }
 
@@ -53,29 +48,24 @@ class SignUpPage extends React.Component {
    *
    * @param {object} event - the JavaScript event object
    */
-  changeUser = event => {
-    const field = event.target.name;
-    const user = this.state.user;
-    user[field] = event.target.value;
-
-    this.setState({
-      user
-    });
+  const changeUser = event => {
+    const {name,value} = event.target;
+    setUser({...user, [name]:value});
   }
 
   /**
    * Render the component.
    */
-  render() {
+  
     return (
       <SignUpForm
-        onSubmit={this.processForm}
-        onChange={this.changeUser}
-        errors={this.state.errors}
-        user={this.state.user}
+        onSubmit={processForm}
+        onChange={changeUser}
+        errors={errors}
+        user={user}
       />
     );
-  }
+  
 
 }
 
