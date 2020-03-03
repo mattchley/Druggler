@@ -1,37 +1,84 @@
-import React, {useState} from "react";
+import React from 'react';
+import SignUpForm from '../components/SignUpForm';
+import API from '../utils/API';
 
-const Signup = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  
-  const handleInputChange = (e) => {
-    const { name, value} = e.target;
-    if (name === "username") {
-        setUsername(value)
-    } else if (name === "password") {
-        setPassword(value)
+class SignUpPage extends React.Component {
+  // set the initial component A
+  state = {
+    errors: {},
+    user: {
+      email: '',
+      name: '',
+      password: ''
     }
   }
 
-  const handleFormSubmit = e => {
-    e.preventDefault();
-    console.log("Username",username);
-    console.log("Password",password)
+  /**
+   * Process the form.
+   *
+   * @param {object} event - the JavaScript event object
+   */
+  processForm = event => {
+    // prevent default action. in this case, action is the form submission event
+    event.preventDefault();
+    
+    // create a string for an HTTP body message
+    const { name, email, password } = this.state.user;
+
+    //const formData = `email=${email}&password=${password}`;
+    API.signUp({name, email, password}).then(res => {
+      // change the component-container state
+        // set a message
+        localStorage.setItem('successMessage', res.data.message);
+
+        // redirect user after sign up to login page
+        this.props.history.push('/login');
+        this.setState({
+          errors: {}
+        });
+
+    }).catch(( {response} ) => {
+
+        const errors = response.data.errors ? response.data.errors : {};
+        errors.summary = response.data.message;
+
+        this.setState({
+          errors
+        });
+      });
   }
 
-  return (
-      <form>
-          <label>
-              Username:
-              <input type="text" value={username} onChange={handleInputChange} placeholder= "Username (Required)" name="username" />
-          </label>
-          <label>
-              Password:
-              <input type="text" value={password} onChange={handleInputChange} placeholder="Password (Required)" name="password" />
-          </label>
-          <input type="submit" value="submit" onClick={handleFormSubmit} />
-      </form>
-  )
+  /**
+   * Change the user object.
+   *
+   * @param {object} event - the JavaScript event object
+   */
+  changeUser = event => {
+    const field = event.target.name;
+    const user = this.state.user;
+    user[field] = event.target.value;
+
+    this.setState({
+      user
+    });
+  }
+
+  /**
+   * Render the component.
+   */
+  render() {
+    return (
+      <SignUpForm
+        onSubmit={this.processForm}
+        onChange={this.changeUser}
+        errors={this.state.errors}
+        user={this.state.user}
+      />
+    );
+  }
+
 }
 
-export default Signup;
+
+
+export default SignUpPage;
