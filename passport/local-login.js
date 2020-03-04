@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const db = require('../models')
 const PassportLocalStrategy = require('passport-local').Strategy;
 
-
+console.log(db.Drugs);
 /**
  * Return the Passport Local Strategy object.
  */
