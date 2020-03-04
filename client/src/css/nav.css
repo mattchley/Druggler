@@ -1,0 +1,70 @@
+p {
+    font-size: 20px;
+    font-weight: 400;
+    font-family: 'Darker Grotesque', sans-serif;
+}
+
+.appBar {
+    height: 60px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+@media only screen and (max-width: 700px) {
+    .appBar {
+        height: 40px;
+    }
+}
+.navTitle {
+    font-family: 'Darker Grotesque', sans-serif;
+    font-weight: 800;
+    font-size: 30pt;
+    float: left;
+    margin-left: 5%;
+}
+
+@media only screen and (max-width: 700px) {
+    .navTitle {
+        font-size: 22pt;
+    }
+}
+
+.navButton {
+    font-family: 'Darker grotesque', sans-serif;
+    font-weight: 400;
+    font-size: 16pt;
+    float: right;
+    margin-right: 5%;
+    margin-top: 15px;
+    bottom: 0px;
+    flex-wrap: wrap
+}
+
+@media only screen and (max-width: 700px) {
+    .navButton {
+        font-size: 8pt;
+        margin-top: 8px;
+    }
+}
+
+@media only screen and (max-width: 540px) {
+    .link {
+        font-size: 7pt;
+    }
+}
+
+.link {
+    color: rgb(82, 70, 250);
+    text-decoration: none;
+    display:inline-block;
+}
+
+.spacer {
+    height: 20px;
+    width: 100%;
+    background-color: black;
+}
+
+.navButton:hover{
+    cursor: pointer;
+}
