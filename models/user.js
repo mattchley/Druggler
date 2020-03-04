@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 // define the User model schema
 const UserSchema = new mongoose.Schema({
@@ -8,9 +8,9 @@ const UserSchema = new mongoose.Schema({
     index: { unique: true }
   },
   password: String,
-  name: String
+  name: String,
+  drugs: [{ type: Schema.Types.ObjectId, ref: "Drugs" }]
 });
-
 
 /**
  * Compare the passed password with the value in the database. A model method.
@@ -18,26 +18,31 @@ const UserSchema = new mongoose.Schema({
  * @param {string} password
  * @returns {object} callback
  */
-UserSchema.methods.comparePassword = function comparePassword(password, callback) {
+UserSchema.methods.comparePassword = function comparePassword(
+  password,
+  callback
+) {
   bcrypt.compare(password, this.password, callback);
 };
-
 
 /**
  * The pre-save hook method.
  */
-UserSchema.pre('save', function saveHook(next) {
+UserSchema.pre("save", function saveHook(next) {
   const user = this;
 
   // proceed further only if the password is modified or the user is new
-  if (!user.isModified('password')) return next();
-
+  if (!user.isModified("password")) return next();
 
   return bcrypt.genSalt((saltError, salt) => {
-    if (saltError) { return next(saltError); }
+    if (saltError) {
+      return next(saltError);
+    }
 
     return bcrypt.hash(user.password, salt, (hashError, hash) => {
-      if (hashError) { return next(hashError); }
+      if (hashError) {
+        return next(hashError);
+      }
 
       // replace a password string with hash value
       user.password = hash;
@@ -47,5 +52,4 @@ UserSchema.pre('save', function saveHook(next) {
   });
 });
 
-
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model("User", UserSchema);
