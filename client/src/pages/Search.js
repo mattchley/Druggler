@@ -5,14 +5,9 @@ import API from "../utils/API";
 
 function Search() {
     // Setting our component's initial state
-    const [drugs, setDrugs] = useState([])
+    const drugs = []
     // const [search, setSearch] = useState({})
     const [formObject, setFormObject] = useState({})
-
-    // Load all Drugs and store them with setDrugs
-    useEffect(() => {
-        loadDrugs()
-    }, [])
 
     // Loads all Drugs and sets them to Drugs
 
@@ -20,10 +15,9 @@ function Search() {
     function loadDrugs(search) {
         API.getDrugsID(search)
             .then(res => {
-                setDrugs(res.data);
+                drugs.push(res.data.idGroup.rxnormId[0]);
                 console.log(res.data);
-                // API.getDrugsConflict(res.data.idGroup.rxnormId[0]).then(res =>
-                //console.log(res.data))
+                console.log(drugs);
             })
             .catch(err => console.log(err));
     };
