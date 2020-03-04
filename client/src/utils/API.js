@@ -7,5 +7,10 @@ export default {
   signUp: userData => 
   	 axios.post('/auth/signup', userData),
   dashboard: token =>
-     axios.get('/api/dashboard', {headers: {Authorization: `bearer ${token}`}})
+     axios.get('/api/dashboard', {headers: {Authorization: `bearer ${token}`}}),
+  getDrugsConflict: queryRes => 
+     axios.get(`https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=${queryRes}`),
+  getDrugsID: search => 
+        axios.get(`https://rxnav.nlm.nih.gov/REST/rxcui?name=${search}`)
+          
 };

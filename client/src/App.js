@@ -18,7 +18,7 @@ import LoginPage from './pages/Login';
 import LogoutFunction from './pages/LogoutFunction';
 import SignUpPage from './pages/Signup';
 import DashboardPage from './pages/DashboardPage';
-
+import Search from './pages/Search'
 import Auth from './utils/Auth';
 
 // remove tap delay, essential for MaterialUI to work properly
@@ -50,6 +50,7 @@ const App =() => {
                 <div className="top-bar-right">
                   <Link to="/dashboard">Dashboard</Link>
                   <Link to="/logout">Log out</Link>
+                  <Search />
                 </div>
               ) : (
                 <div className="top-bar-right">
