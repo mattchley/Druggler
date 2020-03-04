@@ -1,5 +1,5 @@
 const express = require('express');
-
+const drugRoutes = require("./drugs");
 const router = new express.Router();
 
 router.get('/dashboard', (req, res) => {
@@ -9,5 +9,7 @@ router.get('/dashboard', (req, res) => {
     user: req.user
   });
 });
+
+router.use("/drugs",drugRoutes);
 
 module.exports = router;
