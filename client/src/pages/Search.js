@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Input from "../components/Input"
+// import Input from "../components/Input"
 import FormBtn from "../components/FormBtn"
 import API from "../utils/API";
+import Button from '@material-ui/core/Button';
+// import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import TextField from '@material-ui/core/TextField';
 
 function Search() {
     // Setting our component's initial state
@@ -32,20 +36,41 @@ function Search() {
     function handleFormSubmit(event) {
         event.preventDefault();
         loadDrugs(formObject.search)
+        document.getElementById("drugTextField").value = "";
+        document.getElementById("drugTextField").focus();
     }
 
     return (
         <div>
-            <Input
+            {/* <Input
                 onChange={handleInputChange}
                 name="search"
                 placeholder="Drug Name and Dosage (required)"
+            /> */}
+
+            <TextField 
+                id="drugTextField" 
+                name="search"
+                label="Enter drug name here" 
+                variant="filled" 
+                onChange={handleInputChange}
             />
-            <FormBtn
+            
+            <Button 
+                onClick={handleFormSubmit}
+                // className="navButton"
+                variant="contained"
+                color="primary"
+            >
+                Submit drug
+            </Button>
+
+            {/* <FormBtn
                 onClick={handleFormSubmit}
             >
                 Submit drug
-              </FormBtn>
+            </FormBtn> */}
+
             <div>
                 {drugs.length ? (
                     <div>
