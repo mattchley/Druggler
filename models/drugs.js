@@ -4,8 +4,9 @@ const Schema = mongoose.Schema;
 const drugsSchema = new Schema({
   name: { type: String, required: true },
   lastTaken: { type: String, required: true },
-  frequency: { type: Number, required: false},
-  date: { type: Date, default: Date.now }
+  frequency: Number,
+  date: { type: Date, default: Date.now },
+  users: { type: Schema.Types.ObjectId, ref: "User" }
 });
 
 const Drugs = mongoose.model('Drugs', drugsSchema);
