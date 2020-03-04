@@ -5,7 +5,8 @@ const drugsSchema = new Schema({
   name: { type: String, required: true },
   lastTaken: { type: String, required: true },
   frequency: Number,
-  date: { type: Date, default: Date.now }
+  date: { type: Date, default: Date.now },
+  users: { type: Schema.Types.ObjectId, ref: "Uers" }
 });
 
 const Drugs = mongoose.model("Drugs", drugsSchema);
