@@ -43,40 +43,41 @@ const App = () => {
               <div className="navTitle">Druggler</div>
               <div>
                 <Button className="navButton" variant="outlined">
-                <Link className="link" to="/">
-                {" "}
-                Dashboard{" "}
-              </Link>
-              </Button>
-          </div>
-          <div>
-          <Button className="navButton" variant="outlined">
-            <Link className="link" to="/logout">
-              {" "}
-              Log out{" "}
-            </Link>
-          </Button>
-        </div>
-        </div>
+                  <Link className="link" to="/">
+                    {" "}
+                    My Pills{" "}
+                  </Link>
+                </Button>
+              </div>
+              <div>
+                <Button className="navButton" variant="outlined" size='small'>
+                  <Link className="link" to="/logout">
+                    {" "}
+                    Log out{" "}
+                  </Link>
+                  
+                </Button>
+              </div>
+            </div>
           ) : (
-            <div>
-            <div className="navTitle">Druggler</div>
-          <div>
-            <Button className="navButton" variant="outlined">
-              <Link className="link" to="/Login">
-                {" "}
-                Login{" "}
-              </Link>
-            </Button>
-          </div>
-          </div>
-          )}
-          
+              <div>
+                <div className="navTitle">Druggler</div>
+                <div>
+                  <Button className="navButton" variant="outlined">
+                    <Link className="link" to="/Login">
+                      {" "}
+                      Login{" "}
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            )}
+
         </div>
         <NavSpacer />
 
         {/* <div> */}
-          {/* <div className="top-bar">
+        {/* <div className="top-bar">
               <div className="top-bar-left">
                 <Link to="/">React App</Link>
               </div>
@@ -93,21 +94,21 @@ const App = () => {
                 </div>
               )}
             </div> */}
-          <PropsRoute
-            exact
-            path="/"
-            component={HomePage}
-            toggleAuthenticateStatus={toggleAuthenticateStatus}
-          />
-          <PrivateRoute path="/dashboard" component={DashboardPage} />
-          <LoggedOutRoute
-            path="/login"
-            component={LoginPage}
-            toggleAuthenticateStatus={toggleAuthenticateStatus}
-          />
-          <LoggedOutRoute path="/signup" component={SignUpPage} />
-          <Route path="/logout" component={LogoutFunction} />
-         
+        <PropsRoute
+          exact
+          path="/"
+          component={HomePage}
+          toggleAuthenticateStatus={toggleAuthenticateStatus}
+        />
+        <PrivateRoute path="/dashboard" component={DashboardPage} />
+        <LoggedOutRoute
+          path="/login"
+          component={LoginPage}
+          toggleAuthenticateStatus={toggleAuthenticateStatus}
+        />
+        <LoggedOutRoute path="/signup" component={SignUpPage} />
+        <Route path="/logout" component={LogoutFunction} />
+
       </Router>
       <Search />
     </MuiThemeProvider>

@@ -32,7 +32,7 @@ function NavBar() {
                 transition={{ ease: "easeOut", duration: 1.5 }}
             >
                 <div className="appBar">
-                    <div className="navTitle">Mark Bernstein</div>
+                    <div className="navTitle">Druggler</div>
                     <div>
                         <Button
                             className="navButton"
@@ -50,10 +50,10 @@ function NavBar() {
                         </Button>
                     </div>
                     <div>
-                        <Button 
-                            className="navButton"   
+                        <Button
+                            className="navButton"
                             variant="outlined"
-                        > 
+                        >
                             <Link className="link" to="/"> About </Link>
                         </Button>
                     </div>
