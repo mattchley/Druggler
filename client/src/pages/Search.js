@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
-import Input from "../components/Input"
+// import Input from "../components/Input"
 import FormBtn from "../components/FormBtn"
 import API from "../utils/API";
+import Button from '@material-ui/core/Button';
+// import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import TextField from '@material-ui/core/TextField';
 
 function Search() {
     // Setting our component's initial state
-    const [drugs, setDrugs] = useState([])
+    const drugs = []
     // const [search, setSearch] = useState({})
     const [formObject, setFormObject] = useState({})
-
-    // Load all Drugs and store them with setDrugs
-    useEffect(() => {
-        loadDrugs()
-    }, [])
 
     // Loads all Drugs and sets them to Drugs
 
@@ -20,10 +19,9 @@ function Search() {
     function loadDrugs(search) {
         API.getDrugsID(search)
             .then(res => {
-                setDrugs(res.data);
+                drugs.push(res.data.idGroup.rxnormId[0]);
                 console.log(res.data);
-                // API.getDrugsConflict(res.data.idGroup.rxnormId[0]).then(res =>
-                //console.log(res.data))
+                console.log(drugs);
             })
             .catch(err => console.log(err));
     };
@@ -38,20 +36,41 @@ function Search() {
     function handleFormSubmit(event) {
         event.preventDefault();
         loadDrugs(formObject.search)
+        document.getElementById("drugTextField").value = "";
+        document.getElementById("drugTextField").focus();
     }
 
     return (
         <div>
-            <Input
+            {/* <Input
                 onChange={handleInputChange}
                 name="search"
                 placeholder="Drug Name and Dosage (required)"
+            /> */}
+
+            <TextField 
+                id="drugTextField" 
+                name="search"
+                label="Enter drug name here" 
+                variant="filled" 
+                onChange={handleInputChange}
             />
-            <FormBtn
+            
+            <Button 
+                onClick={handleFormSubmit}
+                // className="navButton"
+                variant="contained"
+                color="primary"
+            >
+                Submit drug
+            </Button>
+
+            {/* <FormBtn
                 onClick={handleFormSubmit}
             >
                 Submit drug
-              </FormBtn>
+            </FormBtn> */}
+
             <div>
                 {drugs.length ? (
                     <div>
