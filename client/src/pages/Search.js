@@ -9,9 +9,10 @@ import TextField from '@material-ui/core/TextField';
 
 function Search() {
     // Setting our component's initial state
-    const drugs = []
+    const [drugs, setDrugs] = useState([])
     // const [search, setSearch] = useState({})
     const [formObject, setFormObject] = useState({})
+    const [inputList, setInputList] = useState([]);
 
     // Loads all Drugs and sets them to Drugs
 
@@ -19,26 +20,32 @@ function Search() {
     function loadDrugs(search) {
         API.getDrugsID(search)
             .then(res => {
-                drugs.push(res.data.idGroup.rxnormId[0]);
-                console.log(res.data);
-                console.log(drugs);
+                setDrugs(res.data.idGroup.rxnormId)
+                console.log(res.data)
             })
             .catch(err => console.log(err));
     };
 
 
-    // Handles updating component state when the user types into the input field
-    function handleInputChange(event) {
-        const { name, value } = event.target;
-        setFormObject({ ...formObject, [name]: value })
-    };
+    // // Handles updating component state when the user types into the input field
+    // function handleInputChange(event) {
+    //     const { name, value } = event.target;
+    //     setFormObject({ ...formObject, [name]: value })
+    // };
 
-    function handleFormSubmit(event) {
+    // function handleFormSubmit(event) {
+    //     event.preventDefault();
+    //     loadDrugs(formObject.search)
+    //     document.getElementById("drugTextField").value = "";
+    //     document.getElementById("drugTextField").focus();
+    // }
+
+
+    const onAddBtnClick = event => {
         event.preventDefault();
-        loadDrugs(formObject.search)
-        document.getElementById("drugTextField").value = "";
-        document.getElementById("drugTextField").focus();
-    }
+        setInputList(inputList.concat(<div><TextField key={inputList.length} /></div>));
+        
+    };
 
     return (
         <div>
@@ -48,16 +55,16 @@ function Search() {
                 placeholder="Drug Name and Dosage (required)"
             /> */}
 
-            <TextField 
-                id="drugTextField" 
+            <TextField
+                id="drugTextField"
                 name="search"
-                label="Enter drug name here" 
-                variant="filled" 
-                onChange={handleInputChange}
+                label="Enter drug name here"
+                variant="filled"
+            // onChange={handleInputChange}
             />
-            
-            <Button 
-                onClick={handleFormSubmit}
+
+            <Button
+                // onClick={handleAdd}
                 // className="navButton"
                 variant="contained"
                 color="primary"
@@ -65,31 +72,16 @@ function Search() {
                 Submit drug
             </Button>
 
+            <div>
+                <button onClick={onAddBtnClick}>Add input</button>
+                {inputList}
+            </div>
+
             {/* <FormBtn
                 onClick={handleFormSubmit}
             >
                 Submit drug
             </FormBtn> */}
-
-            <div>
-                {drugs.length ? (
-                    <div>
-                        {drugs.map(drug => (
-                            <li key={drug.idGroup.rxnormId}>
-                                <strong>
-                                    {drug.idGroup.name}
-                                    {drug.idGroup.rxnormId}
-                                </strong>
-                            </li>
-                        ))}
-                        <button>Submit</button>
-                    </div>
-
-                ) : (
-                        <h3>No Results to Display</h3>
-                    )
-                }
-            </div>
         </div>
     );
 }
