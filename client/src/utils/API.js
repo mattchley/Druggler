@@ -8,8 +8,11 @@ export default {
       axios.post('/auth/signup', userData),
    dashboard: token =>
       axios.get('/api/dashboard', { headers: { Authorization: `bearer ${token}` } }),
-   getDrugsConflict: queryRes =>
-      axios.get(`https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=${queryRes}`),
-   getDrugsID: search =>
-      axios.get(`https://rxnav.nlm.nih.gov/REST/rxcui?name=${search}`)
+   getDrugsConflict: (queryRes,token) =>
+      axios.get(`https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=${queryRes}`, { headers: { Authorization: `bearer ${token}` } }),
+   getDrugsID: (search,token) =>
+      axios.get(`https://rxnav.nlm.nih.gov/REST/rxcui?name=${search}`, { headers: { Authorization: `bearer ${token}` } }),
+   saveDrug: (drugData, token)=> 
+      axios.post("/api/drugs", drugData, { headers: { Authorization: `bearer ${token}` } })
+  
 };
