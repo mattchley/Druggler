@@ -9,6 +9,6 @@ const drugsSchema = new Schema({
   users: { type: Schema.Types.ObjectId, ref: "User" }
 });
 
-const Drugs = mongoose.model('Drugs', drugsSchema);
+const Drugs = mongoose.model("Drugs", drugsSchema);
 
 module.exports = Drugs;

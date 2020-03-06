@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import HomePage from "./components/HomePage";
 import { PrivateRoute, PropsRoute, LoggedOutRoute } from "./components/Routes";
+import AddDrugPage from "./pages/AddDrugPage";
 
 import LoginPage from "./pages/Login";
 import LogoutFunction from "./pages/LogoutFunction";
@@ -18,6 +19,7 @@ import { motion } from "framer-motion";
 // import NavBar from './components/NavBar';
 import "./nav.css";
 import NavSpacer from "./components/NavSpacer";
+import AddDrug from "./components/AddDrug";
 
 // remove tap delay, essential for MaterialUI to work properly
 
@@ -50,29 +52,27 @@ const App = () => {
                 </Button>
               </div>
               <div>
-                <Button className="navButton" variant="outlined" size='small'>
+                <Button className="navButton" variant="outlined" size="small">
                   <Link className="link" to="/logout">
                     {" "}
                     Log out{" "}
                   </Link>
-                  
                 </Button>
               </div>
             </div>
           ) : (
+            <div>
+              <div className="navTitle">Druggler</div>
               <div>
-                <div className="navTitle">Druggler</div>
-                <div>
-                  <Button className="navButton" variant="outlined">
-                    <Link className="link" to="/Login">
-                      {" "}
-                      Login{" "}
-                    </Link>
-                  </Button>
-                </div>
+                <Button className="navButton" variant="outlined">
+                  <Link className="link" to="/Login">
+                    {" "}
+                    Login{" "}
+                  </Link>
+                </Button>
               </div>
-            )}
-
+            </div>
+          )}
         </div>
         <NavSpacer />
 
@@ -108,9 +108,9 @@ const App = () => {
         />
         <LoggedOutRoute path="/signup" component={SignUpPage} />
         <Route path="/logout" component={LogoutFunction} />
-
       </Router>
       <Search />
+      <AddDrug />
     </MuiThemeProvider>
   );
 };
