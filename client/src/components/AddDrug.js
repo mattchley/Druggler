@@ -9,7 +9,7 @@ const AddDrug = () => (
     <br></br>
     <div>
       <p>Drug 1</p>
-      <Modal />
+      <Modal name={"Drug 1"}/>
     </div>
     <div>
       <p>Drug 2</p>

@@ -1,5 +1,5 @@
 const express = require('express');
-const drugRoutes = require("./drugs");
+const drugController = require("../controllers/drugController");
 const router = new express.Router();
 
 router.get('/dashboard', (req, res) => {
@@ -10,6 +10,14 @@ router.get('/dashboard', (req, res) => {
   });
 });
 
-router.use("/drugs",drugRoutes);
+router.route("/")
+.get(drugController.findAll)
+.post(drugController.create);
 
+router.route("/:id")
+.get(drugController.findById)
+.put(drugController.update)
+.delete(drugController.remove);
+
+module.exports = router;
 module.exports = router;
