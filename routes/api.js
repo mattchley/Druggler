@@ -10,11 +10,11 @@ router.get('/dashboard', (req, res) => {
   });
 });
 
-router.route("/")
+router.route("/drugs")
 .get(drugController.findAll)
 .post(drugController.create);
 
-router.route("/:id")
+router.route("/drugs/:id")
 .get(drugController.findById)
 .put(drugController.update)
 .delete(drugController.remove);
