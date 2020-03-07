@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const Drugs = require("./drugs");
 
 // define the User model schema
 const UserSchema = new mongoose.Schema({

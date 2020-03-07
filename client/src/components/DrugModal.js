@@ -47,20 +47,29 @@ export default function SimpleModal(props) {
     setOpen(false);
   };
   const handleInputChange = e => {
-    const { name, value} = e.target;
-    setDrugDetails({...drugDetails, [name]: value});
-    console.log(drugDetails)
+    const { name, value } = e.target;
+    setDrugDetails({ ...drugDetails, [name]: value });
+    console.log(drugDetails);
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = event => {
     event.preventDefault();
     handleClose();
+    console.log(
+      drugDetails.lastTaken,
+      drugDetails.frequency,
+      "HELLO DRUG DETAILS"
+    );
     if (drugDetails.lastTaken && drugDetails.frequency) {
-      API.saveDrug({
-        name: props.name,
-        lastTaken: drugDetails.lastTaken,
-        frequency: parseInt(drugDetails.frequency),
-      },Auth.getToken())
+      console.log(API);
+      API.saveDrug(
+        {
+          name: props.name,
+          lastTaken: drugDetails.lastTaken,
+          frequency: parseInt(drugDetails.frequency)
+        },
+        Auth.getToken()
+      )
         .then(res => {
           console.log("SAVED DRUG");
           handleClose();
@@ -80,7 +89,9 @@ export default function SimpleModal(props) {
         onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-  <h2 id="simple-modal-title">Please enter your drug routine for {props.name}</h2>
+          <h2 id="simple-modal-title">
+            Please enter your drug routine for {props.name}
+          </h2>
           <form>
             <label>
               When was the last time you took this drug?
