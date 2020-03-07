@@ -13,6 +13,8 @@ export default {
    getDrugsID: (search,token) =>
       axios.get(`https://rxnav.nlm.nih.gov/REST/rxcui?name=${search}`, { headers: { Authorization: `bearer ${token}` } }),
    saveDrug: (drugData, token)=> 
-      axios.post("/api/drugs", drugData, { headers: { Authorization: `bearer ${token}` } })
+      axios.post("/api/drugs", drugData, { headers: { Authorization: `bearer ${token}` } }),
+   getUser: id =>
+      axios.get("/api/user/" + id)
   
 };

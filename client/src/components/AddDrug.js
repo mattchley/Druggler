@@ -13,11 +13,11 @@ const AddDrug = () => (
     </div>
     <div>
       <p>Drug 2</p>
-      <Modal />
+      <Modal name={"Drug 2"}/>
     </div>
     <div>
       <p>Drug 3</p>
-      <Modal />
+      <Modal name={"Drug 3"}/>
     </div>
   </div>
 );

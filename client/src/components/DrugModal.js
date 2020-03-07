@@ -56,6 +56,7 @@ export default function SimpleModal(props) {
     event.preventDefault();
     handleClose();
     if (drugDetails.lastTaken && drugDetails.frequency) {
+      console.log("API IS: ", API);
       API.saveDrug({
         name: props.name,
         lastTaken: drugDetails.lastTaken,
@@ -83,7 +84,7 @@ export default function SimpleModal(props) {
   <h2 id="simple-modal-title">Please enter your drug routine for {props.name}</h2>
           <form>
             <label>
-              When was the last time you took this drug?
+              When was the last time you took this drug? Please provide a date and time.
               <Input
                 type="text"
                 name="lastTaken"
@@ -91,7 +92,7 @@ export default function SimpleModal(props) {
               />
             </label>
             <label>
-              How often do you take this drug?
+              How often do you take this drug (units=hr)? 
               <Input
                 type="text"
                 name="frequency"
