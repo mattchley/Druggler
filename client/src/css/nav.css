@@ -47,16 +47,23 @@ p {
     }
 }
 
-@media only screen and (max-width: 540px) {
-    .link {
-        font-size: 7pt;
+/* @media only screen and (max-width: 700px) {
+    .linkButton {
+        font-size: 16pt;
     }
-}
+} */
 
 .link {
     color: rgb(82, 70, 250);
     text-decoration: none;
-    display:inline-block;
+    font-family: 'Darker grotesque', sans-serif;
+    font-weight: 400;
+    /* font-size: 16pt;
+    float: right;
+    margin-right: 5%;
+    margin-top: 15px;
+    bottom: 0px;
+    flex-wrap: wrap */
 }
 
 .spacer {

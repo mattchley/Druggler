@@ -47,16 +47,17 @@ p {
     }
 }
 
-@media only screen and (max-width: 540px) {
+/* @media only screen and (max-width: 540px) {
     .link {
         font-size: 7pt;
     }
-}
+} */
 
 .link {
     color: rgb(82, 70, 250);
     text-decoration: none;
     display:inline-block;
+    
 }
 
 .spacer {
