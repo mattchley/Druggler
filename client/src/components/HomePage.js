@@ -11,7 +11,7 @@ const HomePage = (props) => {
   
     return (
       <Card className="container">
-        <CardTitle title="Main Page HERE!!!" subtitle="Put stuffs here :D" />
+        <CardTitle title="Welcome to Druggler!" subtitle="Please Login to use our application."/>
           {Auth.isUserAuthenticated() ? (
             <CardText style={{ fontSize: '16px', color: 'green' }}>Welcome! You are logged in.</CardText>
           ) : (
