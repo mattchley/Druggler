@@ -20,6 +20,7 @@ import { motion } from "framer-motion";
 import "./nav.css";
 import NavSpacer from "./components/NavSpacer";
 import AddDrug from "./components/AddDrug";
+import './index.css';
 
 // remove tap delay, essential for MaterialUI to work properly
 
@@ -36,77 +37,101 @@ const App = () => {
   };
 
   return (
-    <MuiThemeProvider muiTheme={getMuiTheme()}>
-      <Router>
-        <div className="appBar">
-          {authenticated ? (
-            <div>
-              <div className="navTitle">Druggler</div>
+    <div className="body">
+      <MuiThemeProvider muiTheme={getMuiTheme()}>
+        <Router>
+          <div className="appBar">
+            {authenticated ? (
               <div>
-                <Button className="navButton" variant="outlined">
-                  <Link className="link" to="/mypills">
-                    {" "}
-                    My Pills{" "}
-                  </Link>
-                </Button>
+                <div className="navTitle">Druggler</div>
+                <div>
+                  {/* <Button 
+                    type="button"
+                    className="navButton" 
+                    variant="outlined" 
+                    size="small"
+                    color="primary"
+                    variant="contained"
+                  >
+                    Log Out */}
+                    <Link 
+                      className="navButton" 
+                      to="/logout">
+                      {" "}
+                      Log out{" "}
+                    </Link>
+                  {/* </Button> */}
+                </div>
+
+                <div>
+                  <Button 
+                    className="navButton" 
+                    variant="outlined"
+                    size="large"
+                    color="primary"
+                  >
+                    <Link className="link" to="/dashboard">
+                      {" "}
+                      My Pills{" "}
+                    </Link>
+                  </Button>
+                </div>
+                <div>
+                  <Button 
+                    className="navButton" 
+                    variant="outlined" 
+                    size="large"
+                    color="primary"
+                  >
+                    <Link 
+                      className="link" 
+                      to="/interactions"
+                    >
+                      {" "}Interactions{" "}
+                    </Link>
+                  </Button>
+                </div>
               </div>
+            ) : (
               <div>
-                <Button className="navButton" variant="outlined" size="small">
-                  <Link className="link" to="/logout">
-                    {" "}
-                    Log out{" "}
-                  </Link>
-                </Button>
+                <div className="navTitle">Druggler</div>
+                <div>
+                  <Button className="navButton" variant="outlined">
+                    <Link className="linkButton" to="/Login">
+                      {" "}
+                      Login{" "}
+                    </Link>
+                  </Button>
+                </div>
               </div>
-              <div>
-                <Button className="navButton" variant="outlined" size="small">
-                  <Link className="link" to="/interactions">
-                    {" "}
-                    Interactions{" "}
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <div>
-              <div className="navTitle">Druggler</div>
-              <div>
-                <Button className="navButton" variant="outlined">
-                  <Link className="link" to="/Login">
-                    {" "}
-                    Login{" "}
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          )}
-        </div>
-        <NavSpacer />
+            )}
+          </div>
+          <NavSpacer />
 
-        <PropsRoute
-          exact
-          path="/"
-          component={HomePage}
-          toggleAuthenticateStatus={toggleAuthenticateStatus}
-        />
+          <PropsRoute
+            exact
+            path="/"
+            component={HomePage}
+            toggleAuthenticateStatus={toggleAuthenticateStatus}
+          />
 
-        {/* <PrivateRoute path="/dashboard" component={DashboardPage} /> */}
-        <PrivateRoute path="/dashboard" component={AddDrug} />
-        <PrivateRoute path="/interactions" component={Search} />
+          {/* <PrivateRoute path="/dashboard" component={DashboardPage} /> */}
+          <PrivateRoute path="/dashboard" component={AddDrug} />
+          <PrivateRoute path="/interactions" component={Search} />
 
-        <PrivateRoute path="/mypills" component={AddDrug} />
+          {/* <PrivateRoute path="/mypills" component={AddDrug} /> */}
 
-        <LoggedOutRoute
-          path="/login"
-          component={LoginPage}
-          toggleAuthenticateStatus={toggleAuthenticateStatus}
-        />
+          <LoggedOutRoute
+            path="/login"
+            component={LoginPage}
+            toggleAuthenticateStatus={toggleAuthenticateStatus}
+          />
 
-        <LoggedOutRoute path="/signup" component={SignUpPage} />
-        <Route path="/logout" component={LogoutFunction} />
-      </Router>
+          <LoggedOutRoute path="/signup" component={SignUpPage} />
+          <Route path="/logout" component={LogoutFunction} />
+        </Router>
 
-      {/* <div>
+        {/* <div>
         <Router>
           <Switch>
             Route exact path ="/"
@@ -114,9 +139,10 @@ const App = () => {
         </Router>
       </div> */}
 
-      {/* <Search /> */}
-      {/* <AddDrug /> */}
-    </MuiThemeProvider>
+        {/* <Search /> */}
+        {/* <AddDrug /> */}
+      </MuiThemeProvider>
+    </div>
   );
 };
 
