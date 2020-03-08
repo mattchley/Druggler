@@ -5,6 +5,8 @@ import Input from "./Input";
 import FormBtn from "./FormBtn";
 import API from "../utils/API";
 import Auth from "../utils/Auth";
+import Button from "@material-ui/core/Button";
+import { TextField } from "@material-ui/core";
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -61,7 +63,6 @@ export default function SimpleModal(props) {
       "HELLO DRUG DETAILS"
     );
     if (drugDetails.lastTaken && drugDetails.frequency) {
-      console.log(API);
       API.saveDrug(
         {
           name: props.name,
@@ -79,9 +80,14 @@ export default function SimpleModal(props) {
   };
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
+      <Button
+        type="button"
+        onClick={handleOpen}
+        variant="contained"
+        color="primary"
+      >
         Add Drug
-      </button>
+      </Button>
       <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
@@ -90,26 +96,59 @@ export default function SimpleModal(props) {
       >
         <div style={modalStyle} className={classes.paper}>
           <h2 id="simple-modal-title">
-            Please enter your drug routine for {props.name}
+            Please enter your drug routine for:
+            <br></br>
+            {props.name}
           </h2>
           <form>
-            <label>
-              When was the last time you took this drug?
+            <TextField
+              name="search"
+              label="Enter drug name here"
+              variant="filled"
+              onChange={handleInputChange}
+            ></TextField>
+
+            <TextField
+              type="text"
+              label="Last taken? ex: '11:30'"
+              variant="filled"
+              name="lastTaken"
+              onChange={handleInputChange}
+            ></TextField>
+            <TextField
+              type="text"
+              label="Drug frequency? ex: '4'"
+              variant="filled"
+              name="frequency"
+              onChange={handleInputChange}
+            ></TextField>
+            {/* <label>
+              When was the last time you took this drug? 
+              example: "11:30"
               <Input
                 type="text"
                 name="lastTaken"
                 onChange={handleInputChange}
               />
-            </label>
-            <label>
-              How often do you take this drug?
+            </label> */}
+
+            {/* <label>
+              How often do you take this drug? example: "4" for every 4 hours
               <Input
                 type="text"
                 name="frequency"
                 onChange={handleInputChange}
               />
-            </label>
-            <FormBtn onClick={handleFormSubmit}>Submit</FormBtn>
+            </label> */}
+            <br></br>
+            <hr></hr>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleFormSubmit}
+            >
+              Submit
+            </Button>
           </form>
         </div>
       </Modal>
