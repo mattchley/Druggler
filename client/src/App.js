@@ -12,6 +12,7 @@ import SignUpPage from "./pages/Signup";
 import DashboardPage from "./pages/DashboardPage";
 import Search from "./pages/Search";
 import Auth from "./utils/Auth";
+import SearchV2 from './pages/Search2.0'
 
 import Button from "@material-ui/core/Button";
 import { motion } from "framer-motion";
@@ -112,7 +113,7 @@ const App = () => {
 
           {/* <PrivateRoute path="/dashboard" component={DashboardPage} /> */}
           <PrivateRoute path="/dashboard" component={AddDrug} />
-          <PrivateRoute path="/interactions" component={Search} />
+          <PrivateRoute path="/interactions" component={SearchV2} />
 
           {/* <PrivateRoute path="/mypills" component={AddDrug} /> */}
 
