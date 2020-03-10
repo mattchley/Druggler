@@ -1,5 +1,6 @@
 const express = require('express');
 const drugController = require("../controllers/drugController");
+const userControlller = require("../controllers/userController");
 const router = new express.Router();
 
 router.get('/dashboard', (req, res) => {
@@ -19,5 +20,9 @@ router.route("/drugs/:id")
 .put(drugController.update)
 .delete(drugController.remove);
 
+router.route("/user/:id")
+.get(userControlller.findById)
+.put(userControlller.update);
+
 module.exports = router;
-module.exports = router;
+

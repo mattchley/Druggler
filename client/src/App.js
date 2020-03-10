@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import HomePage from "./components/HomePage";
 import { PrivateRoute, PropsRoute, LoggedOutRoute } from "./components/Routes";
-import AddDrugPage from "./pages/AddDrugPage";
 
 import LoginPage from "./pages/Login";
 import LogoutFunction from "./pages/LogoutFunction";

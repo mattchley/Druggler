@@ -63,18 +63,23 @@ export default function SimpleModal(props) {
       "HELLO DRUG DETAILS"
     );
     if (drugDetails.lastTaken && drugDetails.frequency) {
+      console.log("before API front end")
+      console.log("current user, ", props.user_id)
       API.saveDrug(
         {
           name: props.name,
           lastTaken: drugDetails.lastTaken,
-          frequency: parseInt(drugDetails.frequency)
+          frequency: parseInt(drugDetails.frequency),
+          user: props.user_id
         },
-        Auth.getToken()
+       Auth.getToken( )
       )
         .then(res => {
+          console.log(res);
+          API.saveDrugtoUser(props.user_id,res.data,Auth.getToken()).then(res => console.log(res)).catch(err => console.log(err))
           console.log("SAVED DRUG");
-          handleClose();
-        })
+
+        }).then(res => handleClose())
         .catch(err => console.log(err));
     }
   };
@@ -102,7 +107,7 @@ export default function SimpleModal(props) {
           </h2>
           <form>
             <TextField
-              name="search"
+              name="name"
               label="Enter drug name here"
               variant="filled"
               onChange={handleInputChange}

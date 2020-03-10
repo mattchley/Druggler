@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const Users = require("./user");
+//const User = require("./user");
 
 const drugsSchema = new Schema({
   name: { type: String, required: true },
   lastTaken: { type: String, required: true },
   frequency: Number,
-  date: { type: Date, default: Date.now }
-  // users: { type: Schema.Types.ObjectId, ref: "Users" }
+  date: { type: Date, default: Date.now },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
 });
 
 const Drugs = mongoose.model("Drugs", drugsSchema);

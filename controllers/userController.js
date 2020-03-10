@@ -1,36 +1,26 @@
-const Drugs = require("../models/drugs");
+const User = require("../models/user");
 
 // Defining methods for the booksController
 module.exports = {
+
   findAll: function(req, res) {
-    Drugs
+    User
       .find(req.query)
       .sort({ date: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   findById: function(req, res) {
-    Drugs
+      console.log(req.params)
+    User
       .findById(req.params.id)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  create: function(req, res) {
-    Drugs
-      .create(req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
   update: function(req, res) {
-    Drugs
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
-  remove: function(req, res) {
-    Drugs
-      .findById({ _id: req.params.id })
-      .then(dbModel => dbModel.remove())
+    const id = req.body._id
+    User
+      .findOneAndUpdate({ _id: req.params.id }, {$push:{drugs:id}})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   }
