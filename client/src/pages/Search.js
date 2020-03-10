@@ -145,80 +145,60 @@ function Search() {
     return (
         <div>
             <TextField
-                
-                // id="drugTextField"
                 name="search"
                 label="Enter drug name here"
                 variant="filled"
                 onChange={handleInputChange1}
             />
             <TextField
-                
-                // id="drugTextField"
                 name="search"
                 label="Enter drug name here"
                 variant="filled"
                 onChange={handleInputChange2}
             />
             <TextField
-                
-                // id="drugTextField"
                 name="search"
                 label="Enter drug name here"
                 variant="filled"
                 onChange={handleInputChange3}
             />
             <TextField
-                
-                // id="drugTextField"
                 name="search"
                 label="Enter drug name here"
                 variant="filled"
                 onChange={handleInputChange4}
             />
             <TextField
-                
-                // id="drugTextField"
                 name="search"
                 label="Enter drug name here"
                 variant="filled"
                 onChange={handleInputChange5}
             />
             <TextField
-                
-                // id="drugTextField"
                 name="search"
                 label="Enter drug name here"
                 variant="filled"
                 onChange={handleInputChange6}
             />
             <TextField
-                
-                // id="drugTextField"
                 name="search"
                 label="Enter drug name here"
                 variant="filled"
                 onChange={handleInputChange7}
             />
             <TextField
-                
-                // id="drugTextField"
                 name="search"
                 label="Enter drug name here"
                 variant="filled"
                 onChange={handleInputChange8}
             />
             <TextField
-                
-                // id="drugTextField"
                 name="search"
                 label="Enter drug name here"
                 variant="filled"
                 onChange={handleInputChange9}
             />
             <TextField
-                
-                // id="drugTextField"
                 name="search"
                 label="Enter drug name here"
                 variant="filled"
