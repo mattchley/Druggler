@@ -12,11 +12,49 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
   },
-  paper: {
+  addDrug: {
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.primary,
-    backgroundColor: theme.palette.text.hint
+    // backgroundColor: theme.palette.text.hint,
+    backgroundColor: "black",
+    color: "white",
+    fontWeight: "900"
+  },
+  title: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.primary,
+    backgroundColor: "darkgray",
+    color: "black",
+    fontWeight: "900"
+  },
+  columnNames: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.primary,
+    backgroundColor: "cyan",
+    color: "black",
+    fontWeight: "bold",
+    textDecoration: "underline"
+  },
+  paper2: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.primary,
+    backgroundColor: theme.palette.text.hint,
+    backgroundColor: "lightgreen",
+    fontWeight: "bold",
+    marginTop: "3px"
+  },
+  paper3: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.primary,
+    backgroundColor: theme.palette.text.hint,
+    backgroundColor: "lightgreen",
+    fontWeight: "bold",
+    marginTop: "3px"
   },
   modal: {
 
@@ -25,7 +63,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function AddDrug() {
   const classes = useStyles();
-
   const [user, setUser] = useState("");
 
   useEffect(() => {
@@ -42,7 +79,7 @@ export default function AddDrug() {
 
         <Grid item xs={4}></Grid>
         <Grid item xs={4}>
-          <Paper className={classes.paper}>
+          <Paper className={classes.addDrug}>
             Add to "My Pills" here
             <Modal
               className={classes.modal}
@@ -54,9 +91,27 @@ export default function AddDrug() {
         <Grid item xs={4}></Grid>
 
         <Grid item xs={12}>
-          <Paper className={classes.paper}>My Pills Tracker</Paper>
-          <p1></p1>
+          <Paper className={classes.title}>My Pills Tracker</Paper>
         </Grid>
+
+        <Grid item xs={4}>
+          <Paper className={classes.columnNames}>Pill Name</Paper>
+          <Paper className={classes.paper2}>Pill #1</Paper>
+          <Paper className={classes.paper2}>Pill #2</Paper>
+        </Grid>
+
+        <Grid item xs={4}>
+          <Paper className={classes.columnNames}>Last Taken</Paper>
+          <Paper className={classes.paper2}>11:30 AM</Paper>
+          <Paper className={classes.paper2}>2:45 PM</Paper>
+        </Grid>
+
+        <Grid item xs={4}>
+          <Paper className={classes.columnNames}>Frequency</Paper>
+          <Paper className={classes.paper2}>4 hours</Paper>
+          <Paper className={classes.paper2}>6 hours</Paper>
+        </Grid>
+
       </Grid>
     </div>
   );

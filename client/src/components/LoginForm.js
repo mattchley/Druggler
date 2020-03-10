@@ -46,7 +46,7 @@ const LoginForm = ({
         <RaisedButton 
           type="submit" 
           label="Log in" 
-          primary 
+          // primary 
         />
       </div>
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import API from "../utils/API";
-import axios from "axios"
+import axios from "axios";
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -64,9 +64,22 @@ useEffect(() => {
 
 return (
     <div>
-        <div>
-            <TextField type="text" onChange={e => setSearch(e.target.value)}></TextField>
-            <Button type="button" onClick={addDrug}>FETCH DRUG</Button>
+        <div id="searchPage">
+            <TextField 
+                type="text" 
+                onChange={e => setSearch(e.target.value)}
+                label="Enter drug name here"
+                variant="filled"
+            >
+            </TextField>
+            <Button 
+                type="button" 
+                onClick={addDrug}
+                variant="contained"
+                color="primary"
+            >
+            FETCH DRUG
+            </Button>
         </div>
 
         <>
@@ -76,7 +89,15 @@ return (
                 ))}
             </ul>
         </>
-        <Button type="button" onClick={fetchConflict}> Submit for conflicts</Button>
+        <hr></hr>
+        <Button 
+            type="button" 
+            onClick={fetchConflict}
+            variant="contained"
+            color="primary"
+        > 
+        Submit for conflicts
+        </Button>
         <>
             <ul>
                 {conflicts.map(conflict => (

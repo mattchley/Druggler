@@ -47,54 +47,38 @@ const App = () => {
                 <div>
                     <Link 
                       className="navButton" 
-                      to="/logout">
+                      to="/logout"
+                      color="error"
+                    >
                       {" "}
                       Log out{" "}
                     </Link>
-                  {/* </Button> */}
                 </div>
 
                 <div>
-                  {/* <Button 
-                    palette="white"
-                    className="navButton" 
-                    variant="outlined"
-                    // variant="contained"
-                    size="large"
-                    color="primary"
-                  > */}
                     <Link 
-                      className="link" 
+                      className="navButton" 
                       to="/dashboard"
-                      color="success"
                     >
                         {" "}
                         My Pills
                         {" "}
                     </Link>
-                  {/* </Button> */}
                 </div>
                 <div>
-                  {/* <Button 
-                    className="navButton" 
-                    variant="outlined" 
-                    size="large"
-                    color="primary"
-                  > */}
                     <Link 
-                      className="link" 
+                      className="navButton" 
                       to="/interactions"
                     >
                       {" "}Interactions{" "}
                     </Link>
-                  {/* </Button> */}
                 </div>
               </div>
             ) : (
               <div>
                 <div className="navTitle">Druggler</div>
                 <div>
-                    <Link className="linkButton" to="/Login">
+                    <Link className="navButton" to="/Login">
                       {" "}
                       Login{" "}
                     </Link>

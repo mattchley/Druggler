@@ -29,7 +29,7 @@ p {
     }
 }
 
-.navButton, .link, .linkButton {
+.navButton{
     font-family: 'Darker grotesque', sans-serif;
     font-weight: 400;
     font-size: 16pt;
@@ -52,23 +52,16 @@ p {
     }
 }
 
-@media only screen and (max-width: 410px) {
+/* @media only screen and (max-width: 410px) {
     .link {
         font-size: 10pt;
     }
-}
+} */
 
 @media only screen and (max-width: 480px) {
     .navTitle {
         font-size: 16pt;
     }
-}
-
-.link {
-    color: rgb(82, 70, 250);
-    text-decoration: none;
-    font-family: 'Darker grotesque', sans-serif;
-    font-weight: 400;
 }
 
 .spacer {
@@ -77,11 +70,8 @@ p {
     background-color: black;
 }
 
-.navButton:hover, .link:hover, .linkButton:hover {
+.navButton:hover{
     cursor: pointer;
     color: black;
-}
-
-.linkButton {
-    color: rgb(82, 70, 250);
+    background-color: yellow;
 }
