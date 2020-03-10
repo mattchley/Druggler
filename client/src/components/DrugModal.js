@@ -57,6 +57,11 @@ export default function SimpleModal(props) {
   const handleFormSubmit = event => {
     event.preventDefault();
     handleClose();
+    console.log(
+      drugDetails.lastTaken,
+      drugDetails.frequency,
+      "HELLO DRUG DETAILS"
+    );
     if (drugDetails.lastTaken && drugDetails.frequency) {
       API.saveDrug(
         {
@@ -92,7 +97,7 @@ export default function SimpleModal(props) {
         <div style={modalStyle} className={classes.paper}>
           <h2 id="simple-modal-title">
             Please enter your drug routine for:
-            <br></br> 
+            <br></br>
             {props.name}
           </h2>
           <form>
