@@ -59,19 +59,22 @@ export default function SimpleModal(props) {
     handleClose();
     if (drugDetails.lastTaken && drugDetails.frequency) {
       console.log("before API front end")
-      API.getUser(,Auth.getToken( )).then(res => console.log(res))
+      console.log("current user, ", props.user_id)
       API.saveDrug(
         {
           name: props.name,
           lastTaken: drugDetails.lastTaken,
-          frequency: parseInt(drugDetails.frequency)
+          frequency: parseInt(drugDetails.frequency),
+          user: props.user_id
         },
        Auth.getToken( )
       )
         .then(res => {
+          console.log(res);
+          API.saveDrugtoUser(props.user_id,res.data,Auth.getToken()).then(res => console.log(res)).catch(err => console.log(err))
           console.log("SAVED DRUG");
-          handleClose();
-        })
+
+        }).then(res => handleClose())
         .catch(err => console.log(err));
     }
   };

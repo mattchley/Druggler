@@ -15,6 +15,7 @@ export default {
    saveDrug: (drugData, token)=> 
       axios.post("/api/drugs", drugData, { headers: { Authorization: `bearer ${token}` } }),
    getUser: (id, token)  =>
-      axios.get("/api/user/" + id, { headers: { Authorization: `bearer ${token}` } })
-  
+      axios.get("/api/user/" + id, { headers: { Authorization: `bearer ${token}` } }),
+   saveDrugtoUser: (user_id, drug, token) => 
+      axios.put("api/user/"+ user_id, drug, { headers: { Authorization: `bearer ${token}` } })  
 };

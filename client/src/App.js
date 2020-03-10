@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import HomePage from "./components/HomePage";
 import { PrivateRoute, PropsRoute, LoggedOutRoute } from "./components/Routes";
-import AddDrugPage from "./pages/AddDrugPage";
 
 import LoginPage from "./pages/Login";
 import LogoutFunction from "./pages/LogoutFunction";
@@ -19,7 +18,7 @@ import { motion } from "framer-motion";
 // import NavBar from './components/NavBar';
 import "./nav.css";
 import NavSpacer from "./components/NavSpacer";
-import AddDrugPage from "./components/AddDrug";
+import AddDrug from "./components/AddDrug";
 
 // remove tap delay, essential for MaterialUI to work properly
 
@@ -38,14 +37,13 @@ const App = () => {
   return (
     <MuiThemeProvider muiTheme={getMuiTheme()}>
       <Router>
-        {/* <NavBar /> */}
         <div className="appBar">
           {authenticated ? (
             <div>
               <div className="navTitle">Druggler</div>
               <div>
                 <Button className="navButton" variant="outlined">
-                  <Link className="link" to="/">
+                  <Link className="link" to="/mypills">
                     {" "}
                     My Pills{" "}
                   </Link>
@@ -56,6 +54,14 @@ const App = () => {
                   <Link className="link" to="/logout">
                     {" "}
                     Log out{" "}
+                  </Link>
+                </Button>
+              </div>
+              <div>
+                <Button className="navButton" variant="outlined" size="small">
+                  <Link className="link" to="/interactions">
+                    {" "}
+                    Interactions{" "}
                   </Link>
                 </Button>
               </div>
@@ -76,41 +82,39 @@ const App = () => {
         </div>
         <NavSpacer />
 
-        {/* <div> */}
-        {/* <div className="top-bar">
-              <div className="top-bar-left">
-                <Link to="/">React App</Link>
-              </div>
-              {authenticated ? (
-                <div className="top-bar-right">
-                  <Link to="/dashboard">Dashboard</Link>
-                  <Link to="/logout">Log out</Link>
-                  <Search />
-                </div>
-              ) : (
-                <div className="top-bar-right">
-                  <Link to="/login">Log in</Link>
-                  <Link to="/signup">Sign up</Link>
-                </div>
-              )}
-            </div> */}
         <PropsRoute
           exact
           path="/"
           component={HomePage}
           toggleAuthenticateStatus={toggleAuthenticateStatus}
         />
-        <PrivateRoute path="/dashboard" component={DashboardPage} />
+
+        {/* <PrivateRoute path="/dashboard" component={DashboardPage} /> */}
+        <PrivateRoute path="/dashboard" component={AddDrug} />
+        <PrivateRoute path="/interactions" component={Search} />
+
+        <PrivateRoute path="/mypills" component={AddDrug} />
+
         <LoggedOutRoute
           path="/login"
           component={LoginPage}
           toggleAuthenticateStatus={toggleAuthenticateStatus}
         />
+
         <LoggedOutRoute path="/signup" component={SignUpPage} />
         <Route path="/logout" component={LogoutFunction} />
       </Router>
-      <Search />
-      <AddDrug />
+
+      {/* <div>
+        <Router>
+          <Switch>
+            Route exact path ="/"
+          </Switch>
+        </Router>
+      </div> */}
+
+      {/* <Search /> */}
+      {/* <AddDrug /> */}
     </MuiThemeProvider>
   );
 };

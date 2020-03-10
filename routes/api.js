@@ -21,7 +21,8 @@ router.route("/drugs/:id")
 .delete(drugController.remove);
 
 router.route("/user/:id")
-.get(userControlller.findById);
+.get(userControlller.findById)
+.put(userControlller.update);
 
 module.exports = router;
 
