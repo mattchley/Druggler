@@ -1,7 +1,7 @@
 // import React from "react";
 import Modal from "../components/DrugModal";
 import Button from '@material-ui/core/Button';
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.text.hint
   },
   modal: {
-    
+
   }
 }));
 
@@ -28,13 +28,13 @@ export default function AddDrug() {
 
   const [user, setUser] = useState("");
 
-  useEffect(()=>{
+  useEffect(() => {
     API.dashboard(Auth.getToken())
-    .then(res => {
-      console.log(res.data);
-      setUser(res.data.user._id)
-    })
-  },[]) 
+      .then(res => {
+        console.log(res.data);
+        setUser(res.data.user._id)
+      })
+  }, [])
 
   return (
     <div className={classes.root}>
@@ -44,7 +44,11 @@ export default function AddDrug() {
         <Grid item xs={4}>
           <Paper className={classes.paper}>
             Add to "My Pills" here
-            <Modal className={classes.modal} name={"Drug 1"} user_id={user}/>
+            <Modal
+              className={classes.modal}
+              name={"Drug 1"}
+              user_id={user}
+            />
           </Paper>
         </Grid>
         <Grid item xs={4}></Grid>

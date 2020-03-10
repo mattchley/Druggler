@@ -44,15 +44,6 @@ const App = () => {
               <div>
                 <div className="navTitle">Druggler</div>
                 <div>
-                  {/* <Button 
-                    type="button"
-                    className="navButton" 
-                    variant="outlined" 
-                    size="small"
-                    color="primary"
-                    variant="contained"
-                  >
-                    Log Out */}
                     <Link 
                       className="navButton" 
                       to="/logout">
@@ -63,44 +54,49 @@ const App = () => {
                 </div>
 
                 <div>
-                  <Button 
+                  {/* <Button 
+                    palette="white"
                     className="navButton" 
                     variant="outlined"
+                    // variant="contained"
                     size="large"
                     color="primary"
-                  >
-                    <Link className="link" to="/dashboard">
-                      {" "}
-                      My Pills{" "}
+                  > */}
+                    <Link 
+                      className="link" 
+                      to="/dashboard"
+                      color="success"
+                    >
+                        {" "}
+                        My Pills
+                        {" "}
                     </Link>
-                  </Button>
+                  {/* </Button> */}
                 </div>
                 <div>
-                  <Button 
+                  {/* <Button 
                     className="navButton" 
                     variant="outlined" 
                     size="large"
                     color="primary"
-                  >
+                  > */}
                     <Link 
                       className="link" 
                       to="/interactions"
                     >
                       {" "}Interactions{" "}
                     </Link>
-                  </Button>
+                  {/* </Button> */}
                 </div>
               </div>
             ) : (
               <div>
                 <div className="navTitle">Druggler</div>
                 <div>
-                  <Button className="navButton" variant="outlined">
                     <Link className="linkButton" to="/Login">
                       {" "}
                       Login{" "}
                     </Link>
-                  </Button>
                 </div>
               </div>
             )}
