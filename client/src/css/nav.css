@@ -29,7 +29,7 @@ p {
     }
 }
 
-.navButton {
+.navButton{
     font-family: 'Darker grotesque', sans-serif;
     font-weight: 400;
     font-size: 16pt;
@@ -42,28 +42,26 @@ p {
 
 @media only screen and (max-width: 700px) {
     .navButton {
-        font-size: 8pt;
-        margin-top: 8px;
+        font-size: 14pt;
     }
 }
 
-/* @media only screen and (max-width: 700px) {
-    .linkButton {
-        font-size: 16pt;
+@media only screen and (max-width: 480px) {
+    .navButton {
+        font-size: 10pt;
+    }
+}
+
+/* @media only screen and (max-width: 410px) {
+    .link {
+        font-size: 10pt;
     }
 } */
 
-.link {
-    color: rgb(82, 70, 250);
-    text-decoration: none;
-    font-family: 'Darker grotesque', sans-serif;
-    font-weight: 400;
-    /* font-size: 16pt;
-    float: right;
-    margin-right: 5%;
-    margin-top: 15px;
-    bottom: 0px;
-    flex-wrap: wrap */
+@media only screen and (max-width: 480px) {
+    .navTitle {
+        font-size: 16pt;
+    }
 }
 
 .spacer {
@@ -74,4 +72,6 @@ p {
 
 .navButton:hover{
     cursor: pointer;
+    color: black;
+    background-color: yellow;
 }

@@ -1,0 +1,13 @@
+.container {
+    text-align: center;
+    margin-left: 14%;
+    margin-right: 14%;
+}
+
+.card-heading {
+    background-color: rgb(93, 220, 20);
+}
+
+.button-line {
+    color:white;
+}

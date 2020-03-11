@@ -45,63 +45,43 @@ const App = () => {
               <div>
                 <div className="navTitle">Druggler</div>
                 <div>
-                  {/* <Button 
-                    type="button"
-                    className="navButton" 
-                    variant="outlined" 
-                    size="small"
-                    color="primary"
-                    variant="contained"
-                  >
-                    Log Out */}
                     <Link 
                       className="navButton" 
-                      to="/logout">
+                      to="/logout"
+                      color="error"
+                    >
                       {" "}
                       Log out{" "}
                     </Link>
-                  {/* </Button> */}
                 </div>
 
                 <div>
-                  <Button 
-                    className="navButton" 
-                    variant="outlined"
-                    size="large"
-                    color="primary"
-                  >
-                    <Link className="link" to="/dashboard">
-                      {" "}
-                      My Pills{" "}
+                    <Link 
+                      className="navButton" 
+                      to="/dashboard"
+                    >
+                        {" "}
+                        My Pills
+                        {" "}
                     </Link>
-                  </Button>
                 </div>
                 <div>
-                  <Button 
-                    className="navButton" 
-                    variant="outlined" 
-                    size="large"
-                    color="primary"
-                  >
                     <Link 
-                      className="link" 
+                      className="navButton" 
                       to="/interactions"
                     >
                       {" "}Interactions{" "}
                     </Link>
-                  </Button>
                 </div>
               </div>
             ) : (
               <div>
                 <div className="navTitle">Druggler</div>
                 <div>
-                  <Button className="navButton" variant="outlined">
-                    <Link className="linkButton" to="/Login">
+                    <Link className="navButton" to="/Login">
                       {" "}
                       Login{" "}
                     </Link>
-                  </Button>
                 </div>
               </div>
             )}

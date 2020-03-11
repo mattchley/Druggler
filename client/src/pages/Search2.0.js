@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import API from "../utils/API";
-import axios from "axios"
+import axios from "axios";
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -61,12 +61,16 @@ function SearchV2() {
             .catch(err => console.log(err));
     };
 
-
     return (
         <div>
             <div>
                 <TextField type="text" onChange={e => setSearch(e.target.value)}></TextField>
-                <Button type="button" onClick={addDrug}>FETCH DRUG</Button>
+                <Button 
+                type="button" 
+                onClick={addDrug}
+                variant="contained"
+                color="primary"
+            >FETCH DRUG</Button>
             </div>
 
             <div>
@@ -87,7 +91,12 @@ function SearchV2() {
                     }
                 </ul>
             </div>
-            <Button type="button" onClick={fetchConflict}> Submit for conflicts</Button>
+            <Button 
+            type="button" 
+            onClick={fetchConflict}
+            variant="contained"
+            color="primary"
+        >  Submit for conflicts</Button>
             <div>
                 <ul>
                     {

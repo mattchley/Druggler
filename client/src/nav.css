@@ -37,7 +37,8 @@ p {
     margin-right: 5%;
     margin-top: 15px;
     bottom: 0px;
-    flex-wrap: wrap
+    flex-wrap: wrap;
+    color:  rgb(17, 0, 255);
 }
 
 @media only screen and (max-width: 700px) {
@@ -47,18 +48,10 @@ p {
     }
 }
 
-/* @media only screen and (max-width: 540px) {
-    .link {
-        font-size: 7pt;
-    }
-} */
-
-.link {
-    color: rgb(82, 70, 250);
+/* .link {
     text-decoration: none;
     display:inline-block;
-    
-}
+} */
 
 .spacer {
     height: 20px;
@@ -68,4 +61,10 @@ p {
 
 .navButton:hover{
     cursor: pointer;
+    color: black;
+}
+
+.link:hover{
+    cursor: pointer;
+    color: rgb(102, 3, 3);
 }
