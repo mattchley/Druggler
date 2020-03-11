@@ -24,5 +24,8 @@ router.route("/user/:id")
 .get(userControlller.findById)
 .put(userControlller.update);
 
+router.route("/user/drugs/:id")
+.get(drugController.findByUser)
+
 module.exports = router;
 
