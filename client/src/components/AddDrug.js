@@ -1,11 +1,7 @@
 // import React from "react";
 import Modal from "../components/DrugModal";
-<<<<<<< HEAD
-import Button from "@material-ui/core/Button";
-=======
 import ActiveDrugs from "./ActiveDrugs"
 import Button from '@material-ui/core/Button';
->>>>>>> 027541ac571f1c4bb7fbbf840dafbd693839ec33
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -92,20 +88,10 @@ const useStyles = makeStyles(theme => ({
 
 export default function AddDrug() {
   const classes = useStyles();
-<<<<<<< HEAD
-  const [user, setUser] = useState("");
-  useEffect(() => {
-    API.dashboard(Auth.getToken()).then(res => {
-      console.log(res.data);
-      setUser(res.data.user._id);
-    });
-  }, []);
-
-=======
   const [user, setUser] = useState({});
   const [drugDetails, setDrugDetails] = useState({});
   const [open, setOpen] = useState(false);
-  const [allDrugs,setAllDrugs] = useState([]);
+  const [allDrugs, setAllDrugs] = useState([]);
   const [addedDrug, setAddedDrug] = useState("")
 
   const handleOpen = () => {
@@ -120,12 +106,12 @@ export default function AddDrug() {
     const loadData = async () => {
       let currentUser = await API.dashboard(Auth.getToken());
       setUser(currentUser.data.user);
-      let currentDrugs = await API.getAllUserDrugs(currentUser.data.user._id,Auth.getToken())
+      let currentDrugs = await API.getAllUserDrugs(currentUser.data.user._id, Auth.getToken())
       setAllDrugs(currentDrugs.data)
     }
-      
-      loadData();
-  },[addedDrug])
+
+    loadData();
+  }, [addedDrug])
 
 
   const handleInputChange = e => {
@@ -151,14 +137,14 @@ export default function AddDrug() {
           frequency: parseInt(drugDetails.frequency),
           user: user._id
         },
-       Auth.getToken( )
+        Auth.getToken()
       )
         .then(res => {
           console.log(res);
-          API.saveDrugtoUser(user._id,res.data,Auth.getToken()).then(res => {
+          API.saveDrugtoUser(user._id, res.data, Auth.getToken()).then(res => {
             console.log(res);
             setAddedDrug(res.data._id);
-            
+
           }).catch(err => console.log(err))
 
           console.log("SAVED DRUG");
@@ -167,7 +153,6 @@ export default function AddDrug() {
         .catch(err => console.log(err));
     }
   };
->>>>>>> 027541ac571f1c4bb7fbbf840dafbd693839ec33
 
   return (
     <div className={classes.root}>
@@ -175,6 +160,7 @@ export default function AddDrug() {
         <Grid item xs={9}>
           <Paper className={classes.title}>My Pills Tracker</Paper>
           <Table>
+          {/* <Table style={{tableLayout: 'auto'}}> */}
             <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
               <TableRow>
                 <TableHeaderColumn>
@@ -184,56 +170,27 @@ export default function AddDrug() {
                   <p className={classes.pillGrid2}  >Last Taken</p>
                 </TableHeaderColumn>
                 <TableHeaderColumn>
-                  <p className={classes.pillGrid2}  >Frequency</p>
+                  <p className={classes.pillGrid2}  >Frequency (hours)</p>
                 </TableHeaderColumn>
                 <TableHeaderColumn>
                   <p className={classes.pillGrid2}  >Delete?</p>
                 </TableHeaderColumn>
                 <TableHeaderColumn>
-                  <p className={classes.pillGrid2}  >Taken?</p>
+                  <p className={classes.pillGrid2}  >Click when pill has been taken</p>
                 </TableHeaderColumn>
               </TableRow>
             </TableHeader>
-            <TableBody displayRowCheckbox={false}>
+            <TableBody displayRowCheckbox={false} >
               <TableRow>
-                <TableRowColumn
-                  className={classes.pillGrid} >Pill #1</TableRowColumn>
-                <TableRowColumn className={classes.pillGrid}>11:30 AM</TableRowColumn>
-                <TableRowColumn className={classes.pillGrid}>2 hours
-            </TableRowColumn>
-                <TableRowColumn>
-                  <TrashIcon
-                    className={classes.pillGrid2}
-                  // onClick={() => handleRemove() }
-                  >
-                  </TrashIcon>
-                </TableRowColumn>
-                <TableRowColumn>
-                  <CheckIcon className={classes.pillGrid2}></CheckIcon>
-                </TableRowColumn>
-
-              </TableRow>
-              <TableRow>
-                <TableRowColumn className={classes.pillGrid}>Pill #2</TableRowColumn>
-                <TableRowColumn className={classes.pillGrid}>2:45 PM</TableRowColumn>
-                <TableRowColumn className={classes.pillGrid}>4 hours</TableRowColumn>
-                <TableRowColumn>
-                  <TrashIcon className={classes.pillGrid2}></TrashIcon>
-                </TableRowColumn>
-                <TableRowColumn>
-                  <CheckIcon className={classes.pillGrid2}></CheckIcon>
-                </TableRowColumn>
-              </TableRow>
-              <TableRow>
-                <TableRowColumn className={classes.pillGrid}>Pill #3</TableRowColumn>
-                <TableRowColumn className={classes.pillGrid}>6:30 PM</TableRowColumn>
-                <TableRowColumn className={classes.pillGrid}>8 hours</TableRowColumn>
-                <TableRowColumn>
-                  <TrashIcon className={classes.pillGrid2}></TrashIcon>
-                </TableRowColumn>
-                <TableRowColumn>
-                  <CheckIcon className={classes.pillGrid2}></CheckIcon>
-                </TableRowColumn>
+                {allDrugs.map(drug => (
+                  <ActiveDrugs
+                    id={drug._id}
+                    key={drug._id}
+                    name={drug.name}
+                    frequency={drug.frequency}
+                    lastTaken={drug.lastTaken}
+                  />
+                ))}
               </TableRow>
             </TableBody>
           </Table>
@@ -241,26 +198,6 @@ export default function AddDrug() {
         <Grid item xs={3}>
           <Paper className={classes.addDrug}>
             Add to "My Pills" here
-<<<<<<< HEAD
-            <Modal className={classes.modal} name={"Drug 1"} user_id={user} />
-          </Paper>
-        </Grid>
-        {/* <Grid item xs={3}>
-          <Paper className={classes.columnNames}>Pill Name</Paper>
-          <Paper className={classes.paper2}>Pill #1</Paper>
-          <Paper className={classes.paper2}>Pill #2</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.columnNames}>Last Taken</Paper>
-          <Paper className={classes.paper2}>11:30 AM</Paper>
-          <Paper className={classes.paper2}>2:45 PM</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.columnNames}>Frequency</Paper>
-          <Paper className={classes.paper2}>4 hours</Paper>
-          <Paper className={classes.paper2}>6 hours</Paper>
-        </Grid> */}
-=======
             <Modal
               className={classes.modal}
               name={"Drug 1"}
@@ -270,33 +207,11 @@ export default function AddDrug() {
               handleOpen={handleOpen}
               handleClose={handleClose}
               open={open}
-              
+
             />
           </Paper>
         </Grid>
-        <Grid item xs={4}></Grid>
-
-        <Grid item xs={12}>
-          <Paper className={classes.title}>My Pills Tracker</Paper>
-        </Grid>
-        <Grid item xs={4}>
-        <Paper>
-        {allDrugs.map(drug => (
-          <ActiveDrugs
-            id={drug._id}
-            key={drug._id}
-            name={drug.name}
-            frequency={drug.frequency}
-            lastTaken={drug.lastTaken}
-          />
-        ))}
-        </Paper>
       </Grid>
-
-
->>>>>>> 027541ac571f1c4bb7fbbf840dafbd693839ec33
-      </Grid>
-
     </div>
   );
 }

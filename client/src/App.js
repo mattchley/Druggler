@@ -22,6 +22,7 @@ import NavSpacer from "./components/NavSpacer";
 import AddDrug from "./components/AddDrug";
 import './index.css';
 
+
 // remove tap delay, essential for MaterialUI to work properly
 
 const App = () => {
