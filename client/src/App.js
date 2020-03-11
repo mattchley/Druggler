@@ -77,16 +77,16 @@ const App = () => {
             ) : (
               <div>
                 <div className="navTitle">Druggler</div>
-                <div>
+                {/* <div>
                     <Link className="navButton" to="/Login">
                       {" "}
                       Login{" "}
                     </Link>
-                </div>
+                </div> */}
               </div>
             )}
           </div>
-          <NavSpacer />
+          {/* <NavSpacer /> */}
 
           <PropsRoute
             exact

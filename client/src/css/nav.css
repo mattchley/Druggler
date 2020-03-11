@@ -3,13 +3,11 @@ p {
     font-weight: 400;
     font-family: 'Darker Grotesque', sans-serif;
 }
-
 .appBar {
     height: 60px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
-
 @media only screen and (max-width: 700px) {
     .appBar {
         height: 40px;
@@ -22,13 +20,11 @@ p {
     float: left;
     margin-left: 5%;
 }
-
 @media only screen and (max-width: 700px) {
     .navTitle {
         font-size: 22pt;
     }
 }
-
 .navButton{
     font-family: 'Darker grotesque', sans-serif;
     font-weight: 400;
@@ -37,41 +33,36 @@ p {
     margin-right: 5%;
     margin-top: 15px;
     bottom: 0px;
-    flex-wrap: wrap
+    flex-wrap: wrap;
+    text-decoration: none;
 }
-
 @media only screen and (max-width: 700px) {
     .navButton {
         font-size: 14pt;
     }
 }
-
 @media only screen and (max-width: 480px) {
     .navButton {
         font-size: 10pt;
     }
 }
-
 /* @media only screen and (max-width: 410px) {
     .link {
         font-size: 10pt;
     }
 } */
-
 @media only screen and (max-width: 480px) {
     .navTitle {
         font-size: 16pt;
     }
 }
-
-.spacer {
+/* .spacer {
     height: 20px;
     width: 100%;
-    background-color: black;
-}
+    background-color: white;
+} */
 
 .navButton:hover{
     cursor: pointer;
     color: black;
-    background-color: yellow;
 }
