@@ -38,56 +38,12 @@ export default function SimpleModal(props) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
-  const [open, setOpen] = React.useState(false);
-  const [drugDetails, setDrugDetails] = React.useState({});
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleInputChange = e => {
-    const { name, value } = e.target;
-    setDrugDetails({ ...drugDetails, [name]: value });
-    console.log(drugDetails);
-  };
-
-  const handleFormSubmit = event => {
-    event.preventDefault();
-    handleClose();
-    console.log(
-      drugDetails.lastTaken,
-      drugDetails.frequency,
-      "HELLO DRUG DETAILS"
-    );
-    if (drugDetails.lastTaken && drugDetails.frequency) {
-      console.log("before API front end")
-      console.log("current user, ", props.user_id)
-      API.saveDrug(
-        {
-          name: props.name,
-          lastTaken: drugDetails.lastTaken,
-          frequency: parseInt(drugDetails.frequency),
-          user: props.user_id
-        },
-       Auth.getToken( )
-      )
-        .then(res => {
-          console.log(res);
-          API.saveDrugtoUser(props.user_id,res.data,Auth.getToken()).then(res => console.log(res)).catch(err => console.log(err))
-          console.log("SAVED DRUG");
-
-        }).then(res => handleClose())
-        .catch(err => console.log(err));
-    }
-  };
   return (
     <div>
       <Button
         type="button"
-        onClick={handleOpen}
+        onClick={props.handleOpen}
         variant="contained"
         color="primary"
       >
@@ -96,21 +52,20 @@ export default function SimpleModal(props) {
       <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
-        open={open}
-        onClose={handleClose}
+        open={props.open}
+        onClose={props.handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
           <h2 id="simple-modal-title">
-            Please enter your drug routine for:
+            Please enter your drug routine:
             <br></br>
-            {props.name}
           </h2>
           <form>
             <TextField
               name="name"
               label="Enter drug name here"
               variant="filled"
-              onChange={handleInputChange}
+              onChange={props.handleInputChange}
             ></TextField>
 
             <TextField
@@ -118,14 +73,14 @@ export default function SimpleModal(props) {
               label="Last taken? ex: '11:30'"
               variant="filled"
               name="lastTaken"
-              onChange={handleInputChange}
+              onChange={props.handleInputChange}
             ></TextField>
             <TextField
               type="text"
               label="Drug frequency? ex: '4'"
               variant="filled"
               name="frequency"
-              onChange={handleInputChange}
+              onChange={props.handleInputChange}
             ></TextField>
             {/* <label>
               When was the last time you took this drug? 
@@ -150,7 +105,7 @@ export default function SimpleModal(props) {
             <Button
               variant="contained"
               color="primary"
-              onClick={handleFormSubmit}
+              onClick={props.handleFormSubmit}
             >
               Submit
             </Button>
