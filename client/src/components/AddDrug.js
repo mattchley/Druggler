@@ -8,6 +8,18 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import API from "../utils/API";
 import Auth from "../utils/Auth";
+import TrashIcon from "material-ui/svg-icons/action/delete";
+import CheckIcon from "material-ui/svg-icons/navigation/check";
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn
+} from "material-ui/Table";
+import { black } from "material-ui/styles/colors";
+import { white } from "material-ui/styles/colors";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,46 +32,58 @@ const useStyles = makeStyles(theme => ({
     // backgroundColor: theme.palette.text.hint,
     backgroundColor: "black",
     color: "white",
-    fontWeight: "900"
+    fontWeight: "900",
+    align: "left"
   },
   title: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.primary,
     backgroundColor: "darkgray",
     color: "black",
     fontWeight: "900"
   },
   columnNames: {
     padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.primary,
+    textAlign: "left",
     backgroundColor: "cyan",
     color: "black",
     fontWeight: "bold",
-    textDecoration: "underline"
+    marginRight: "90px",
   },
   paper2: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.primary,
-    backgroundColor: theme.palette.text.hint,
     backgroundColor: "lightgreen",
-    fontWeight: "bold",
-    marginTop: "3px"
+    fontWeight: "bold"
   },
   paper3: {
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.primary,
-    backgroundColor: theme.palette.text.hint,
+    backgroundColor: "lightgreen",
+    fontWeight: "bold"
+  },
+  pillGrid: {
+    textAlign: "center",
+    color: theme.palette.text.primary,
     backgroundColor: "lightgreen",
     fontWeight: "bold",
-    marginTop: "3px"
+    fontSize: "16px",
+    paddingRight: "2px",
+    paddingLeft: "2px"
   },
-  modal: {
-
-  }
+  pillGrid2: {
+    textAlign: "left",
+    color: black,
+    fontWeight: "bold",
+    fontSize: "14px",
+    paddingRight: "2px",
+    paddingLeft: "2px"
+  },
+  removeCheckbox: {
+    displayRowCheckbox: "false"
+  },
+  modal: {}
 }));
 
 export default function AddDrug() {
@@ -67,7 +91,7 @@ export default function AddDrug() {
   const [user, setUser] = useState({});
   const [drugDetails, setDrugDetails] = useState({});
   const [open, setOpen] = useState(false);
-  const [allDrugs,setAllDrugs] = useState([]);
+  const [allDrugs, setAllDrugs] = useState([]);
   const [addedDrug, setAddedDrug] = useState("")
 
   const handleOpen = () => {
@@ -82,12 +106,12 @@ export default function AddDrug() {
     const loadData = async () => {
       let currentUser = await API.dashboard(Auth.getToken());
       setUser(currentUser.data.user);
-      let currentDrugs = await API.getAllUserDrugs(currentUser.data.user._id,Auth.getToken())
+      let currentDrugs = await API.getAllUserDrugs(currentUser.data.user._id, Auth.getToken())
       setAllDrugs(currentDrugs.data)
     }
-      
-      loadData();
-  },[addedDrug])
+
+    loadData();
+  }, [addedDrug])
 
 
   const handleInputChange = e => {
@@ -113,14 +137,14 @@ export default function AddDrug() {
           frequency: parseInt(drugDetails.frequency),
           user: user._id
         },
-       Auth.getToken( )
+        Auth.getToken()
       )
         .then(res => {
           console.log(res);
-          API.saveDrugtoUser(user._id,res.data,Auth.getToken()).then(res => {
+          API.saveDrugtoUser(user._id, res.data, Auth.getToken()).then(res => {
             console.log(res);
             setAddedDrug(res.data._id);
-            
+
           }).catch(err => console.log(err))
 
           console.log("SAVED DRUG");
@@ -133,9 +157,45 @@ export default function AddDrug() {
   return (
     <div className={classes.root}>
       <Grid container spacing={2}>
-
-        <Grid item xs={4}></Grid>
-        <Grid item xs={4}>
+        <Grid item xs={9}>
+          <Paper className={classes.title}>My Pills Tracker</Paper>
+          <Table>
+          {/* <Table style={{tableLayout: 'auto'}}> */}
+            <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
+              <TableRow>
+                <TableHeaderColumn>
+                  <p className={classes.pillGrid2}  >Pill Name</p>
+                </TableHeaderColumn>
+                <TableHeaderColumn>
+                  <p className={classes.pillGrid2}  >Last Taken</p>
+                </TableHeaderColumn>
+                <TableHeaderColumn>
+                  <p className={classes.pillGrid2}  >Frequency (hours)</p>
+                </TableHeaderColumn>
+                <TableHeaderColumn>
+                  <p className={classes.pillGrid2}  >Delete?</p>
+                </TableHeaderColumn>
+                <TableHeaderColumn>
+                  <p className={classes.pillGrid2}  >Click when pill has been taken</p>
+                </TableHeaderColumn>
+              </TableRow>
+            </TableHeader>
+            <TableBody displayRowCheckbox={false} >
+              <TableRow>
+                {allDrugs.map(drug => (
+                  <ActiveDrugs
+                    id={drug._id}
+                    key={drug._id}
+                    name={drug.name}
+                    frequency={drug.frequency}
+                    lastTaken={drug.lastTaken}
+                  />
+                ))}
+              </TableRow>
+            </TableBody>
+          </Table>
+        </Grid>
+        <Grid item xs={3}>
           <Paper className={classes.addDrug}>
             Add to "My Pills" here
             <Modal
@@ -147,30 +207,10 @@ export default function AddDrug() {
               handleOpen={handleOpen}
               handleClose={handleClose}
               open={open}
-              
+
             />
           </Paper>
         </Grid>
-        <Grid item xs={4}></Grid>
-
-        <Grid item xs={12}>
-          <Paper className={classes.title}>My Pills Tracker</Paper>
-        </Grid>
-        <Grid item xs={4}>
-        <Paper>
-        {allDrugs.map(drug => (
-          <ActiveDrugs
-            id={drug._id}
-            key={drug._id}
-            name={drug.name}
-            frequency={drug.frequency}
-            lastTaken={drug.lastTaken}
-          />
-        ))}
-        </Paper>
-      </Grid>
-
-
       </Grid>
     </div>
   );

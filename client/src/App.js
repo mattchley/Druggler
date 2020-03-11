@@ -22,6 +22,7 @@ import NavSpacer from "./components/NavSpacer";
 import AddDrug from "./components/AddDrug";
 import './index.css';
 
+
 // remove tap delay, essential for MaterialUI to work properly
 
 const App = () => {
@@ -77,16 +78,16 @@ const App = () => {
             ) : (
               <div>
                 <div className="navTitle">Druggler</div>
-                <div>
+                {/* <div>
                     <Link className="navButton" to="/Login">
                       {" "}
                       Login{" "}
                     </Link>
-                </div>
+                </div> */}
               </div>
             )}
           </div>
-          <NavSpacer />
+          {/* <NavSpacer /> */}
 
           <PropsRoute
             exact
