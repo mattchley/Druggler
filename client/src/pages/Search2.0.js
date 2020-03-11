@@ -1,46 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import API from "../utils/API";
-import axios from "axios";
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 function SearchV2() {
+    const [search, setSearch] = useState({});
     const [drugs, setDrugs] = useState([]);
-    const [search, setSearch] = useState({})
     const [conflicts, setConflicts] = useState([]);
     // Tester:
-    // Fluconazole
-    // Bosentan
-    // Simvastatin
+    // fluconazole 4450
+    // astemizole 42328
+    // cisapride 35255
+    // disopyramide 3541
+    // flibanserin 1665509
+    // ibutilide 41289
+    // indapamide 5764
+    // lomitapide 1364479
+    // pentamidine 7994
+    // pimozide 8331
 
     const addDrug = () => {
         loadDrugs(search)
-    }
-
-    const fetchConflict = () => {
-        let finalAPICall = '';
-        for (let element of drugs) {
-            finalAPICall += element.rxcui[0] + "+";
-            // maybe have a line that stops "+" at the last one?
-        }
-        API.getDrugsConflict(finalAPICall).then(res => {
-            setConflicts([
-                ...conflicts,
-                {
-                    id: conflicts.length,
-                    severity: res.data.fullInteractionTypeGroup[1].fullInteractionType[0].interactionPair[0].severity,
-                    details: res.data.fullInteractionTypeGroup[1].fullInteractionType[0].comment
-                    // res.data.fullInteractionTypeGroup[]
-                    // [0]DrugBank[i]
-                    // .fullInteractionType[i].comment (verbose details about the conflict)
-                    // .fullInteractionType[i].interactionPair[i].interactionConcept.description (chemical details)
-                }
-            ])
-            console.log(res.data)
-        }).catch(err => {
-            console.log(err)
-        });
     }
 
     const loadDrugs = (search) => {
@@ -61,16 +42,63 @@ function SearchV2() {
             .catch(err => console.log(err));
     };
 
+    const fetchConflict = () => {
+        let finalAPICall = '';
+        for (let element of drugs) {
+            finalAPICall += element.rxcui[0] + "+";
+            // maybe have a line that stops "+" at the last one?
+        }
+        loadConflicts(finalAPICall)
+    }
+
+    const loadConflicts = (finalAPICall) => {
+        API.getDrugsConflict(finalAPICall).then(res => {
+            const interaction = res.data.fullInteractionTypeGroup[1].fullInteractionType;
+            let commentRes = {};
+            let severityRes = {};
+            for (let index of interaction) {
+                // console.log(index.comment)
+                commentRes = index.comment
+                severityRes = index.interactionPair[0].severity
+                console.log(commentRes)
+                console.log(severityRes)
+            }
+            // find a way to map all of it to the one set below?
+            // Or make more arrays to hold the extra data that will the go to the conflicts array?
+            setConflicts([
+                ...conflicts,
+                {
+                    id: conflicts.length,
+                    details: res.data.fullInteractionTypeGroup[1].fullInteractionType[0].comment,
+                    severity: res.data.fullInteractionTypeGroup[1].fullInteractionType[0].interactionPair[0].severity
+
+                    // res.data.fullInteractionTypeGroup[]
+                    // [0]DrugBank[i]
+                    // .fullInteractionType[i].comment (verbose details about the conflict)
+                    // .fullInteractionType[i].interactionPair[i].interactionConcept.description (chemical details)
+                }
+            ])
+            console.log(res.data)
+        }).catch(err => {
+            console.log(err)
+        });
+    }
+
+
+
     return (
         <div>
             <div>
-                <TextField type="text" onChange={e => setSearch(e.target.value)}></TextField>
-                <Button 
-                type="button" 
-                onClick={addDrug}
-                variant="contained"
-                color="primary"
-            >FETCH DRUG</Button>
+                <TextField type="text"
+                    label="Enter drug name here"
+                    variant="filled" onChange={e => setSearch(e.target.value)}
+                ></TextField>
+                <Button
+                    type="button"
+                    onClick={addDrug}
+                    variant="contained"
+                    color="primary"
+                >FETCH DRUG</Button>
             </div>
 
             <div>
@@ -91,12 +119,13 @@ function SearchV2() {
                     }
                 </ul>
             </div>
-            <Button 
-            type="button" 
-            onClick={fetchConflict}
-            variant="contained"
-            color="primary"
-        >  Submit for conflicts</Button>
+            <Button
+                type="button"
+                onClick={fetchConflict}
+                variant="contained"
+                color="primary"
+            >
+                Submit for conflicts</Button>
             <div>
                 <ul>
                     {
