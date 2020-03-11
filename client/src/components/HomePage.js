@@ -35,7 +35,7 @@ const HomePage = (props) => {
                   size="large" 
                   color="primary"
                   variant="contained"
-                  component={RouterLink} to="/signup"
+                  component={RouterLink} to="/login"
                   style={{ width: "50%"}}
                 >
                   Login
@@ -45,7 +45,7 @@ const HomePage = (props) => {
                   size="large" 
                   color="secondary"
                   variant="contained"
-                  component={RouterLink} to="/login"
+                  component={RouterLink} to="/signup"
                   style={{ width: "50%"}}
                 >
                   Sign up
