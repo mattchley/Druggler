@@ -21,7 +21,8 @@ import "./nav.css";
 import NavSpacer from "./components/NavSpacer";
 import AddDrug from "./components/AddDrug";
 import './index.css';
-
+import DrugglerIcon from "./images/drugglerIcon.jpg"
+import PillsIcon from "./images/pillsIcon.png"
 
 // remove tap delay, essential for MaterialUI to work properly
 
@@ -44,48 +45,68 @@ const App = () => {
           <div className="appBar">
             {authenticated ? (
               <div>
-                <div className="navTitle">Druggler</div>
+                <img
+                  src={PillsIcon}
+                  className="navTitle"
+                  alt="Druggler Icon"
+                  height="30px"
+                  width="50px"
+                  style={{ margin: "0px", marginTop: "20px" }}></img>
+                <div className="navTitle" style={{ margin: "0px" }}>Druggler</div>
+                <img
+                  src={PillsIcon}
+                  className="navTitle"
+                  alt="Druggler Icon"
+                  height="30px"
+                  width="50px"
+                  style={{ margin: "0px", marginTop: "20px" }}></img>
                 <div>
-                    <Link 
-                      className="navButton" 
-                      to="/logout"
-                      color="error"
-                    >
-                      {" "}
-                      Log out{" "}
-                    </Link>
+                  <Link
+                    className="navButton"
+                    to="/logout"
+                    color="error"
+                  >
+                    {" "}
+                    Log out{" "}
+                  </Link>
                 </div>
 
                 <div>
-                    <Link 
-                      className="navButton" 
-                      to="/dashboard"
-                    >
-                        {" "}
-                        My Pills
-                        {" "}
-                    </Link>
+                  <Link
+                    className="navButton"
+                    to="/dashboard"
+                  >
+                    {" "}My Pills{" "}
+                  </Link>
                 </div>
                 <div>
-                    <Link 
-                      className="navButton" 
-                      to="/interactions"
-                    >
-                      {" "}Interactions{" "}
-                    </Link>
+                  <Link
+                    className="navButton"
+                    to="/interactions"
+                  >
+                    {" "}Interactions{" "}
+                  </Link>
                 </div>
               </div>
             ) : (
-              <div>
-                <div className="navTitle">Druggler</div>
-                {/* <div>
-                    <Link className="navButton" to="/Login">
-                      {" "}
-                      Login{" "}
-                    </Link>
-                </div> */}
-              </div>
-            )}
+                <div>
+                  <img
+                  src={PillsIcon}
+                  className="navTitle"
+                  alt="Druggler Icon"
+                  height="30px"
+                  width="50px"
+                  style={{ marginTop: "20px" }}></img>
+                  <div className="navTitle" >Druggler</div>
+                  <img
+                  src={PillsIcon}
+                  className="navTitle"
+                  alt="Druggler Icon"
+                  height="30px"
+                  width="50px"
+                  style={{ marginTop: "20px" }}></img>
+                </div>
+              )}
           </div>
           {/* <NavSpacer /> */}
 
