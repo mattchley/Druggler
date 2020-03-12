@@ -13,13 +13,13 @@ import {
   TableRow,
   TableRowColumn
 } from "material-ui/Table";
-import TableCell from '@material-ui/core/TableCell';
+import TableCell from "@material-ui/core/TableCell";
 import { makeStyles } from "@material-ui/core/styles";
 import { black } from "material-ui/styles/colors";
 import { white } from "material-ui/styles/colors";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 
-const ActiveDrugs = (props) => {
+const ActiveDrugs = props => {
   const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1
@@ -47,7 +47,7 @@ const ActiveDrugs = (props) => {
       backgroundColor: "cyan",
       color: "black",
       fontWeight: "bold",
-      marginRight: "90px",
+      marginRight: "90px"
     },
     paper2: {
       padding: theme.spacing(2),
@@ -67,13 +67,13 @@ const ActiveDrugs = (props) => {
       color: theme.palette.text.primary,
       backgroundColor: "lightgreen",
       fontWeight: "bold",
-      fontSize: "16px",
+      fontSize: "16px"
     },
     pillGrid2: {
       textAlign: "left",
       color: black,
       fontWeight: "bold",
-      fontSize: "14px",
+      fontSize: "14px"
     },
     removeCheckbox: {
       displayRowCheckbox: "false"
@@ -81,36 +81,37 @@ const ActiveDrugs = (props) => {
     modal: {}
   }));
 
-const classes = useStyles();
+  const classes = useStyles();
 
   return (
     <div>
       <TableRow>
-        <TableCell className={classes.pillGrid2} style={{ width: 300 }} >{props.name}</TableCell>
-        <TableCell className={classes.pillGrid2} style={{ width: 300 }} >{props.lastTaken}</TableCell>
-        <TableCell className={classes.pillGrid2} style={{ width: 300 }} >{props.frequency}</TableCell>
+        <TableCell className={classes.pillGrid2} style={{ width: 300 }}>
+          {props.name}
+        </TableCell>
+        <TableCell className={classes.pillGrid2} style={{ width: 300 }}>
+          {props.lastTaken}
+        </TableCell>
+        <TableCell className={classes.pillGrid2} style={{ width: 300 }}>
+          {props.frequency}
+        </TableCell>
         <TableCell className={classes.pillGrid2} style={{ width: 300 }}>
           <Button variant="contained">
             <TrashIcon
-            
-            onClick={() => props.handleDrugRemove(props.id) }
-            >
-            </TrashIcon>
+              onClick={() => props.handleDrugRemove(props.id)}
+            ></TrashIcon>
           </Button>
         </TableCell>
-        <TableCell
-          className={classes.pillGrid2} style={{ width: 300 }}>
+        <TableCell className={classes.pillGrid2} style={{ width: 300 }}>
           <Button variant="outlined">
             <CheckIcon
             // CALL HANDLE TAKEN FUNCTION HEREEEEEEEEEEEEEEEEEEEEEEEEE
             // onClick={() => handleTaken() }
-            >
-            </CheckIcon>
+            ></CheckIcon>
           </Button>
         </TableCell>
       </TableRow>
-
     </div>
-  )
-}
+  );
+};
 export default ActiveDrugs;
