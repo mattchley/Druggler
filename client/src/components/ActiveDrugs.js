@@ -81,7 +81,7 @@ const ActiveDrugs = (props) => {
     modal: {}
   }));
 
-  const classes = useStyles();
+const classes = useStyles();
 
   return (
     <div>
@@ -92,8 +92,8 @@ const ActiveDrugs = (props) => {
         <TableCell className={classes.pillGrid2} style={{ width: 300 }}>
           <Button variant="contained">
             <TrashIcon
-            // CALL HANDLE REMOVE FUNCTION HEREEEEEEEEEEEEEEEEEEEEEEEEE
-            // onClick={() => handleRemove() }
+            
+            onClick={() => props.handleDrugRemove(props.id) }
             >
             </TrashIcon>
           </Button>
