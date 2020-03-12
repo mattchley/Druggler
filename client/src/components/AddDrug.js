@@ -182,7 +182,7 @@ export default function AddDrug() {
                   <p className={classes.pillGrid2}  >Delete?</p>
                 </TableHeaderColumn>
                 <TableHeaderColumn>
-                  <p className={classes.pillGrid2}  >Click when pill has been taken</p>
+                  <p className={classes.pillGrid2}  >Take Pill</p>
                 </TableHeaderColumn>
               </TableRow>
             </TableHeader>
