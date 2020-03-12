@@ -82,8 +82,12 @@ export default function AddDrug() {
     const loadData = async () => {
       let currentUser = await API.dashboard(Auth.getToken());
       setUser(currentUser.data.user);
+      console.log(currentUser);
       let currentDrugs = await API.getAllUserDrugs(currentUser.data.user._id,Auth.getToken())
+      console.log(currentDrugs);
       setAllDrugs(currentDrugs.data)
+      let userDrugArray = await API.saveDrugtoUser(currentUser.data, Auth.getToken())
+      console.log(userDrugArray);
     }
       
       loadData();
@@ -117,18 +121,20 @@ export default function AddDrug() {
       )
         .then(res => {
           console.log(res);
-          API.saveDrugtoUser(user._id,res.data,Auth.getToken()).then(res => {
-            console.log(res);
-            setAddedDrug(res.data._id);
-            
-          }).catch(err => console.log(err))
-
-          console.log("SAVED DRUG");
+          setAddedDrug(allDrugs.length+5)
 
         }).then(res => handleClose())
         .catch(err => console.log(err));
     }
   };
+
+  const handleDrugRemove = (id) => {
+    API.removeDrug(id,Auth.getToken())
+      .then(res => {
+        setAddedDrug(allDrugs.length);
+      })
+      .catch (err => console.log(err))
+  }
 
   return (
     <div className={classes.root}>
@@ -165,6 +171,7 @@ export default function AddDrug() {
             name={drug.name}
             frequency={drug.frequency}
             lastTaken={drug.lastTaken}
+            removeDrug = {handleDrugRemove}
           />
         ))}
         </Paper>

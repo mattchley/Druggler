@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Drugs = require("../models/drugs");
 
 // Defining methods for the booksController
 module.exports = {
@@ -18,10 +19,15 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
-    const id = req.body._id
-    User
-      .findOneAndUpdate({ _id: req.params.id }, {$push:{drugs:id}})
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      console.log(req.body)
+    Drugs
+    .find({user: req.body.user._id})
+    .then(res => {
+      const allDrugId = res.map(drug => drug._id)
+      User
+        .findOneAndUpdate({ _id: req.body.user._id }, {$set:{drugs:allDrugId}})
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+    })
   }
 };

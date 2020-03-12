@@ -16,8 +16,10 @@ export default {
       axios.post("/api/drugs", drugData, { headers: { Authorization: `bearer ${token}` } }),
    getUser: (id, token)  =>
       axios.get("/api/user/" + id, { headers: { Authorization: `bearer ${token}` } }),
-   saveDrugtoUser: (user_id, drug, token) => 
-      axios.put("api/user/"+ user_id, drug, { headers: { Authorization: `bearer ${token}` } }),
-   getAllUserDrugs: (id,token) =>
-      axios.get("api/user/drugs/" + id,{ headers: { Authorization: `bearer ${token}` } })
+   saveDrugtoUser: (drug, token) => 
+      axios.put("api/user", drug, { headers: { Authorization: `bearer ${token}` } }),
+   getAllUserDrugs: (id, token) =>
+      axios.get("api/user/drugs/" + id,{ headers: { Authorization: `bearer ${token}` } }),
+   removeDrug: (id, token) => 
+      axios.delete ("api/drugs/" + id, { headers: { Authorization: `bearer ${token}` } })
 };

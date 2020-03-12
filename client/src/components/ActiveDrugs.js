@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 
 const ActiveDrugs = (props) => {
 
-
+    //console.log(props.name)
     return (
         
         <div>
@@ -23,7 +23,7 @@ const ActiveDrugs = (props) => {
                   <p>Last Taken: {props.lastTaken}</p>
                 </div>
                 <div col="3">
-                    <button>Remove</button>
+                    <button onClick={()=> props.removeDrug(props.id)}>Remove</button>
                     <button>Taken</button>
                 </div>
             </div>
