@@ -98,8 +98,7 @@ const ActiveDrugs = props => {
         <TableCell className={classes.pillGrid2} style={{ width: 300 }}>
           <Button variant="contained">
             <TrashIcon
-            // CALL HANDLE REMOVE FUNCTION HEREEEEEEEEEEEEEEEEEEEEEEEEE
-            // onClick={() => handleRemove() }
+              onClick={() => props.handleDrugRemove(props.id)}
             ></TrashIcon>
           </Button>
         </TableCell>

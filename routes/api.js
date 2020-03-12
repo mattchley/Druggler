@@ -22,6 +22,8 @@ router.route("/drugs/:id")
 
 router.route("/user/:id")
 .get(userControlller.findById)
+
+router.route("/user")
 .put(userControlller.update);
 
 router.route("/user/drugs/:id")
