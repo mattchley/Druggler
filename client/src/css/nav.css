@@ -14,11 +14,12 @@ p {
     }
 }
 .navTitle {
-    font-family: 'Darker Grotesque', sans-serif;
+    font-family: 'Taviraj', serif;
     font-weight: 800;
     font-size: 30pt;
     float: left;
     margin-left: 5%;
+    color: seagreen;
 }
 @media only screen and (max-width: 700px) {
     .navTitle {
