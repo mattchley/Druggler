@@ -106,18 +106,18 @@ export default function AddDrug() {
     const loadData = async () => {
       let currentUser = await API.dashboard(Auth.getToken());
       setUser(currentUser.data.user);
-      console.log(currentUser);
+      // console.log(currentUser);
       let currentDrugs = await API.getAllUserDrugs(
         currentUser.data.user._id,
         Auth.getToken()
       );
-      console.log(currentDrugs);
+      // console.log(currentDrugs);
       setAllDrugs(currentDrugs.data);
       let userDrugArray = await API.saveDrugtoUser(
         currentUser.data,
         Auth.getToken()
       );
-      console.log(userDrugArray);
+      // console.log(userDrugArray);
     };
 
     loadData();
@@ -126,19 +126,19 @@ export default function AddDrug() {
   const handleInputChange = e => {
     const { name, value } = e.target;
     setDrugDetails({ ...drugDetails, [name]: value });
-    console.log(drugDetails);
+    // console.log(drugDetails);
   };
 
   const handleFormSubmit = event => {
     event.preventDefault();
-    console.log(
-      drugDetails.lastTaken,
-      drugDetails.frequency,
-      "HELLO DRUG DETAILS"
-    );
+    // console.log(
+    //   drugDetails.lastTaken,
+    //   drugDetails.frequency,
+    //   "HELLO DRUG DETAILS"
+    // );
     if (drugDetails.lastTaken && drugDetails.frequency) {
-      console.log("before API front end");
-      console.log("current user, ", user._id);
+      // console.log("before API front end");
+      // console.log("current user, ", user._id);
       API.saveDrug(
         {
           name: drugDetails.name,
@@ -149,7 +149,7 @@ export default function AddDrug() {
         Auth.getToken()
       )
         .then(res => {
-          console.log(res);
+          // console.log(res);
           setAddedDrug(allDrugs.length + 5);
         })
         .then(res => handleClose())
@@ -187,13 +187,7 @@ export default function AddDrug() {
                   <p className={classes.pillGrid2}>Delete?</p>
                 </TableHeaderColumn>
                 <TableHeaderColumn>
-<<<<<<< HEAD
                   <p className={classes.pillGrid2}  >Take Pill</p>
-=======
-                  <p className={classes.pillGrid2}>
-                    Click when pill has been taken
-                  </p>
->>>>>>> c7104fc5a7c6c62cf8dc435afa53d7fa1c6164c3
                 </TableHeaderColumn>
               </TableRow>
             </TableHeader>
