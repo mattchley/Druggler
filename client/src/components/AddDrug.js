@@ -23,7 +23,10 @@ import { white } from "material-ui/styles/colors";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
   },
   addDrug: {
     padding: theme.spacing(2),
@@ -35,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "900",
     align: "left"
   },
-  title: {
+  title: {                 
     padding: theme.spacing(2),
     textAlign: "center",
     backgroundColor: "darkgray",
@@ -64,21 +67,11 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "bold"
   },
   pillGrid: {
-    textAlign: "center",
-    color: theme.palette.text.primary,
-    backgroundColor: "lightgreen",
-    fontWeight: "bold",
-    fontSize: "16px",
-    paddingRight: "2px",
-    paddingLeft: "2px"
-  },
-  pillGrid2: {
     textAlign: "left",
     color: black,
     fontWeight: "bold",
     fontSize: "14px",
-    paddingRight: "2px",
-    paddingLeft: "2px"
+    minWidth: "30px",
   },
   removeCheckbox: {
     displayRowCheckbox: "false"
@@ -106,18 +99,18 @@ export default function AddDrug() {
     const loadData = async () => {
       let currentUser = await API.dashboard(Auth.getToken());
       setUser(currentUser.data.user);
-      // console.log(currentUser);
+      console.log(currentUser);
       let currentDrugs = await API.getAllUserDrugs(
         currentUser.data.user._id,
         Auth.getToken()
       );
-      // console.log(currentDrugs);
+      console.log(currentDrugs);
       setAllDrugs(currentDrugs.data);
       let userDrugArray = await API.saveDrugtoUser(
         currentUser.data,
         Auth.getToken()
       );
-      // console.log(userDrugArray);
+      console.log(userDrugArray);
     };
 
     loadData();
@@ -126,19 +119,19 @@ export default function AddDrug() {
   const handleInputChange = e => {
     const { name, value } = e.target;
     setDrugDetails({ ...drugDetails, [name]: value });
-    // console.log(drugDetails);
+    console.log(drugDetails);
   };
 
   const handleFormSubmit = event => {
     event.preventDefault();
-    // console.log(
-    //   drugDetails.lastTaken,
-    //   drugDetails.frequency,
-    //   "HELLO DRUG DETAILS"
-    // );
+    console.log(
+      drugDetails.lastTaken,
+      drugDetails.frequency,
+      "HELLO DRUG DETAILS"
+    );
     if (drugDetails.lastTaken && drugDetails.frequency) {
-      // console.log("before API front end");
-      // console.log("current user, ", user._id);
+      console.log("before API front end");
+      console.log("current user, ", user._id);
       API.saveDrug(
         {
           name: drugDetails.name,
@@ -149,7 +142,7 @@ export default function AddDrug() {
         Auth.getToken()
       )
         .then(res => {
-          // console.log(res);
+          console.log(res);
           setAddedDrug(allDrugs.length + 5);
         })
         .then(res => handleClose())
@@ -175,22 +168,23 @@ export default function AddDrug() {
             <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
               <TableRow>
                 <TableHeaderColumn>
-                  <p className={classes.pillGrid2}>Pill Name</p>
+                  <p className={classes.pillGrid}>Pill Name</p>
                 </TableHeaderColumn>
                 <TableHeaderColumn>
-                  <p className={classes.pillGrid2}>Last Taken</p>
+                  <p className={classes.pillGrid}>Last Taken</p>
                 </TableHeaderColumn>
                 <TableHeaderColumn>
-                  <p className={classes.pillGrid2}>Frequency (hours)</p>
+                  <p className={classes.pillGrid}>Frequency (hours)</p>
                 </TableHeaderColumn>
                 <TableHeaderColumn>
-                  <p className={classes.pillGrid2}>Delete?</p>
+                  <p className={classes.pillGrid}>Delete?</p>
                 </TableHeaderColumn>
                 <TableHeaderColumn>
-                  <p className={classes.pillGrid2}  >Take Pill</p>
+                  <p className={classes.pillGrid}  >Take Pill</p>
                 </TableHeaderColumn>
               </TableRow>
             </TableHeader>
+
             <TableBody displayRowCheckbox={false}>
               <TableRow>
                 {allDrugs.map(drug => (
@@ -205,6 +199,7 @@ export default function AddDrug() {
                 ))}
               </TableRow>
             </TableBody>
+
           </Table>
         </Grid>
         <Grid item xs={3}>

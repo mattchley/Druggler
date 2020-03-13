@@ -14,6 +14,8 @@ function SearchV2() {
   const addDrug = (e) => {
     e.preventDefault()
     loadDrugs(search)
+    document.getElementById("enterDrugHere").value = "";
+    document.getElementById("enterDrugHere").focus();
   }
 
   const loadDrugs = (search) => {
@@ -83,6 +85,7 @@ function SearchV2() {
     <div>
       <div>
         <TextField type="text"
+          id="enterDrugHere"
           label="Enter drug name here"
           variant="filled" onChange={e => setSearch(e.target.value)}
         ></TextField>
