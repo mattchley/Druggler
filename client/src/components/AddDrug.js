@@ -64,21 +64,11 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "bold"
   },
   pillGrid: {
-    textAlign: "center",
-    color: theme.palette.text.primary,
-    backgroundColor: "lightgreen",
-    fontWeight: "bold",
-    fontSize: "16px",
-    paddingRight: "2px",
-    paddingLeft: "2px"
-  },
-  pillGrid2: {
     textAlign: "left",
     color: black,
     fontWeight: "bold",
     fontSize: "14px",
-    paddingRight: "2px",
-    paddingLeft: "2px"
+    minWidth: "30px",
   },
   removeCheckbox: {
     displayRowCheckbox: "false"
@@ -175,28 +165,23 @@ export default function AddDrug() {
             <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
               <TableRow>
                 <TableHeaderColumn>
-                  <p className={classes.pillGrid2}>Pill Name</p>
+                  <p className={classes.pillGrid}>Pill Name</p>
                 </TableHeaderColumn>
                 <TableHeaderColumn>
-                  <p className={classes.pillGrid2}>Last Taken</p>
+                  <p className={classes.pillGrid}>Last Taken</p>
                 </TableHeaderColumn>
                 <TableHeaderColumn>
-                  <p className={classes.pillGrid2}>Frequency (hours)</p>
+                  <p className={classes.pillGrid}>Frequency (hours)</p>
                 </TableHeaderColumn>
                 <TableHeaderColumn>
-                  <p className={classes.pillGrid2}>Delete?</p>
+                  <p className={classes.pillGrid}>Delete?</p>
                 </TableHeaderColumn>
                 <TableHeaderColumn>
-<<<<<<< HEAD
-                  <p className={classes.pillGrid2}  >Take Pill</p>
-=======
-                  <p className={classes.pillGrid2}>
-                    Click when pill has been taken
-                  </p>
->>>>>>> c7104fc5a7c6c62cf8dc435afa53d7fa1c6164c3
+                  <p className={classes.pillGrid}  >Take Pill</p>
                 </TableHeaderColumn>
               </TableRow>
             </TableHeader>
+
             <TableBody displayRowCheckbox={false}>
               <TableRow>
                 {allDrugs.map(drug => (
@@ -211,6 +196,7 @@ export default function AddDrug() {
                 ))}
               </TableRow>
             </TableBody>
+
           </Table>
         </Grid>
         <Grid item xs={3}>
