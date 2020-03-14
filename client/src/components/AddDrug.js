@@ -18,6 +18,7 @@ import {
   TableRow,
   TableRowColumn
 } from "material-ui/Table";
+import TableCell from "@material-ui/core/TableCell";
 import { black } from "material-ui/styles/colors";
 import { white } from "material-ui/styles/colors";
 
@@ -30,17 +31,21 @@ const useStyles = makeStyles(theme => ({
     textAlign: "center",
     color: theme.palette.text.primary,
     // backgroundColor: theme.palette.text.hint,
-    backgroundColor: "black",
-    color: "white",
+    backgroundColor: "#23395d",
+    color: "lime",
     fontWeight: "900",
-    align: "left"
+    align: "left",
+    overflow: "auto",
+    fontFamily: "Comic Sans MS, Comic Sans, cursive"
   },
   title: {
     padding: theme.spacing(2),
     textAlign: "center",
-    backgroundColor: "darkgray",
-    color: "black",
-    fontWeight: "900"
+    backgroundColor: "#23395d",
+    color: "lime",
+    fontWeight: "800",
+    fontSize: "30px",
+    fontFamily: "Comic Sans MS, Comic Sans, cursive"
   },
   columnNames: {
     padding: theme.spacing(2),
@@ -64,21 +69,18 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "bold"
   },
   pillGrid: {
-    textAlign: "center",
-    color: theme.palette.text.primary,
-    backgroundColor: "lightgreen",
-    fontWeight: "bold",
-    fontSize: "16px",
-    paddingRight: "2px",
-    paddingLeft: "2px"
-  },
-  pillGrid2: {
     textAlign: "left",
-    color: black,
+    color: "midnightblue",
     fontWeight: "bold",
     fontSize: "14px",
-    paddingRight: "2px",
-    paddingLeft: "2px"
+    width: "100%"
+  },
+  pillGrid2: {
+    textAlign: "center",
+    color: "midnightblue",
+    fontWeight: "bold",
+    fontSize: "14px",
+    width: "30%"
   },
   removeCheckbox: {
     displayRowCheckbox: "false"
@@ -171,28 +173,26 @@ export default function AddDrug() {
         <Grid item xs={9}>
           <Paper className={classes.title}>My Pills Tracker</Paper>
           <Table>
-            {/* <Table style={{tableLayout: 'auto'}}> */}
             <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
-              <TableRow>
-                <TableHeaderColumn>
-                  <p className={classes.pillGrid2}>Pill Name</p>
-                </TableHeaderColumn>
-                <TableHeaderColumn>
-                  <p className={classes.pillGrid2}>Last Taken</p>
-                </TableHeaderColumn>
-                <TableHeaderColumn>
-                  <p className={classes.pillGrid2}>Frequency (hours)</p>
-                </TableHeaderColumn>
-                <TableHeaderColumn>
-                  <p className={classes.pillGrid2}>Delete?</p>
-                </TableHeaderColumn>
-                <TableHeaderColumn>
-                  <p className={classes.pillGrid2}>
-                    Click when pill has been taken
-                  </p>
-                </TableHeaderColumn>
+              <TableRow className={classes.pillGrid}>
+                <TableCell className={classes.pillGrid2}>
+                  <p className={classes.pillGrid}>Pill Name</p>
+                </TableCell>
+                <TableCell className={classes.pillGrid2}>
+                  <p className={classes.pillGrid}>Last Taken</p>
+                </TableCell>
+                <TableCell className={classes.pillGrid2}>
+                  <p className={classes.pillGrid}>Frequency (hours)</p>
+                </TableCell>
+                <TableCell className={classes.pillGrid2}>
+                  <p className={classes.pillGrid}>Delete?</p>
+                </TableCell>
+                <TableCell className={classes.pillGrid2}>
+                  <p className={classes.pillGrid}>Take Pill</p>
+                </TableCell>
               </TableRow>
             </TableHeader>
+
             <TableBody displayRowCheckbox={false}>
               <TableRow>
                 {allDrugs.map(drug => (
