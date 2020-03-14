@@ -116,8 +116,7 @@ const ActiveDrugs = props => {
         <TableCell className={classes.pillGrid2} >
           <Button variant="outlined">
             <CheckIcon
-            // CALL HANDLE TAKEN FUNCTION HEREEEEEEEEEEEEEEEEEEEEEEEEE
-            // onClick={() => handleTaken() }
+              onClick={() => props.handleDrugTaken(props.id)}
             ></CheckIcon>
           </Button>
         </TableCell>
