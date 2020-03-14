@@ -87,7 +87,8 @@ const classes = useStyles();
     <div>
       <TableRow>
         <TableCell className={classes.pillGrid2} style={{ width: 300 }} >{props.name}</TableCell>
-        <TableCell className={classes.pillGrid2} style={{ width: 300 }} >{props.lastTaken}</TableCell>
+        <TableCell className={classes.pillGrid2} style={{ width: 300 }} >{props.lastTakenDate}</TableCell>
+        <TableCell className={classes.pillGrid2} style={{ width: 300 }} >{props.lastTakenTime}</TableCell>
         <TableCell className={classes.pillGrid2} style={{ width: 300 }} >{props.frequency}</TableCell>
         <TableCell className={classes.pillGrid2} style={{ width: 300 }}>
           <Button variant="contained">

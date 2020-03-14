@@ -23,11 +23,14 @@ module.exports = {
     Drugs
     .find({user: req.body.user._id})
     .then(res => {
-      const allDrugId = res.map(drug => drug._id)
+      const allDrugId = res.map(drug => drug._id)      
       User
         .findOneAndUpdate({ _id: req.body.user._id }, {$set:{drugs:allDrugId}})
-        .then(dbModel => res.json(dbModel))
+        .then(dbModel => {
+            console.log("user drugs array respnose: ", dbModel)
+            res.json(dbModel)
+        })
         .catch(err => res.status(422).json(err));
-    })
+    }).catch(err => res.status(422).json(err))
   }
 };
