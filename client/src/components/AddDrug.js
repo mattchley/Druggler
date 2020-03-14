@@ -114,13 +114,11 @@ export default function AddDrug() {
         Auth.getToken()
       );
       console.log(currentDrugs);
-      setAllDrugs(currentDrugs.data);
-      let userDrugArray = await API.saveDrugtoUser(
-        currentUser.data,
-        Auth.getToken()
-      );
-      console.log(userDrugArray);
-    };
+      setAllDrugs(currentDrugs.data)
+      API.saveDrugtoUser(currentUser.data, Auth.getToken())
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+    }
 
     loadData();
   }, [addedDrug]);
@@ -133,18 +131,19 @@ export default function AddDrug() {
 
   const handleFormSubmit = event => {
     event.preventDefault();
-    console.log(
-      drugDetails.lastTaken,
-      drugDetails.frequency,
-      "HELLO DRUG DETAILS"
+    console.log("Drug Details: ",
+      drugDetails.lastTakenDate,
+      drugDetails.lastTakenTime,
+      drugDetails.frequency
     );
-    if (drugDetails.lastTaken && drugDetails.frequency) {
-      console.log("before API front end");
-      console.log("current user, ", user._id);
+    if (drugDetails.lastTakenDate && drugDetails.frequency && drugDetails.lastTakenTime) {
+      console.log("before API front end")
+      console.log("current user, ", user._id)
       API.saveDrug(
         {
           name: drugDetails.name,
-          lastTaken: drugDetails.lastTaken,
+          lastTakenDate: drugDetails.lastTakenDate,
+          lastTakenTime: drugDetails.lastTakenTime,
           frequency: parseInt(drugDetails.frequency),
           user: user._id
         },
@@ -166,6 +165,10 @@ export default function AddDrug() {
       })
       .catch(err => console.log(err));
   };
+
+  const handleLastTakenBtn = (id) => {
+
+  }
 
   return (
     <div className={classes.root}>
@@ -201,7 +204,8 @@ export default function AddDrug() {
                     key={drug._id}
                     name={drug.name}
                     frequency={drug.frequency}
-                    lastTaken={drug.lastTaken}
+                    lastTakenDate={drug.lastTakenDate}
+                    lastTakenTime={drug.lastTakenTime}
                     handleDrugRemove={handleDrugRemove}
                   />
                 ))}

@@ -79,9 +79,16 @@ export default function SimpleModal(props) {
 
             <TextField
               type="text"
-              label="Last taken? ex: '11:30'"
+              label="Last taken date? ex: '2020-11-30'"
               variant="filled"
-              name="lastTaken"
+              name="lastTakenDate"
+              onChange={props.handleInputChange}
+            ></TextField>
+            <TextField
+              type="text"
+              label="Last taken time? ex: '11:30AM'"
+              variant="filled"
+              name="lastTakenTime"
               onChange={props.handleInputChange}
             ></TextField>
             <TextField

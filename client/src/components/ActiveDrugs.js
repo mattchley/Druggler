@@ -98,7 +98,10 @@ const ActiveDrugs = props => {
           {props.name}
         </TableCell>
         <TableCell className={classes.pillGrid2} >
-          {props.lastTaken}
+          {props.lastTakenDate}
+        </TableCell>
+        <TableCell className={classes.pillGrid2} >
+          {props.lastTakenTime}
         </TableCell>
         <TableCell className={classes.pillGrid2} >
           {props.frequency}
