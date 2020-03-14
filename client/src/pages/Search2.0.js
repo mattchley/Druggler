@@ -1,10 +1,66 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import API from "../utils/API";
 
+import { makeStyles } from "@material-ui/core/styles";
+
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
+import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import TrashIcon from "material-ui/svg-icons/action/delete";
 
-function SearchV2() {
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  title: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    backgroundColor: '#23395d',
+    color: 'lime',
+    fontWeight: "800",
+    fontFamily: "Comic Sans MS, Comic Sans, cursive",
+  },
+  drugRes: {
+    padding: '10px',
+    textAlign: "left",
+    color: 'lime',
+    fontWeight: "bold",
+    fontSize: "14px",
+    width: "auto",
+    variant: "outlined",
+  },
+  btn: {
+    border: "2px solid seagreen",
+    boxShadow: theme.shadows[5],
+    borderRadius: "30px",
+    textAlign: "center",
+    color: theme.palette.text.primary,
+    backgroundColor: "#23395d",
+    color: "lime",
+    fontWeight: "900",
+    align: "left",
+    overflow: "auto",
+    fontFamily: "Comic Sans MS, Comic Sans, cursive",
+  },
+  gridBtn: {
+    padding: '30px',
+    overflow: "auto"
+  },
+  input: {
+    width: "400px",
+  },
+  high: {
+    backgroundColor: "#ff0000",
+    textAlign: "center",
+    padding: '34px',
+    overflow: "auto"
+  }
+}));
+
+export default function SearchV2() {
+  const classes = useStyles();
   const [search, setSearch] = useState({});
   const [drugs, setDrugs] = useState([]);
   const [conflicts, setConflicts] = useState([]);
@@ -14,8 +70,6 @@ function SearchV2() {
   const addDrug = (e) => {
     e.preventDefault()
     loadDrugs(search)
-    document.getElementById("enterDrugHere").value = "";
-    document.getElementById("enterDrugHere").focus();
   }
 
   const loadDrugs = (search) => {
@@ -51,7 +105,6 @@ function SearchV2() {
         let commentRes = {};
         let severityRes = {};
         let holder = [];
-        // Something is happening here where the data is not going into the array
         for (let index of interaction) {
           commentRes = index.comment
           severityRes = index.interactionPair[0].severity
@@ -61,14 +114,6 @@ function SearchV2() {
             details: commentRes,
             threat: severityRes
           })
-          // setConflicts([
-          //   ...conflicts,
-          //   {
-          //     id: conflicts.length,
-          //     details: commentRes,
-          //     threat: severityRes
-          //   }
-          // ])
         }
         setConflicts(holder)
       }).catch(err => {
@@ -76,79 +121,113 @@ function SearchV2() {
       });
   }
 
-  const mapConflicts = () => {
-    // conflicts.push('test')
-    console.log(conflicts);
+  const handleDelete = (e) => {
+    const name = e.target.getAttribute("name")
+    setDrugs(drugs.filter(drug => drug.name !== name));
   }
 
   return (
     <div>
-      <div>
-        <TextField type="text"
-          id="enterDrugHere"
-          label="Enter drug name here"
-          variant="filled" onChange={e => setSearch(e.target.value)}
-        ></TextField>
-        <Button
-          type="button"
-          onClick={addDrug}
-          variant="contained"
-          color="primary"
-        >FETCH DRUG</Button>
-        <Button
-          type="button"
-          onClick={mapConflicts}
-          variant="contained"
-          color="primary"
-        >FETCH conflict</Button>
-      </div>
-
-      <div>
-        <ul>
-          {
-            drugs.length ? (
-              <div>
-                {
-                  drugs.map(drug => (
-                    <li key={drug.id}>Name:{drug.name} RXCUI:{drug.rxcui}</li>
-                  ))
-                }
-              </div>
-
-            ) : (
-                <h3>No Drugs Added</h3>
-              )
-          }
-        </ul>
-      </div>
-      <Button
-        type="button"
-        onClick={fetchConflict}
-        variant="contained"
-        color="primary"
-      >
-        Submit for conflicts</Button>
-      <div>
-        <ul>
-          {
-            conflicts.length ? (
-              <div>
-                {conflicts.map(conflict => (
-                  <div>
-                    <li key={conflict.id}>{conflict.details}</li>
-                    <li key={conflict.id}>{conflict.threat}</li>
-                  </div>
-                ))}
-              </div>
-            ) : (
-                <h3>No Conflicts Found</h3>
-              )
-          }
-        </ul>
-      </div>
-
+      <Grid container spacing={12}>
+        <Grid item xs={12}
+          container
+          direction="column"
+          justify="center">
+          <div className={classes.title}>
+            <h1>Check Drug Interactions</h1>
+            <h3>Add two or more drugs to see their interactions.</h3>
+          </div>
+          <div className={classes.inputField}>
+            <TextField
+              className={classes.input}
+              type="text"
+              label="Enter drug name here"
+              variant="filled"
+              onChange={e => setSearch(e.target.value.trim())}
+            ></TextField>
+            <Button
+              className={classes.btn}
+              type="button"
+              onClick={addDrug}
+              variant="contained"
+              color="primary"
+            >FETCH DRUG</Button>
+          </div>
+          <div>
+            {
+              drugs.length ? (
+                <div>
+                  {
+                    drugs.map(drug => (
+                      <Grid container spacing={12}>
+                        <Grid item xs={10}>
+                          <Paper className={classes.drugRes}>
+                            <h2 key={drug.id}>Name:{drug.name}</h2>
+                            <h6>RXCUI:{drug.rxcui}</h6>
+                          </Paper>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <Paper className={classes.drugRes}>
+                            <Button
+                              key={drug.id}
+                              name={drug.name}
+                              className={classes.gridBtn}
+                              onClick={handleDelete}
+                            >
+                              <TrashIcon
+                                key={drug.id}
+                                name={drug.name}
+                                onClick={handleDelete}
+                              ></TrashIcon>
+                            </Button>
+                          </Paper>
+                        </Grid>
+                      </Grid>
+                    ))
+                  }
+                </div>
+              ) : (
+                  <h3>No Drugs Added</h3>
+                )
+            }
+          </div>
+          <Button
+            className={classes.btn}
+            type="button"
+            onClick={fetchConflict}
+            variant="contained"
+            color="primary"
+          >
+            Submit for conflicts</Button>
+        </Grid>
+        <Grid item xs={12}>
+          <ul>
+            {
+              conflicts.length ? (
+                <div>
+                  {conflicts.map(conflict => (
+                    <Grid container spacing={12}>
+                      <Grid item xs={10}>
+                        <Paper className={classes.drugRes}>
+                          <h3 key={conflict.id}>{conflict.details}</h3>
+                        </Paper>
+                      </Grid>
+                      <Grid item xs={2}>
+                        <Paper className={classes.high}>
+                          <h3 key={conflict.id}>{conflict.threat}</h3>
+                        </Paper>
+                      </Grid>
+                    </Grid>
+                  ))}
+                </div>
+              ) : (
+                  <h3>No Conflicts Found</h3>
+                )
+            }
+          </ul>
+        </Grid>
+      </Grid>
     </div>
   );
 }
 
-export default SearchV2;
