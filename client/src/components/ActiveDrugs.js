@@ -74,7 +74,7 @@ const ActiveDrugs = props => {
       color: black,
       fontWeight: "bold",
       fontSize: "14px",
-      width: "30%" 
+      width: "21.5%" 
     },
     pillGrid3: {
       textAlign: "left",
@@ -107,7 +107,7 @@ const ActiveDrugs = props => {
           {props.frequency}
         </TableCell>
         <TableCell className={classes.pillGrid2} >
-          <Button variant="contained">
+          <Button variant="outlined">
             <TrashIcon
               onClick={() => props.handleDrugRemove(props.id)}
             ></TrashIcon>
