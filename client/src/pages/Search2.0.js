@@ -18,44 +18,50 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     textAlign: "center",
     backgroundColor: '#23395d',
-    color: 'lime',
+    color: 'white',
     fontWeight: "800",
-    fontFamily: "Comic Sans MS, Comic Sans, cursive",
+    fontFamily: "Constantia",
   },
   drugRes: {
-    padding: '10px',
+    padding: '0px',
     textAlign: "left",
-    color: 'lime',
+    color: 'black',
     fontWeight: "bold",
     fontSize: "14px",
     width: "auto",
     variant: "outlined",
+    backgroundColor: "lightgreen"
   },
   btn: {
-    border: "2px solid seagreen",
+    border: "2px solid lime",
     boxShadow: theme.shadows[5],
     borderRadius: "30px",
     textAlign: "center",
     color: theme.palette.text.primary,
     backgroundColor: "#23395d",
-    color: "lime",
-    fontWeight: "900",
+    color: "white",
+    fontWeight: "400",
     align: "left",
     overflow: "auto",
-    fontFamily: "Comic Sans MS, Comic Sans, cursive",
+    fontFamily: "Constantia",
   },
   gridBtn: {
     padding: '30px',
     overflow: "auto"
   },
   input: {
-    width: "400px",
+    width: "70%",
   },
   high: {
     backgroundColor: "#ff0000",
     textAlign: "center",
-    padding: '34px',
     overflow: "auto"
+  },
+  deleteButton: {
+    textAlign: "center",
+    overflow: "auto",
+    width: "auto",
+    height: "auto",
   }
 }));
 
@@ -70,6 +76,8 @@ export default function SearchV2() {
   const addDrug = (e) => {
     e.preventDefault()
     loadDrugs(search)
+    document.getElementById("drugTextField").value = "";
+    document.getElementById("drugTextField").focus();
   }
 
   const loadDrugs = (search) => {
@@ -89,8 +97,8 @@ export default function SearchV2() {
   };
 
   const fetchConflict = (e) => {
-    e.preventDefault()
-    loadConflicts()
+    e.preventDefault();
+    loadConflicts();
   }
 
   const loadConflicts = () => {
@@ -135,10 +143,19 @@ export default function SearchV2() {
           justify="center">
           <div className={classes.title}>
             <h1>Check Drug Interactions</h1>
-            <h3>Add two or more drugs to see their interactions.</h3>
+            {/* <p>Add two or more drugs to see their interactions.</p> */}
           </div>
+        </Grid>
+        <Grid item xs={2}></Grid>
+        <Grid item xs={8}>
+        <p>Add two or more drugs to see their interactions.</p>
+        </Grid>
+        <Grid item xs={2}></Grid>
+        <Grid item xs={2}></Grid>
+          <Grid item xs={8}>
           <div className={classes.inputField}>
             <TextField
+              id="drugTextField"
               className={classes.input}
               type="text"
               label="Enter drug name here"
@@ -153,6 +170,7 @@ export default function SearchV2() {
               color="primary"
             >FETCH DRUG</Button>
           </div>
+          <Grid item xs={2}></Grid>
           <div>
             {
               drugs.length ? (
@@ -162,25 +180,24 @@ export default function SearchV2() {
                       <Grid container spacing={12}>
                         <Grid item xs={10}>
                           <Paper className={classes.drugRes}>
-                            <h2 key={drug.id}>Name:{drug.name}</h2>
-                            <h6>RXCUI:{drug.rxcui}</h6>
+                            <h2 key={drug.id}>Name: {drug.name}</h2>
+                            <h5>RXCUI: {drug.rxcui}</h5>
                           </Paper>
                         </Grid>
                         <Grid item xs={2}>
-                          <Paper className={classes.drugRes}>
                             <Button
                               key={drug.id}
                               name={drug.name}
                               className={classes.gridBtn}
                               onClick={handleDelete}
                             >
-                              <TrashIcon
+                              <TrashIcon 
+                                className={classes.deleteButton}
                                 key={drug.id}
                                 name={drug.name}
                                 onClick={handleDelete}
                               ></TrashIcon>
                             </Button>
-                          </Paper>
                         </Grid>
                       </Grid>
                     ))
@@ -200,6 +217,8 @@ export default function SearchV2() {
           >
             Submit for conflicts</Button>
         </Grid>
+
+
         <Grid item xs={12}>
           <ul>
             {
@@ -214,7 +233,7 @@ export default function SearchV2() {
                       </Grid>
                       <Grid item xs={2}>
                         <Paper className={classes.high}>
-                          <h3 key={conflict.id}>{conflict.threat}</h3>
+                          <h3 key={conflict.id}>Severity: {conflict.threat}</h3>
                         </Paper>
                       </Grid>
                     </Grid>
