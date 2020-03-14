@@ -70,11 +70,11 @@ const ActiveDrugs = props => {
       fontSize: "16px"
     },
     pillGrid2: {
-      textAlign: "center",
+      textAlign: "left",
       color: black,
       fontWeight: "bold",
       fontSize: "14px",
-      width: "30%" 
+      width: "21.5%" 
     },
     pillGrid3: {
       textAlign: "left",

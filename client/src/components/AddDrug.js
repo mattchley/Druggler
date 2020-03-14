@@ -92,14 +92,13 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "bold",
     fontSize: "14px",
     width: "30%",
-    margin: "10%"
   },
   pillGrid2: {
-    textAlign: "center",
+    textAlign: "left",
     color: "midnightblue",
     fontWeight: "bold",
     fontSize: "14px",
-    width: "30%"
+    width: "20.5%",
   },
   removeCheckbox: {
     displayRowCheckbox: "false"
@@ -217,12 +216,15 @@ export default function AddDrug() {
 
             <TableBody displayRowCheckbox={false}>
               <TableRow>
-                  <TableRow className={classes.pillGrid}>
+                  <TableRow>
                     <TableCell className={classes.pillGrid2}>
                       Pill Name
                     </TableCell>
                     <TableCell className={classes.pillGrid2}>
-                      Last Taken
+                      Last Date
+                    </TableCell>
+                    <TableCell className={classes.pillGrid2}>
+                      Last Time
                     </TableCell>
                     <TableCell className={classes.pillGrid2}>
                       Frequency (hours)

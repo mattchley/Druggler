@@ -76,6 +76,7 @@ export default function SimpleModal(props) {
               label="Enter drug name here"
               variant="filled"
               onChange={props.handleInputChange}
+              fullWidth
             ></TextField>
 
             <TextField
@@ -84,6 +85,7 @@ export default function SimpleModal(props) {
               variant="filled"
               name="lastTakenDate"
               onChange={props.handleInputChange}
+              fullWidth
             ></TextField>
             <TextField
               type="text"
@@ -91,6 +93,7 @@ export default function SimpleModal(props) {
               variant="filled"
               name="lastTakenTime"
               onChange={props.handleInputChange}
+              fullWidth
             ></TextField>
             <TextField
               type="text"
@@ -98,25 +101,8 @@ export default function SimpleModal(props) {
               variant="filled"
               name="frequency"
               onChange={props.handleInputChange}
+              fullWidth
             ></TextField>
-            {/* <label>
-              When was the last time you took this drug? 
-              example: "11:30"
-              <Input
-                type="text"
-                name="lastTaken"
-                onChange={handleInputChange}
-              />
-            </label> */}
-
-            {/* <label>
-              How often do you take this drug? example: "4" for every 4 hours
-              <Input
-                type="text"
-                name="frequency"
-                onChange={handleInputChange}
-              />
-            </label> */}
             <br></br>
             <hr></hr>
             <Button
