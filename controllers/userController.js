@@ -16,7 +16,6 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
-<<<<<<< HEAD
       console.log(req.body)
     Drugs
     .find({user: req.body.user._id})
@@ -30,17 +29,5 @@ module.exports = {
         })
         .catch(err => res.status(422).json(err));
     }).catch(err => res.status(422).json(err))
-=======
-    console.log(req.body);
-    Drugs.find({ user: req.body.user._id }).then(res => {
-      const allDrugId = res.map(drug => drug._id);
-      User.findOneAndUpdate(
-        { _id: req.body.user._id },
-        { $set: { drugs: allDrugId } }
-      )
-        .then(dbModel => res.json(dbModel))
-        .catch(err => res.status(422).json(err));
-    });
->>>>>>> 17f54e285843b2f8eb1bc608715794711803c81e
   }
 };
