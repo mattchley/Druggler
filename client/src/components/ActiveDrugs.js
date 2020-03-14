@@ -73,7 +73,15 @@ const ActiveDrugs = props => {
       textAlign: "left",
       color: black,
       fontWeight: "bold",
-      fontSize: "14px"
+      fontSize: "14px",
+      width: "30%" 
+    },
+    pillGrid3: {
+      textAlign: "left",
+      color: black,
+      fontWeight: "bold",
+      fontSize: "14px",
+      width: "30%" 
     },
     removeCheckbox: {
       displayRowCheckbox: "false"
@@ -85,24 +93,24 @@ const ActiveDrugs = props => {
 
   return (
     <div>
-      <TableRow>
-        <TableCell className={classes.pillGrid2} style={{ width: 300 }}>
+      <TableRow className={classes.pillGrid3}>
+        <TableCell className={classes.pillGrid2} >
           {props.name}
         </TableCell>
-        <TableCell className={classes.pillGrid2} style={{ width: 300 }}>
+        <TableCell className={classes.pillGrid2} >
           {props.lastTaken}
         </TableCell>
-        <TableCell className={classes.pillGrid2} style={{ width: 300 }}>
+        <TableCell className={classes.pillGrid2} >
           {props.frequency}
         </TableCell>
-        <TableCell className={classes.pillGrid2} style={{ width: 300 }}>
+        <TableCell className={classes.pillGrid2} >
           <Button variant="contained">
             <TrashIcon
               onClick={() => props.handleDrugRemove(props.id)}
             ></TrashIcon>
           </Button>
         </TableCell>
-        <TableCell className={classes.pillGrid2} style={{ width: 300 }}>
+        <TableCell className={classes.pillGrid2} >
           <Button variant="outlined">
             <CheckIcon
             // CALL HANDLE TAKEN FUNCTION HEREEEEEEEEEEEEEEEEEEEEEEEEE
