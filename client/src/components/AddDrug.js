@@ -1,7 +1,7 @@
 // import React from "react";
 import Modal from "../components/DrugModal";
-import ActiveDrugs from "./ActiveDrugs"
-import Button from '@material-ui/core/Button';
+import ActiveDrugs from "./ActiveDrugs";
+import Button from "@material-ui/core/Button";
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -18,29 +18,34 @@ import {
   TableRow,
   TableRowColumn
 } from "material-ui/Table";
+import TableCell from "@material-ui/core/TableCell";
 import { black } from "material-ui/styles/colors";
 import { white } from "material-ui/styles/colors";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   addDrug: {
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.primary,
     // backgroundColor: theme.palette.text.hint,
-    backgroundColor: "black",
-    color: "white",
+    backgroundColor: "#23395d",
+    color: "lime",
     fontWeight: "900",
-    align: "left"
+    align: "left",
+    overflow: "auto",
+    fontFamily: "Comic Sans MS, Comic Sans, cursive"
   },
-  title: {
+  title: {                 
     padding: theme.spacing(2),
     textAlign: "center",
-    backgroundColor: "darkgray",
-    color: "black",
-    fontWeight: "900"
+    backgroundColor: '#23395d',
+    color: 'lime',
+    fontWeight: "800",
+    fontSize: "30px",
+    fontFamily: "Comic Sans MS, Comic Sans, cursive",
   },
   columnNames: {
     padding: theme.spacing(2),
@@ -48,7 +53,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "cyan",
     color: "black",
     fontWeight: "bold",
-    marginRight: "90px",
+    marginRight: "90px"
   },
   paper2: {
     padding: theme.spacing(2),
@@ -64,21 +69,18 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "bold"
   },
   pillGrid: {
-    textAlign: "center",
-    color: theme.palette.text.primary,
-    backgroundColor: "lightgreen",
-    fontWeight: "bold",
-    fontSize: "16px",
-    paddingRight: "2px",
-    paddingLeft: "2px"
-  },
-  pillGrid2: {
     textAlign: "left",
-    color: black,
+    color: "midnightblue",
     fontWeight: "bold",
     fontSize: "14px",
-    paddingRight: "2px",
-    paddingLeft: "2px"
+    width: "100%"
+  },
+  pillGrid2: {
+    textAlign: "center",
+    color: "midnightblue",
+    fontWeight: "bold",
+    fontSize: "14px",
+    width: "30%"
   },
   removeCheckbox: {
     displayRowCheckbox: "false"
@@ -92,7 +94,7 @@ export default function AddDrug() {
   const [drugDetails, setDrugDetails] = useState({});
   const [open, setOpen] = useState(false);
   const [allDrugs, setAllDrugs] = useState([]);
-  const [addedDrug, setAddedDrug] = useState("")
+  const [addedDrug, setAddedDrug] = useState("");
 
   const handleOpen = () => {
     setOpen(true);
@@ -107,7 +109,10 @@ export default function AddDrug() {
       let currentUser = await API.dashboard(Auth.getToken());
       setUser(currentUser.data.user);
       console.log(currentUser);
-      let currentDrugs = await API.getAllUserDrugs(currentUser.data.user._id,Auth.getToken())
+      let currentDrugs = await API.getAllUserDrugs(
+        currentUser.data.user._id,
+        Auth.getToken()
+      );
       console.log(currentDrugs);
       setAllDrugs(currentDrugs.data)
       API.saveDrugtoUser(currentUser.data, Auth.getToken())
@@ -116,8 +121,7 @@ export default function AddDrug() {
     }
 
     loadData();
-  }, [addedDrug])
-
+  }, [addedDrug]);
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -147,21 +151,20 @@ export default function AddDrug() {
       )
         .then(res => {
           console.log(res);
-          setAddedDrug(allDrugs.length+5)
-
-        }).then(res => handleClose())
+          setAddedDrug(allDrugs.length + 5);
+        })
+        .then(res => handleClose())
         .catch(err => console.log(err));
     }
   };
 
-  const handleDrugRemove = (id) => {
-    console.log(id);
-    API.removeDrug(id,Auth.getToken())
+  const handleDrugRemove = id => {
+    API.removeDrug(id, Auth.getToken())
       .then(res => {
         setAddedDrug(allDrugs.length);
       })
-      .catch (err => console.log(err))
-  }
+      .catch(err => console.log(err));
+  };
 
   const handleLastTakenBtn = (id) => {
 
@@ -173,27 +176,27 @@ export default function AddDrug() {
         <Grid item xs={9}>
           <Paper className={classes.title}>My Pills Tracker</Paper>
           <Table>
-          {/* <Table style={{tableLayout: 'auto'}}> */}
             <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
-              <TableRow>
-                <TableHeaderColumn>
-                  <p className={classes.pillGrid2}  >Pill Name</p>
-                </TableHeaderColumn>
-                <TableHeaderColumn>
-                  <p className={classes.pillGrid2}  >Last Taken</p>
-                </TableHeaderColumn>
-                <TableHeaderColumn>
-                  <p className={classes.pillGrid2}  >Frequency (hours)</p>
-                </TableHeaderColumn>
-                <TableHeaderColumn>
-                  <p className={classes.pillGrid2}  >Delete?</p>
-                </TableHeaderColumn>
-                <TableHeaderColumn>
-                  <p className={classes.pillGrid2}  >Click when pill has been taken</p>
-                </TableHeaderColumn>
+              <TableRow className={classes.pillGrid}>
+                <TableCell className={classes.pillGrid2}>
+                  <p className={classes.pillGrid}>Pill Name</p>
+                </TableCell>
+                <TableCell className={classes.pillGrid2}>
+                  <p className={classes.pillGrid}>Last Taken</p>
+                </TableCell>
+                <TableCell className={classes.pillGrid2}>
+                  <p className={classes.pillGrid}>Frequency (hours)</p>
+                </TableCell>
+                <TableCell className={classes.pillGrid2}>
+                  <p className={classes.pillGrid}>Delete?</p>
+                </TableCell>
+                <TableCell className={classes.pillGrid2}>
+                  <p className={classes.pillGrid}>Take Pill</p>
+                </TableCell>
               </TableRow>
             </TableHeader>
-            <TableBody displayRowCheckbox={false} >
+
+            <TableBody displayRowCheckbox={false}>
               <TableRow>
                 {allDrugs.map(drug => (
                   <ActiveDrugs
@@ -208,6 +211,7 @@ export default function AddDrug() {
                 ))}
               </TableRow>
             </TableBody>
+
           </Table>
         </Grid>
         <Grid item xs={3}>
@@ -222,14 +226,10 @@ export default function AddDrug() {
               handleOpen={handleOpen}
               handleClose={handleClose}
               open={open}
-
             />
           </Paper>
         </Grid>
         <Grid item xs={4}></Grid>
-
-
-
       </Grid>
     </div>
   );

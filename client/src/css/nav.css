@@ -14,11 +14,13 @@ p {
     }
 }
 .navTitle {
-    font-family: 'Darker Grotesque', sans-serif;
+    font-family: 'Comic Sans MS';
     font-weight: 800;
     font-size: 30pt;
     float: left;
     margin-left: 5%;
+    color: seagreen;
+    
 }
 @media only screen and (max-width: 700px) {
     .navTitle {
@@ -35,6 +37,7 @@ p {
     bottom: 0px;
     flex-wrap: wrap;
     text-decoration: none;
+    color: #23395d;
 }
 @media only screen and (max-width: 700px) {
     .navButton {
@@ -64,5 +67,5 @@ p {
 
 .navButton:hover{
     cursor: pointer;
-    color: black;
+    color: rgb(93, 57, 255);
 }

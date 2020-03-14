@@ -31,6 +31,14 @@ const useStyles = makeStyles(theme => ({
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3)
+  },
+  button: {
+    border: "2px solid seagreen",
+    boxShadow: theme.shadows[5],
+    width: "80%",
+    height: "20%",
+    borderRadius: "30px",
+    textAlign: "center"
   }
 }));
 
@@ -42,6 +50,7 @@ export default function SimpleModal(props) {
   return (
     <div>
       <Button
+        className={classes.button}
         type="button"
         onClick={props.handleOpen}
         variant="contained"
