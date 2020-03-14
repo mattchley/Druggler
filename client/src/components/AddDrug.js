@@ -24,28 +24,46 @@ import { white } from "material-ui/styles/colors";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   addDrug: {
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.primary,
     // backgroundColor: theme.palette.text.hint,
-    backgroundColor: "#23395d",
-    color: "lime",
+    backgroundColor: "seagreen",
+    color: "white",
     fontWeight: "900",
     align: "left",
     overflow: "auto",
     fontFamily: "Comic Sans MS, Comic Sans, cursive"
   },
-  title: {                 
+  title: {
     padding: theme.spacing(2),
     textAlign: "center",
-    backgroundColor: '#23395d',
-    color: 'lime',
+    backgroundColor: "#23395d",
+    color: "white",
+    fontWeight: "800",
+    fontSize: "30px",
+    fontFamily: "Comic Sans MS, Comic Sans, cursive"
+  },
+  title2: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    backgroundColor: "#23395d",
+    color: "white",
     fontWeight: "800",
     fontSize: "30px",
     fontFamily: "Comic Sans MS, Comic Sans, cursive",
+    margin: "5%"
+  },
+  title3: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: "white",
+    fontWeight: "800",
+    fontSize: "30px",
+    fontFamily: "Comic Sans MS, Comic Sans, cursive"
   },
   columnNames: {
     padding: theme.spacing(2),
@@ -73,7 +91,8 @@ const useStyles = makeStyles(theme => ({
     color: "midnightblue",
     fontWeight: "bold",
     fontSize: "14px",
-    width: "100%"
+    width: "30%",
+    margin: "10%"
   },
   pillGrid2: {
     textAlign: "center",
@@ -170,31 +189,46 @@ export default function AddDrug() {
   return (
     <div className={classes.root}>
       <Grid container spacing={2}>
-        <Grid item xs={9}>
+        <Grid item xs={12} className={classes.title2}>
           <Paper className={classes.title}>My Pills Tracker</Paper>
           <Table>
             <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
-              <TableRow className={classes.pillGrid}>
+              {/* <TableRow className={classes.pillGrid}>
                 <TableCell className={classes.pillGrid2}>
-                  <p className={classes.pillGrid}>Pill Name</p>
+                  Pill Name
                 </TableCell>
                 <TableCell className={classes.pillGrid2}>
-                  <p className={classes.pillGrid}>Last Taken</p>
+                  Last Taken
                 </TableCell>
                 <TableCell className={classes.pillGrid2}>
-                  <p className={classes.pillGrid}>Frequency (hours)</p>
+                  Frequency (hours)
                 </TableCell>
                 <TableCell className={classes.pillGrid2}>
-                  <p className={classes.pillGrid}>Delete?</p>
+                  Delete?
                 </TableCell>
                 <TableCell className={classes.pillGrid2}>
-                  <p className={classes.pillGrid}>Take Pill</p>
+                  Take Pill
                 </TableCell>
-              </TableRow>
+              </TableRow> */}
             </TableHeader>
 
             <TableBody displayRowCheckbox={false}>
               <TableRow>
+                  <TableRow className={classes.pillGrid}>
+                    <TableCell className={classes.pillGrid2}>
+                      Pill Name
+                    </TableCell>
+                    <TableCell className={classes.pillGrid2}>
+                      Last Taken
+                    </TableCell>
+                    <TableCell className={classes.pillGrid2}>
+                      Frequency (hours)
+                    </TableCell>
+                    <TableCell className={classes.pillGrid2}>Delete?</TableCell>
+                    <TableCell className={classes.pillGrid2}>
+                      Take Pill
+                    </TableCell>
+                </TableRow>
                 {allDrugs.map(drug => (
                   <ActiveDrugs
                     id={drug._id}
@@ -207,23 +241,19 @@ export default function AddDrug() {
                 ))}
               </TableRow>
             </TableBody>
-
           </Table>
         </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.addDrug}>
-            Add to "My Pills" here
-            <Modal
-              className={classes.modal}
-              name={"Drug 1"}
-              user_id={user._id}
-              handleInputChange={handleInputChange}
-              handleFormSubmit={handleFormSubmit}
-              handleOpen={handleOpen}
-              handleClose={handleClose}
-              open={open}
-            />
-          </Paper>
+        <Grid item xs={3} className={classes.title3}>
+          <Modal
+            className={classes.modal}
+            name={"Drug 1"}
+            user_id={user._id}
+            handleInputChange={handleInputChange}
+            handleFormSubmit={handleFormSubmit}
+            handleOpen={handleOpen}
+            handleClose={handleClose}
+            open={open}
+          />
         </Grid>
         <Grid item xs={4}></Grid>
       </Grid>

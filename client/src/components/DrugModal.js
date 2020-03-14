@@ -38,7 +38,8 @@ const useStyles = makeStyles(theme => ({
     width: "80%",
     height: "20%",
     borderRadius: "30px",
-    textAlign: "center"
+    textAlign: "center",
+    backgroundColor: "seagreen"
   }
 }));
 
