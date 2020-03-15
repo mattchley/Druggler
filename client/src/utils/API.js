@@ -21,5 +21,7 @@ export default {
    getAllUserDrugs: (id, token) =>
       axios.get("api/user/drugs/" + id,{ headers: { Authorization: `bearer ${token}` } }),
    removeDrug: (id, token) => 
-      axios.delete ("api/drugs/" + id, { headers: { Authorization: `bearer ${token}` } })
+      axios.delete ("api/drugs/" + id, { headers: { Authorization: `bearer ${token}` } }),
+   drugTaken: (id, newTime, token) => 
+      axios.put("api/drugs/" + id, newTime, { headers: { Authorization: `bearer ${token}` } })
 };

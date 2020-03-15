@@ -24,8 +24,12 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
-    Drugs.findOneAndUpdate({ _id: req.params.id }, req.body)
-      .then(dbModel => res.json(dbModel))
+      console.log("We are updating the time :" , req.body)
+    Drugs.findOneAndUpdate({ _id: req.params.id }, {$set: {lastTakenDate: req.body.lastTakenDate, lastTakenTime: req.body.lastTakenTime}})
+      .then(dbModel => {
+          console.log("DATABASE UPDATED: ", dbModel)
+          res.json(dbModel)
+      })
       .catch(err => res.status(422).json(err));
   },
   remove: function(req, res) {
