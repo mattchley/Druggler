@@ -1,42 +1,17 @@
-// import React from "react";
 import Modal from "../components/DrugModal";
 import ActiveDrugs from "./ActiveDrugs";
-import Button from "@material-ui/core/Button";
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import API from "../utils/API";
 import Auth from "../utils/Auth";
-import TrashIcon from "material-ui/svg-icons/action/delete";
-import CheckIcon from "material-ui/svg-icons/navigation/check";
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn
-} from "material-ui/Table";
+import { Table, TableBody, TableRow } from "material-ui/Table";
 import TableCell from "@material-ui/core/TableCell";
-import { black } from "material-ui/styles/colors";
-import { white } from "material-ui/styles/colors";
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
-  },
-  addDrug: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.primary,
-    // backgroundColor: theme.palette.text.hint,
-    backgroundColor: "seagreen",
-    color: "white",
-    fontWeight: "900",
-    align: "left",
-    overflow: "auto",
-    fontFamily: "Constantia",
   },
   title: {
     padding: theme.spacing(2),
@@ -65,34 +40,6 @@ const useStyles = makeStyles(theme => ({
     fontSize: "30px",
     fontFamily: "Constantia",
   },
-  columnNames: {
-    padding: theme.spacing(2),
-    textAlign: "left",
-    backgroundColor: "cyan",
-    color: "black",
-    fontWeight: "bold",
-    marginRight: "90px"
-  },
-  paper2: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    backgroundColor: "lightgreen",
-    fontWeight: "bold"
-  },
-  paper3: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.primary,
-    backgroundColor: "lightgreen",
-    fontWeight: "bold"
-  },
-  pillGrid: {
-    textAlign: "left",
-    color: "midnightblue",
-    fontWeight: "bold",
-    fontSize: "14px",
-    width: "30%",
-  },
   pillGrid2: {
     textAlign: "left",
     color: "midnightblue",
@@ -113,6 +60,7 @@ export default function AddDrug() {
   const [open, setOpen] = useState(false);
   const [allDrugs, setAllDrugs] = useState([]);
   const [addedDrug, setAddedDrug] = useState("");
+  // const [tableRowColor, setTableRowColor] = useState("cyan");
 
   const handleOpen = () => {
     setOpen(true);
@@ -121,6 +69,10 @@ export default function AddDrug() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  // const handleTableRowColor = () => {
+  //   setTableRowColor("red");
+  // }
 
   useEffect(() => {
     const loadData = async () => {
@@ -172,6 +124,7 @@ export default function AddDrug() {
           setAddedDrug(allDrugs.length + 5);
         })
         .then(res => handleClose())
+        // .then(res => handleTableRowColor())
         .catch(err => console.log(err));
     }
   };
@@ -194,44 +147,24 @@ export default function AddDrug() {
         <Grid item xs={12} className={classes.title2}>
           <Paper className={classes.title}>My Pills Tracker</Paper>
           <Table>
-            <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
-              {/* <TableRow className={classes.pillGrid}>
-                <TableCell className={classes.pillGrid2}>
-                  Pill Name
-                </TableCell>
-                <TableCell className={classes.pillGrid2}>
-                  Last Taken
-                </TableCell>
-                <TableCell className={classes.pillGrid2}>
-                  Frequency (hours)
-                </TableCell>
-                <TableCell className={classes.pillGrid2}>
-                  Delete?
-                </TableCell>
-                <TableCell className={classes.pillGrid2}>
-                  Take Pill
-                </TableCell>
-              </TableRow> */}
-            </TableHeader>
-
             <TableBody displayRowCheckbox={false}>
               <TableRow>
-                  <TableRow>
-                    <TableCell className={classes.pillGrid2}>
-                      Pill Name
+                <TableRow>
+                  <TableCell className={classes.pillGrid2}>
+                    Pill Name
                     </TableCell>
-                    <TableCell className={classes.pillGrid2}>
-                      Last Date
+                  <TableCell className={classes.pillGrid2}>
+                    Last Date
                     </TableCell>
-                    <TableCell className={classes.pillGrid2}>
-                      Last Time
+                  <TableCell className={classes.pillGrid2}>
+                    Last Time
                     </TableCell>
-                    <TableCell className={classes.pillGrid2}>
-                      Frequency (hours)
+                  <TableCell className={classes.pillGrid2}>
+                    Frequency (hours)
                     </TableCell>
-                    <TableCell className={classes.pillGrid2}>Delete?</TableCell>
-                    <TableCell className={classes.pillGrid2}>
-                      Take Pill
+                  <TableCell className={classes.pillGrid2}>Delete?</TableCell>
+                  <TableCell className={classes.pillGrid2}>
+                    Take Pill
                     </TableCell>
                 </TableRow>
                 {allDrugs.map(drug => (

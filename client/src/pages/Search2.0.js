@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import API from "../utils/API";
-
 import { makeStyles } from "@material-ui/core/styles";
-
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import TrashIcon from "material-ui/svg-icons/action/delete";
@@ -38,7 +35,6 @@ const useStyles = makeStyles(theme => ({
     boxShadow: theme.shadows[5],
     borderRadius: "30px",
     textAlign: "center",
-    color: theme.palette.text.primary,
     backgroundColor: "#23395d",
     color: "white",
     fontWeight: "400",
@@ -63,7 +59,7 @@ const useStyles = makeStyles(theme => ({
     overflow: "auto",
     width: "auto",
     height: "auto",
-    border: "1mm ridge rgba(200, 200, 200, .8)"
+    // border: "1mm ridge rgba(200, 200, 200, .8)"
   }
 }));
 
@@ -182,7 +178,7 @@ export default function SearchV2() {
         <Grid item xs={2}></Grid>
 
         <div>
-        <Grid item xs={2}></Grid>
+          <Grid item xs={2}></Grid>
           {drugs.length ? (
             <div>
               {drugs.map(drug => (
@@ -199,6 +195,7 @@ export default function SearchV2() {
                       name={drug.name}
                       className={classes.gridBtn}
                       onClick={handleDelete}
+                      variant="contained"
                     >
                       <TrashIcon
                         className={classes.deleteButton}
@@ -212,28 +209,28 @@ export default function SearchV2() {
               ))}
             </div>
           ) : (
-            <h3>No Drugs Added</h3>
-          )}
+              <h3>No Drugs Added</h3>
+            )}
         </div>
       </Grid>
 
       <div>
-      <Grid container spacing={12}>
-      <Grid item xs={2}></Grid>
-        <Grid item xs={10}>
-          <Button
-            className={classes.btn}
-            type="button"
-            onClick={fetchConflict}
-            variant="contained"
-            color="primary"
-          >
-            Submit for conflicts
+        <Grid container spacing={12}>
+          <Grid item xs={2}></Grid>
+          <Grid item xs={10}>
+            <Button
+              className={classes.btn}
+              type="button"
+              onClick={fetchConflict}
+              variant="contained"
+              color="primary"
+            >
+              Submit for conflicts
           </Button>
+          </Grid>
+          <Grid item xs={2}></Grid>
         </Grid>
-        <Grid item xs={2}></Grid>
-      </Grid>
-        
+
       </div>
 
       <Grid item xs={12}>
@@ -258,11 +255,11 @@ export default function SearchV2() {
               ))}
             </div>
           ) : (
-            <div>
-              <hr></hr>
-              <h3>No Conflicts Found</h3>
-            </div>
-          )}
+              <div>
+                <hr></hr>
+                <h3>No Conflicts Found</h3>
+              </div>
+            )}
         </ul>
       </Grid>
     </div>
