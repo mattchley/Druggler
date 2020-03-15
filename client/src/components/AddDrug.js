@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "900",
     align: "left",
     overflow: "auto",
-    fontFamily: "Comic Sans MS, Comic Sans, cursive"
+    fontFamily: "Constantia",
   },
   title: {
     padding: theme.spacing(2),
@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     color: "white",
     fontWeight: "800",
     fontSize: "30px",
-    fontFamily: "Comic Sans MS, Comic Sans, cursive"
+    fontFamily: "Constantia",
   },
   title2: {
     padding: theme.spacing(2),
@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
     color: "white",
     fontWeight: "800",
     fontSize: "30px",
-    fontFamily: "Comic Sans MS, Comic Sans, cursive",
+    fontFamily: "Constantia",
     margin: "5%"
   },
   title3: {
@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
     color: "white",
     fontWeight: "800",
     fontSize: "30px",
-    fontFamily: "Comic Sans MS, Comic Sans, cursive"
+    fontFamily: "Constantia",
   },
   columnNames: {
     padding: theme.spacing(2),
