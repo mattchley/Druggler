@@ -2,26 +2,18 @@ import React, { useState, useEffect } from "react";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
 import HomePage from "./components/HomePage";
 import { PrivateRoute, PropsRoute, LoggedOutRoute } from "./components/Routes";
-
 import LoginPage from "./pages/Login";
 import LogoutFunction from "./pages/LogoutFunction";
 import SignUpPage from "./pages/Signup";
 import DashboardPage from "./pages/DashboardPage";
-import Search from "./pages/Search";
 import Auth from "./utils/Auth";
 import SearchV2 from './pages/Search2.0'
-
-import Button from "@material-ui/core/Button";
 import { motion } from "framer-motion";
-// import NavBar from './components/NavBar';
 import "./nav.css";
-import NavSpacer from "./components/NavSpacer";
 import AddDrug from "./components/AddDrug";
 import './index.css';
-import DrugglerIcon from "./images/drugglerIcon.jpg"
 import PillsIcon from "./images/pillsIcon.png"
 
 // remove tap delay, essential for MaterialUI to work properly
@@ -91,20 +83,20 @@ const App = () => {
             ) : (
                 <div>
                   <img
-                  src={PillsIcon}
-                  className="navTitle"
-                  alt="Druggler Icon"
-                  height="30px"
-                  width="50px"
-                  style={{ marginTop: "20px" }}></img>
+                    src={PillsIcon}
+                    className="navTitle"
+                    alt="Druggler Icon"
+                    height="30px"
+                    width="50px"
+                    style={{ marginTop: "20px" }}></img>
                   <div className="navTitle" >Druggler</div>
                   <img
-                  src={PillsIcon}
-                  className="navTitle"
-                  alt="Druggler Icon"
-                  height="30px"
-                  width="50px"
-                  style={{ marginTop: "20px" }}></img>
+                    src={PillsIcon}
+                    className="navTitle"
+                    alt="Druggler Icon"
+                    height="30px"
+                    width="50px"
+                    style={{ marginTop: "20px" }}></img>
                 </div>
               )}
           </div>

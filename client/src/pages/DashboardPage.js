@@ -14,12 +14,12 @@ class DashboardPage extends React.Component {
    */
   componentDidMount() {
     API.dashboard(Auth.getToken())
-    .then(res => {
-      this.setState({
+      .then(res => {
+        this.setState({
           secretData: res.data.message,
           user: res.data.user
         });
-    })
+      })
   }
 
   /**
@@ -27,13 +27,13 @@ class DashboardPage extends React.Component {
    */
   render() {
     return (
-      <div> 
-        <Dashboard 
-          secretData={this.state.secretData} 
-          user={this.state.user} 
+      <div>
+        <Dashboard
+          secretData={this.state.secretData}
+          user={this.state.user}
         />
       </div>
-      
+
     );
   }
 

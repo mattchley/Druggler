@@ -8,7 +8,7 @@ const Dashboard = ({ secretData, user }) => (
       title="Dashboard"
       subtitle=""
     />
-  {secretData && <CardText style={{ fontSize: '16px', color: 'green' }}>Welcome <strong>{user.name}</strong>!<br />{secretData}</CardText>}
+    {secretData && <CardText style={{ fontSize: '16px', color: 'green' }}>Welcome <strong>{user.name}</strong>!<br />{secretData}</CardText>}
   </Card>
 );
 
