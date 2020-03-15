@@ -32,14 +32,14 @@ const ActiveDrugs = props => {
       backgroundColor: "black",
       color: "white",
       fontWeight: "900",
-      align: "left"
+      align: "left",
     },
     title: {
       padding: theme.spacing(2),
       textAlign: "center",
       backgroundColor: "darkgray",
       color: "black",
-      fontWeight: "900"
+      fontWeight: "900",
     },
     columnNames: {
       padding: theme.spacing(2),
@@ -74,14 +74,14 @@ const ActiveDrugs = props => {
       color: black,
       fontWeight: "bold",
       fontSize: "14px",
-      width: "21.5%" 
+      width: "21.5%"
     },
     pillGrid3: {
       textAlign: "left",
       color: black,
       fontWeight: "bold",
       fontSize: "14px",
-      width: "30%" 
+      width: "30%"
     },
     removeCheckbox: {
       displayRowCheckbox: "false"
@@ -93,27 +93,28 @@ const ActiveDrugs = props => {
 
   return (
     <div>
-      <TableRow className={classes.pillGrid3}>
-        <TableCell className={classes.pillGrid2} >
-          {props.name}
-        </TableCell>
-        <TableCell className={classes.pillGrid2} >
+      <TableRow
+        className={classes.pillGrid3}
+        style={{ backgroundColor: "cyan" }}
+      >
+        <TableCell className={classes.pillGrid2}>{props.name}</TableCell>
+        <TableCell className={classes.pillGrid2}>
           {props.lastTakenDate}
         </TableCell>
-        <TableCell className={classes.pillGrid2} >
+        <TableCell className={classes.pillGrid2}>
           {props.lastTakenTime}
         </TableCell>
-        <TableCell className={classes.pillGrid2} >
+        <TableCell className={classes.pillGrid2}>
           {props.frequency}
         </TableCell>
-        <TableCell className={classes.pillGrid2} >
+        <TableCell className={classes.pillGrid2}>
           <Button variant="outlined">
             <TrashIcon
               onClick={() => props.handleDrugRemove(props.id)}
             ></TrashIcon>
           </Button>
         </TableCell>
-        <TableCell className={classes.pillGrid2} >
+        <TableCell className={classes.pillGrid2}>
           <Button variant="outlined">
             <CheckIcon
             // CALL HANDLE TAKEN FUNCTION HEREEEEEEEEEEEEEEEEEEEEEEEEE
