@@ -19,11 +19,32 @@ import { black } from "material-ui/styles/colors";
 import { white } from "material-ui/styles/colors";
 import Button from "@material-ui/core/Button";
 
+
+
 const ActiveDrugs = props => {
+
   const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1
     },
+    quarterOne: {
+      backgroundColor: "white"
+    },
+    quarterTwo: {
+        backgroundColor: "lightgreen"
+    },
+    quarterThree: {
+        backgroundColor: "yellow"
+    },
+    quarterFour: {
+        backgroundColor: "white"
+    },
+    eatNow: {
+        backgroundColor: "red"
+    },
+    foo: props => ({
+        backgroundColor: props.backgroundColor,
+      }),
     addDrug: {
       padding: theme.spacing(2),
       textAlign: "center",
@@ -89,11 +110,38 @@ const ActiveDrugs = props => {
     modal: {}
   }));
 
-  const classes = useStyles();
+
+  const quarterOne = {backgroundColor: "white"}
+  const quarterTwo = {backgroundColor: "green"}
+  const quarterThree = {backgroundColor: "yellow"}
+  const quarterFour = {backgroundColor: "orange"}
+  const takeNow = {backgroundColor: "red"}
+
+  const bgColor = () => {
+      if(props.currentQuarter==="quarterOne"){
+          return {backgroundColor: "white"}
+      } else if(props.currentQuarter==="quarterTwo"){
+        return {backgroundColor: "green"}
+    } else if(props.currentQuarter==="quarterThree"){
+        return {backgroundColor: "yellow"}
+    } else if(props.currentQuarter==="quarterFour") {
+        return({backgroundColor:"orange"})
+    } else if(props.currentQuarter==="eatNow"){
+        return {backgroundColor: "red"}
+    }
+  }
+  const x = bgColor()
+  console.log(x)
+
+  const combine = (quarter) => {
+    return(`myStyle.${quarter}`)
+  }
+
+  const classes = useStyles(x);
 
   return (
     <div>
-      <TableRow className={classes.pillGrid3}>
+      <TableRow className={`${classes.pillGrid3} ${classes.foo}`}>
         <TableCell className={classes.pillGrid2} >
           {props.name}
         </TableCell>
