@@ -226,10 +226,6 @@ export default function SearchV2() {
                         onClick={handleDelete}
                       >
                       </TrashIcon>
-<<<<<<< HEAD
-=======
-
->>>>>>> 7847c7ccbe7bd87996960bc9977c6bed66210c8f
                     </Button>
                   </Grid>
                 </Grid>
@@ -265,6 +261,7 @@ export default function SearchV2() {
           {conflicts2.length ? (
             <Grid container spacing={12}>
               {conflicts2.map(conflict2 => (
+                
                 <Grid item xs={8}>
                   <Paper className={classes.drugRes}>
                     <h3 key={conflict2.id}>{conflict2.description}</h3>
