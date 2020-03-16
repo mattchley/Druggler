@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import TrashIcon from "material-ui/svg-icons/action/delete";
+import { ConnectionStates } from "mongoose";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -74,6 +75,7 @@ export default function SearchV2() {
   const [search, setSearch] = useState({});
   const [drugs, setDrugs] = useState([]);
   const [conflicts, setConflicts] = useState([]);
+  const [conflicts2, setConflicts2] = useState([]);
 
   // fluconazole astemizole cisapride disopyramide
 
@@ -114,20 +116,32 @@ export default function SearchV2() {
       .then(res => {
         const interaction =
           res.data.fullInteractionTypeGroup[1].fullInteractionType;
-        let commentRes = {};
         let severityRes = {};
+
+        const simpleInteraction =
+          res.data.fullInteractionTypeGroup[0].fullInteractionType;
+        let text = {};
+
         let holder = [];
+        let holder2 = [];
+
         for (let index of interaction) {
-          commentRes = index.comment;
           severityRes = index.interactionPair[0].severity;
-          console.log(commentRes);
           holder.push({
-            id: conflicts.length,
-            details: commentRes,
+            id: interaction.length,
             threat: severityRes
           });
         }
+
+        for (let index of simpleInteraction) {
+          text = index.interactionPair[0].description
+          holder2.push({
+            id: simpleInteraction.length,
+            description: text
+          });
+        }
         setConflicts(holder);
+        setConflicts2(holder2)
       })
       .catch(err => {
         console.log(err);
@@ -198,7 +212,7 @@ export default function SearchV2() {
                   </Grid>
                   <Grid item xs={2}>
                     <Button
-                      style={{padding: "35px"}}
+                      style={{ padding: "35px" }}
                       key={drug.id}
                       name={drug.name}
                       className={classes.gridBtn}
@@ -212,7 +226,7 @@ export default function SearchV2() {
                         onClick={handleDelete}
                       >
                       </TrashIcon>
-                      
+
                     </Button>
                   </Grid>
                 </Grid>
@@ -244,31 +258,31 @@ export default function SearchV2() {
       </div>
 
       <Grid item xs={12}>
-        <ul>
-          {conflicts.length ? (
-            <div>
-              {conflicts.map(conflict => (
-                <Grid container spacing={12}>
-                  <Grid item xs={8}>
-                    <Paper className={classes.drugRes}>
-                      <h3 key={conflict.id}>{conflict.details}</h3>
-                    </Paper>
-                  </Grid>
-                  <Grid item xs={3}>
-                    <Paper className={classes.high}>
-                      <h3 key={conflict.id}>Severity: {conflict.threat}</h3>
-                    </Paper>
-                  </Grid>
-                  <Grid item xs={1}></Grid>
+        <div>
+          {conflicts2.length ? (
+            <Grid container spacing={12}>
+              {conflicts2.map(conflict2 => (
+                <Grid item xs={8}>
+                  <Paper className={classes.drugRes}>
+                    <h3 key={conflict2.id}>{conflict2.description}</h3>
+                  </Paper>
                 </Grid>
               ))}
-            </div>
+              {conflicts.map(conflict => (
+                <Grid item xs={4}>
+                  <Paper className={classes.high}>
+                    <h3 key={conflict.id}>Severity: {conflict.threat}</h3>
+                  </Paper>
+                </Grid>
+              ))}
+            </Grid>
+
           ) : (
               <div>
                 <h3>No Conflicts Found</h3>
               </div>
             )}
-        </ul>
+        </div>
       </Grid>
     </div>
   );
