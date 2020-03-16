@@ -8,6 +8,8 @@ import API from "../utils/API";
 import Auth from "../utils/Auth";
 import { Table, TableBody, TableRow } from "material-ui/Table";
 import TableCell from "@material-ui/core/TableCell";
+const moment = require("moment");
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -93,6 +95,9 @@ export default function AddDrug() {
     loadData();
   }, [addedDrug]);
 
+
+
+
   const handleInputChange = e => {
     const { name, value } = e.target;
     setDrugDetails({ ...drugDetails, [name]: value });
@@ -136,11 +141,42 @@ export default function AddDrug() {
       })
       .catch(err => console.log(err));
   };
-
-  const handleLastTakenBtn = (id) => {
-
+  let count = 0
+  const handleLastTakenBtn = (id,event) => {
+    let currentTime = moment().format()
+    let timeArray = currentTime.split("T");
+    let currentDate = timeArray[0]
+    let currentTimeArray = timeArray[1].split(":")
+    let presentHourMin = `${currentTimeArray[0]}:${currentTimeArray[1]}`
+    API.drugTaken(id,{
+      lastTakenDate: currentDate,
+      lastTakenTime: presentHourMin
+    },Auth.getToken())
+      .then(res => {
+        setAddedDrug(count++)
+      })
+      .catch(err => console.log(err))
+  }
+  
+  const futureTimeCalcuation = () => {
+    const date = ["2020","3","12"]
+    const time = ["12","30"]
+    let jsDate = new Date(date[0],date[1]-1,date[2],time[0],time[1]);
+    console.log("Initial Date: ", jsDate);
+    jsDate.setMinutes( jsDate.getMinutes() + 1440)
+    console.log("Added min: ", jsDate);
+    const frequency = 6
+    const quarterFreq = hourToMinConverter(frequency/4);
+    console.log(quarterFreq)
+  }
+  const hourToMinConverter = (hour) => {
+    const min = (hour - Math.floor(hour))*60;
+    const hr = Math.floor(hour)*60;
+    const totalMin = hr + min;
+    return totalMin;
   }
 
+  futureTimeCalcuation();
   return (
     <div className={classes.root}>
       <Grid container spacing={2}>
@@ -176,6 +212,7 @@ export default function AddDrug() {
                     lastTakenDate={drug.lastTakenDate}
                     lastTakenTime={drug.lastTakenTime}
                     handleDrugRemove={handleDrugRemove}
+                    handleDrugTaken={handleLastTakenBtn}
                   />
                 ))}
               </TableRow>
