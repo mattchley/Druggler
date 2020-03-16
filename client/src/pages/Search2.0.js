@@ -212,7 +212,6 @@ export default function SearchV2() {
                         onClick={handleDelete}
                       >
                       </TrashIcon>
-                      
                     </Button>
                   </Grid>
                 </Grid>

@@ -19,20 +19,20 @@ const ActiveDrugs = props => {
       backgroundColor: "white"
     },
     quarterTwo: {
-        backgroundColor: "lightgreen"
+      backgroundColor: "lightgreen"
     },
     quarterThree: {
-        backgroundColor: "yellow"
+      backgroundColor: "yellow"
     },
     quarterFour: {
-        backgroundColor: "white"
+      backgroundColor: "white"
     },
     eatNow: {
-        backgroundColor: "red"
+      backgroundColor: "red"
     },
     foo: props => ({
-        backgroundColor: props.backgroundColor,
-      }),
+      backgroundColor: props.backgroundColor,
+    }),
     addDrug: {
       padding: theme.spacing(2),
       textAlign: "center",
@@ -102,30 +102,30 @@ const ActiveDrugs = props => {
   }));
 
 
-  const quarterOne = {backgroundColor: "white"}
-  const quarterTwo = {backgroundColor: "green"}
-  const quarterThree = {backgroundColor: "yellow"}
-  const quarterFour = {backgroundColor: "orange"}
-  const takeNow = {backgroundColor: "red"}
+  const quarterOne = { backgroundColor: "white" }
+  const quarterTwo = { backgroundColor: "green" }
+  const quarterThree = { backgroundColor: "yellow" }
+  const quarterFour = { backgroundColor: "orange" }
+  const takeNow = { backgroundColor: "red" }
 
   const bgColor = () => {
-      if(props.currentQuarter==="quarterOne"){
-          return {backgroundColor: "white"}
-      } else if(props.currentQuarter==="quarterTwo"){
-        return {backgroundColor: "green"}
-    } else if(props.currentQuarter==="quarterThree"){
-        return {backgroundColor: "yellow"}
-    } else if(props.currentQuarter==="quarterFour") {
-        return({backgroundColor:"orange"})
-    } else if(props.currentQuarter==="eatNow"){
-        return {backgroundColor: "red"}
+    if (props.currentQuarter === "quarterOne") {
+      return { backgroundColor: "white" }
+    } else if (props.currentQuarter === "quarterTwo") {
+      return { backgroundColor: "green" }
+    } else if (props.currentQuarter === "quarterThree") {
+      return { backgroundColor: "yellow" }
+    } else if (props.currentQuarter === "quarterFour") {
+      return ({ backgroundColor: "orange" })
+    } else if (props.currentQuarter === "eatNow") {
+      return { backgroundColor: "red" }
     }
   }
   const x = bgColor()
   console.log(x)
 
   const combine = (quarter) => {
-    return(`myStyle.${quarter}`)
+    return (`myStyle.${quarter}`)
   }
 
   const classes = useStyles(x);
@@ -146,18 +146,13 @@ const ActiveDrugs = props => {
           {props.frequency}
         </TableCell>
         <TableCell className={classes.pillGrid2} >
-          <Button variant="outlined">
+          <Button variant="contained">
             <TrashIcon onClick={() => props.handleDrugRemove(props.id)}></TrashIcon>
           </Button>
         </TableCell>
         <TableCell className={classes.pillGridCell}>
-          <Button 
-            variant="contained"
-
-          >
-            <CheckIcon
-              onClick={() => props.handleDrugTaken(props.id)}
-            ></CheckIcon>
+          <Button variant="contained">
+            <CheckIcon onClick={() => props.handleDrugTaken(props.id)} ></CheckIcon>
           </Button>
         </TableCell>
       </TableRow>
