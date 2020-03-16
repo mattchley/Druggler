@@ -31,6 +31,17 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "lightgreen",
     border: "0.1rem solid",
   },
+  drugConflict: {
+    padding: "0",
+    textAlign: "left",
+    color: "black",
+    fontWeight: "bold",
+    fontSize: "14px",
+    padding: "10px",
+    variant: "outlined",
+    backgroundColor: "lightgreen",
+    border: "0.1rem solid",
+  },
   btn: {
     border: "2px solid seagreen",
     boxShadow: theme.shadows[5],
@@ -54,12 +65,13 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "#ff0000",
     textAlign: "center",
     overflow: "auto",
-    height: "auto",
+    padding: "10px",
     borderRadius: "30px",
     textAlign: "center",
     color: "black",
     fontWeight: "400",
-    fontFamily: "Constantia"
+    fontFamily: "Constantia",
+    border: "1.65mm ridge rgba(0, 0, 0, .8)"
   },
   deleteButton: {
     textAlign: "center",
@@ -121,6 +133,9 @@ export default function SearchV2() {
         const simpleInteraction =
           res.data.fullInteractionTypeGroup[0].fullInteractionType;
         let text = {};
+
+        const results =
+          res.data.fullInteractionTypeGroup;
 
         let holder = [];
         let holder2 = [];
@@ -260,21 +275,20 @@ export default function SearchV2() {
         <div>
           {conflicts2.length ? (
             <Grid container spacing={12}>
-              {conflicts2.map(conflict2 => (
-                
-                <Grid item xs={8}>
-                  <Paper className={classes.drugRes}>
+              <Grid item xs={8}>
+                {conflicts2.map(conflict2 => (
+                  <Paper className={classes.drugConflict}>
                     <h3 key={conflict2.id}>{conflict2.description}</h3>
                   </Paper>
-                </Grid>
-              ))}
-              {conflicts.map(conflict => (
-                <Grid item xs={4}>
+                ))}
+              </Grid>
+              <Grid item xs={4}>
+                {conflicts.map(conflict => (
                   <Paper className={classes.high}>
                     <h3 key={conflict.id}>Severity: {conflict.threat}</h3>
                   </Paper>
-                </Grid>
-              ))}
+                ))}
+              </Grid>
             </Grid>
 
           ) : (

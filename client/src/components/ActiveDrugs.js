@@ -43,61 +43,19 @@ const ActiveDrugs = props => {
       fontWeight: "900",
       align: "left"
     },
-    title: {
-      padding: theme.spacing(2),
-      textAlign: "center",
-      backgroundColor: "darkgray",
-      color: "black",
-      fontWeight: "900"
-    },
-    columnNames: {
-      padding: theme.spacing(2),
-      textAlign: "left",
-      backgroundColor: "cyan",
-      color: "black",
-      fontWeight: "bold",
-      marginRight: "90px"
-    },
-    paper2: {
-      padding: theme.spacing(2),
-      textAlign: "center",
-      backgroundColor: "lightgreen",
-      fontWeight: "bold"
-    },
-    paper3: {
-      padding: theme.spacing(2),
-      textAlign: "center",
-      color: theme.palette.text.primary,
-      backgroundColor: "lightgreen",
-      fontWeight: "bold"
-    },
-    pillGrid: {
-      textAlign: "center",
-      color: theme.palette.text.primary,
-      backgroundColor: "lightgreen",
-      fontWeight: "bold",
-      fontSize: "16px"
-    },
     pillGrid2: {
       textAlign: "left",
       color: black,
       fontWeight: "bold",
       fontSize: "14px",
-      width: "30%"
+      width: "20.5%"
     },
     pillGridCell: {
       textAlign: "left",
       color: black,
       fontWeight: "bold",
       fontSize: "14px",
-      width: "21.5%"
-    },
-    btn: {
-      textAlign: "left",
-      color: black,
-      fontWeight: "bold",
-      fontSize: "14px",
-      width: "30%"
+      width: "20.5%"
     },
   }));
 
