@@ -122,6 +122,9 @@ export default function SearchV2() {
           res.data.fullInteractionTypeGroup[0].fullInteractionType;
         let text = {};
 
+        const results =
+          res.data.fullInteractionTypeGroup;
+
         let holder = [];
         let holder2 = [];
 
@@ -261,20 +264,20 @@ export default function SearchV2() {
         <div>
           {conflicts2.length ? (
             <Grid container spacing={12}>
-              {conflicts2.map(conflict2 => (
-                <Grid item xs={8}>
+              <Grid item xs={8}>
+                {conflicts2.map(conflict2 => (
                   <Paper className={classes.drugRes}>
                     <h3 key={conflict2.id}>{conflict2.description}</h3>
                   </Paper>
-                </Grid>
-              ))}
-              {conflicts.map(conflict => (
-                <Grid item xs={4}>
+                ))}
+              </Grid>
+              <Grid item xs={4}>
+                {conflicts.map(conflict => (
                   <Paper className={classes.high}>
                     <h3 key={conflict.id}>Severity: {conflict.threat}</h3>
                   </Paper>
-                </Grid>
-              ))}
+                ))}
+              </Grid>
             </Grid>
 
           ) : (
