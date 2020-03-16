@@ -54,9 +54,7 @@ const HomePage = (props) => {
         </h2>
         <img
           src={DrugglerImage}
-          height="30%"
-          width="50%"
-          style={{ borderRadius: "100%", maxWidth: "300px", height: "200px" }}
+          style={{ borderRadius: "100%", maxWidth: "250px", maxHeight: "150px", width: "50%", height: "30%" }}
         ></img>
         <hr></hr>
         <h3 style={{ color: '#23395d' }}>
