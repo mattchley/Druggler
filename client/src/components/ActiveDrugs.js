@@ -1,22 +1,10 @@
 import React, { useState, useEffect } from "react";
-import API from "../utils/API";
-import Auth from "../utils/Auth";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
 import TrashIcon from "material-ui/svg-icons/action/delete";
 import CheckIcon from "material-ui/svg-icons/navigation/check";
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn
-} from "material-ui/Table";
+import { TableRow } from "material-ui/Table";
 import TableCell from "@material-ui/core/TableCell";
 import { makeStyles } from "@material-ui/core/styles";
 import { black } from "material-ui/styles/colors";
-import { white } from "material-ui/styles/colors";
 import Button from "@material-ui/core/Button";
 
 
@@ -95,19 +83,15 @@ const ActiveDrugs = props => {
       color: black,
       fontWeight: "bold",
       fontSize: "14px",
-      width: "21.5%" 
+      width: "30%"
     },
-    pillGrid3: {
+    pillGridCell: {
       textAlign: "left",
       color: black,
       fontWeight: "bold",
       fontSize: "14px",
-      width: "30%" 
+      width: "21.5%"
     },
-    removeCheckbox: {
-      displayRowCheckbox: "false"
-    },
-    modal: {}
   }));
 
 
@@ -156,12 +140,10 @@ const ActiveDrugs = props => {
         </TableCell>
         <TableCell className={classes.pillGrid2} >
           <Button variant="outlined">
-            <TrashIcon
-              onClick={() => props.handleDrugRemove(props.id)}
-            ></TrashIcon>
+            <TrashIcon onClick={() => props.handleDrugRemove(props.id)}></TrashIcon>
           </Button>
         </TableCell>
-        <TableCell className={classes.pillGrid2} >
+        <TableCell className={classes.pillGridCell}>
           <Button variant="outlined">
             <CheckIcon
               onClick={() => props.handleDrugTaken(props.id)}

@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
-// import Input from "../components/Input"
-import FormBtn from "../components/FormBtn"
 import API from "../utils/API";
 import Button from '@material-ui/core/Button';
-// import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
 import TextField from '@material-ui/core/TextField';
 
 function Search() {
@@ -56,9 +52,9 @@ function Search() {
     function drugInteraction() {
         ids.push(drugs1, drugs2, drugs3)
         let finalAPICall = ids[0] + "+" + ids[1] + "+" + ids[2]
-        API.getDrugsConflict(finalAPICall).then(res=>{
+        API.getDrugsConflict(finalAPICall).then(res => {
             console.log(res.data)
-            
+
         })
     }
 
@@ -213,28 +209,9 @@ function Search() {
             >
                 Submit drugs
             </Button>
-
-
-            {/* <div>
-                <Button
-                    onClick={onAddBtnClick} 
-                    variant="contained"
-                    color="secondary"
-                >
-                    Add input
-                </Button> 
-                {inputList}
-            </div> */}
         </div>
     );
 }
 
 
 export default Search;
-
-    // search drugs by
-    // new array is created
-    // put new drug into new array
-    // after finished pushing drugs into new array...
-    // loop through each index of the new array
-    // 
