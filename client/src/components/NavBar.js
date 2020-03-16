@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-// import '../css/nav';
 import NavSpacer from './components/NavSpacer';
 import { makeStyles } from '@material-ui/core/styles';
 import { motion } from 'framer-motion';
@@ -61,7 +60,6 @@ function NavBar() {
             </motion.div>
             <NavSpacer />
         </div>
-
     )
 }
 

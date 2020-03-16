@@ -1,29 +1,38 @@
 import React, { useState, useEffect } from "react";
-import API from "../utils/API";
-import Auth from "../utils/Auth";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
 import TrashIcon from "material-ui/svg-icons/action/delete";
 import CheckIcon from "material-ui/svg-icons/navigation/check";
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn
-} from "material-ui/Table";
+import { TableRow } from "material-ui/Table";
 import TableCell from "@material-ui/core/TableCell";
 import { makeStyles } from "@material-ui/core/styles";
 import { black } from "material-ui/styles/colors";
-import { white } from "material-ui/styles/colors";
 import Button from "@material-ui/core/Button";
 
+
+
 const ActiveDrugs = props => {
+
   const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1
     },
+    quarterOne: {
+      backgroundColor: "white"
+    },
+    quarterTwo: {
+        backgroundColor: "lightgreen"
+    },
+    quarterThree: {
+        backgroundColor: "yellow"
+    },
+    quarterFour: {
+        backgroundColor: "white"
+    },
+    eatNow: {
+        backgroundColor: "red"
+    },
+    foo: props => ({
+        backgroundColor: props.backgroundColor,
+      }),
     addDrug: {
       padding: theme.spacing(2),
       textAlign: "center",
@@ -74,26 +83,49 @@ const ActiveDrugs = props => {
       color: black,
       fontWeight: "bold",
       fontSize: "14px",
-      width: "21.5%" 
+      width: "30%"
     },
-    pillGrid3: {
+    pillGridCell: {
       textAlign: "left",
       color: black,
       fontWeight: "bold",
       fontSize: "14px",
-      width: "30%" 
+      width: "21.5%"
     },
-    removeCheckbox: {
-      displayRowCheckbox: "false"
-    },
-    modal: {}
   }));
 
-  const classes = useStyles();
+
+  const quarterOne = {backgroundColor: "white"}
+  const quarterTwo = {backgroundColor: "green"}
+  const quarterThree = {backgroundColor: "yellow"}
+  const quarterFour = {backgroundColor: "orange"}
+  const takeNow = {backgroundColor: "red"}
+
+  const bgColor = () => {
+      if(props.currentQuarter==="quarterOne"){
+          return {backgroundColor: "white"}
+      } else if(props.currentQuarter==="quarterTwo"){
+        return {backgroundColor: "green"}
+    } else if(props.currentQuarter==="quarterThree"){
+        return {backgroundColor: "yellow"}
+    } else if(props.currentQuarter==="quarterFour") {
+        return({backgroundColor:"orange"})
+    } else if(props.currentQuarter==="eatNow"){
+        return {backgroundColor: "red"}
+    }
+  }
+  const x = bgColor()
+  console.log(x)
+
+  const combine = (quarter) => {
+    return(`myStyle.${quarter}`)
+  }
+
+  const classes = useStyles(x);
 
   return (
     <div>
-      <TableRow className={classes.pillGrid3}>
+      <TableRow className={`${classes.pillGrid3} ${classes.foo}`}>
         <TableCell className={classes.pillGrid2} >
           {props.name}
         </TableCell>
@@ -108,12 +140,10 @@ const ActiveDrugs = props => {
         </TableCell>
         <TableCell className={classes.pillGrid2} >
           <Button variant="outlined">
-            <TrashIcon
-              onClick={() => props.handleDrugRemove(props.id)}
-            ></TrashIcon>
+            <TrashIcon onClick={() => props.handleDrugRemove(props.id)}></TrashIcon>
           </Button>
         </TableCell>
-        <TableCell className={classes.pillGrid2} >
+        <TableCell className={classes.pillGridCell}>
           <Button variant="outlined">
             <CheckIcon
               onClick={() => props.handleDrugTaken(props.id)}

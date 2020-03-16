@@ -1,26 +1,13 @@
-// import React from "react";
 import Modal from "../components/DrugModal";
 import ActiveDrugs from "./ActiveDrugs";
-import Button from "@material-ui/core/Button";
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import API from "../utils/API";
 import Auth from "../utils/Auth";
-import TrashIcon from "material-ui/svg-icons/action/delete";
-import CheckIcon from "material-ui/svg-icons/navigation/check";
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn
-} from "material-ui/Table";
+import { Table, TableBody, TableRow } from "material-ui/Table";
 import TableCell from "@material-ui/core/TableCell";
-import { black } from "material-ui/styles/colors";
-import { white } from "material-ui/styles/colors";
 const moment = require("moment");
 
 const useStyles = makeStyles(theme => ({
@@ -46,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     color: "white",
     fontWeight: "800",
     fontSize: "30px",
-    fontFamily: "Comic Sans MS, Comic Sans, cursive"
+    fontFamily: "Constantia"
   },
   title2: {
     padding: theme.spacing(2),
@@ -55,7 +42,7 @@ const useStyles = makeStyles(theme => ({
     color: "white",
     fontWeight: "800",
     fontSize: "30px",
-    fontFamily: "Comic Sans MS, Comic Sans, cursive",
+    fontFamily: "Constantia",
     margin: "5%"
   },
   title3: {
@@ -64,35 +51,7 @@ const useStyles = makeStyles(theme => ({
     color: "white",
     fontWeight: "800",
     fontSize: "30px",
-    fontFamily: "Comic Sans MS, Comic Sans, cursive"
-  },
-  columnNames: {
-    padding: theme.spacing(2),
-    textAlign: "left",
-    backgroundColor: "cyan",
-    color: "black",
-    fontWeight: "bold",
-    marginRight: "90px"
-  },
-  paper2: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    backgroundColor: "lightgreen",
-    fontWeight: "bold"
-  },
-  paper3: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.primary,
-    backgroundColor: "lightgreen",
-    fontWeight: "bold"
-  },
-  pillGrid: {
-    textAlign: "left",
-    color: "midnightblue",
-    fontWeight: "bold",
-    fontSize: "14px",
-    width: "30%"
+    fontFamily: "Constantia"
   },
   pillGrid2: {
     textAlign: "left",
@@ -114,6 +73,7 @@ export default function AddDrug() {
   const [open, setOpen] = useState(false);
   const [allDrugs, setAllDrugs] = useState([]);
   const [addedDrug, setAddedDrug] = useState("");
+  const [drugQuarter, setDrugQuarter] = useState([]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -122,6 +82,10 @@ export default function AddDrug() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  // const handleTableRowColor = () => {
+  //   setTableRowColor("red");
+  // }
 
   useEffect(() => {
     const loadData = async () => {
@@ -137,6 +101,8 @@ export default function AddDrug() {
       API.saveDrugtoUser(currentUser.data, Auth.getToken())
         .then(res => console.log(res))
         .catch(err => console.log(err));
+      let finalDrugArray = await updatingallDrugs(currentDrugs.data);
+      setDrugQuarter(finalDrugArray);
     };
 
     loadData();
@@ -178,6 +144,7 @@ export default function AddDrug() {
           setAddedDrug(allDrugs.length + 5);
         })
         .then(res => handleClose())
+        // .then(res => handleTableRowColor())
         .catch(err => console.log(err));
     }
   };
@@ -190,7 +157,8 @@ export default function AddDrug() {
       .catch(err => console.log(err));
   };
   let count = 0;
-  const handleLastTakenBtn = (id, event) => {
+
+  const handleLastTakenBtn = id => {
     let currentTime = moment().format();
     let timeArray = currentTime.split("T");
     let currentDate = timeArray[0];
@@ -210,17 +178,120 @@ export default function AddDrug() {
       .catch(err => console.log(err));
   };
 
-  const futureTimeCalcuation = () => {
-    const date = ["2020", "3", "12"];
-    const time = ["12", "30"];
-    let jsDate = new Date(date[0], date[1] - 1, date[2], time[0], time[1]);
-    console.log("Initial Date: ", jsDate);
-    jsDate.setMinutes(jsDate.getMinutes() + 1440);
-    console.log("Added min: ", jsDate);
-    const frequency = 6;
+  //all tracker related functions
+
+  const getDrugTime = async drugData => {
+    const drugT = await drugData.map(drug => ({
+      id: drug._id,
+      combinedTime: `${drug.lastTakenDate} ${drug.lastTakenTime}`,
+      frequency: parseInt(drug.frequency)
+    }));
+    console.log(drugT);
+    const allFutureDrug = await drugT.map(drug => ({
+      id: drug.id,
+      prediction: futureTimeCalcuation(drug.combinedTime, drug.frequency)
+    }));
+    return allFutureDrug;
+  };
+  const compareTime = async drugData => {
+    const currentTime = moment().format("YYYY-MM-DD hh:mm a");
+    let myFutureTime = await getDrugTime(drugData);
+    console.log("Current time: ", currentTime);
+    console.log(myFutureTime);
+    let drugQuarter = await myFutureTime.map(drug => {
+      let quarterOneMet = moment(currentTime).isBefore(drug.prediction[0]);
+      let quarterTwoMet = moment(currentTime).isBetween(
+        drug.prediction[0],
+        drug.prediction[1],
+        "minutes",
+        "[)"
+      );
+      let quarterThreeMet = moment(currentTime).isBetween(
+        drug.prediction[1],
+        drug.prediction[2],
+        "minutes",
+        "[)"
+      );
+      let quarterFourMet = moment(currentTime).isBetween(
+        drug.prediction[2],
+        drug.prediction[3],
+        "minutes",
+        "[)"
+      );
+      let timesUp = moment(currentTime).isBetween(
+        drug.prediction[3],
+        currentTime,
+        "minutes",
+        "[]"
+      );
+      console.log(drug.id);
+      console.log("Quarter 1 Met: ", quarterOneMet);
+      console.log("Quarter 2 Met: ", quarterTwoMet);
+      console.log("Quarter 3 Met: ", quarterThreeMet);
+      console.log("Quarter 4 Met: ", quarterFourMet);
+
+      if (quarterOneMet) {
+        return "quarterOne";
+      } else if (quarterTwoMet) {
+        return "quarterTwo";
+      } else if (quarterThreeMet) {
+        return "quarterThree";
+      } else if (quarterFourMet) {
+        return "quarterFour";
+      } else if (timesUp) {
+        return "eatNow";
+      }
+    });
+    return drugQuarter;
+  };
+  const updatingallDrugs = async drugsData => {
+    let finalDrugs = [];
+    await compareTime(drugsData)
+      .then(res => {
+        finalDrugs = drugsData.map((drug, index) => ({
+          ...drug,
+          currentQuarter: res[index]
+        }));
+      })
+      .catch(err => console.log(err));
+    console.log("FINALLLLL: ", finalDrugs);
+    return finalDrugs;
+  };
+
+  // updatingallDrugs().then(res => console.log(res));
+
+  const futureTimeCalcuation = (initialTime, frequency) => {
     const quarterFreq = hourToMinConverter(frequency / 4);
     console.log(quarterFreq);
+
+    const futurePrediction = [];
+
+    let firstQuarter = momentCalculation(initialTime, quarterFreq);
+    console.log("First Q: ", typeof firstQuarter);
+    futurePrediction.push(firstQuarter);
+
+    let secondQuarter = momentCalculation(firstQuarter, quarterFreq);
+    console.log("Added min 2: ", secondQuarter);
+    futurePrediction.push(secondQuarter);
+
+    let thirdQuarter = momentCalculation(secondQuarter, quarterFreq);
+    console.log("Added min 3: ", thirdQuarter);
+    futurePrediction.push(thirdQuarter);
+    let takeNow = momentCalculation(thirdQuarter, quarterFreq);
+    console.log("Take now: ", takeNow);
+    futurePrediction.push(takeNow);
+    console.log("Future Prediction :", futurePrediction);
+
+    return futurePrediction;
   };
+
+  const momentCalculation = (time, frequency) => {
+    let futureTime = moment(time)
+      .add(frequency, "minutes")
+      .format("YYYY-MM-DD hh:mm a");
+    return futureTime;
+  };
+
   const hourToMinConverter = hour => {
     const min = (hour - Math.floor(hour)) * 60;
     const hr = Math.floor(hour) * 60;
@@ -228,33 +299,12 @@ export default function AddDrug() {
     return totalMin;
   };
 
-  futureTimeCalcuation();
   return (
     <div className={classes.root}>
       <Grid container spacing={2}>
         <Grid item xs={12} className={classes.title2}>
           <Paper className={classes.title}>My Pills Tracker</Paper>
           <Table>
-            <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
-              {/* <TableRow className={classes.pillGrid}>
-                <TableCell className={classes.pillGrid2}>
-                  Pill Name
-                </TableCell>
-                <TableCell className={classes.pillGrid2}>
-                  Last Taken
-                </TableCell>
-                <TableCell className={classes.pillGrid2}>
-                  Frequency (hours)
-                </TableCell>
-                <TableCell className={classes.pillGrid2}>
-                  Delete?
-                </TableCell>
-                <TableCell className={classes.pillGrid2}>
-                  Take Pill
-                </TableCell>
-              </TableRow> */}
-            </TableHeader>
-
             <TableBody displayRowCheckbox={false}>
               <TableRow>
                 <TableRow>
@@ -267,7 +317,7 @@ export default function AddDrug() {
                   <TableCell className={classes.pillGrid2}>Delete?</TableCell>
                   <TableCell className={classes.pillGrid2}>Take Pill</TableCell>
                 </TableRow>
-                {allDrugs.map(drug => (
+                {drugQuarter.map(drug => (
                   <ActiveDrugs
                     id={drug._id}
                     key={drug._id}
@@ -277,6 +327,7 @@ export default function AddDrug() {
                     lastTakenTime={drug.lastTakenTime}
                     handleDrugRemove={handleDrugRemove}
                     handleDrugTaken={handleLastTakenBtn}
+                    currentQuarter={drug.currentQuarter}
                   />
                 ))}
               </TableRow>
