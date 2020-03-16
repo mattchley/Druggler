@@ -56,7 +56,7 @@ const HomePage = (props) => {
           src={DrugglerImage}
           height="30%"
           width="50%"
-          style={{ boxShadow: '3px 20px 10px 2px rgba(255, 105, 135, .8)' }}
+          style={{ borderRadius: "100%", maxWidth: "300px", height: "200px" }}
         ></img>
         <hr></hr>
         <h3 style={{ color: '#23395d' }}>
