@@ -26,6 +26,13 @@ const ActiveDrugs = props => {
       fontSize: "14px",
       width: "21.5%"
     },
+    btn: {
+      textAlign: "left",
+      color: black,
+      fontWeight: "bold",
+      fontSize: "14px",
+      width: "30%"
+    },
   }));
 
   const classes = useStyles();
@@ -41,12 +48,19 @@ const ActiveDrugs = props => {
         <TableCell className={classes.pillGridCell}>{props.lastTakenTime}</TableCell>
         <TableCell className={classes.pillGridCell}>{props.frequency}</TableCell>
         <TableCell className={classes.pillGridCell}>
-          <Button variant="outlined">
+          <Button 
+            variant="contained"
+            size="small"
+            className={classes.btn}
+          >
             <TrashIcon onClick={() => props.handleDrugRemove(props.id)}></TrashIcon>
           </Button>
         </TableCell>
         <TableCell className={classes.pillGridCell}>
-          <Button variant="outlined">
+          <Button 
+            variant="contained"
+
+          >
             <CheckIcon
               onClick={() => props.handleDrugTaken(props.id)}
             ></CheckIcon>

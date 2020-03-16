@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
     color: "midnightblue",
     fontWeight: "bold",
     fontSize: "14px",
-    width: "20.5%",
+    width: "20.9%",
   },
   removeCheckbox: {
     displayRowCheckbox: "false"
