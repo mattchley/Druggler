@@ -52,13 +52,19 @@ const useStyles = makeStyles(theme => ({
   high: {
     backgroundColor: "#ff0000",
     textAlign: "center",
-    overflow: "auto"
+    overflow: "auto",
+    height: "auto",
+    borderRadius: "30px",
+    textAlign: "center",
+    color: "black",
+    fontWeight: "400",
+    fontFamily: "Constantia"
   },
   deleteButton: {
     textAlign: "center",
     overflow: "auto",
-    width: "auto",
-    height: "auto",
+    height: "30px",
+    width: "30px"
     // border: "1mm ridge rgba(200, 200, 200, .8)"
   }
 }));
@@ -149,7 +155,7 @@ export default function SearchV2() {
         <Grid item xs={2}></Grid>
 
         <Grid item xs={2}></Grid>
-        <Grid item xs={8}>
+        <Grid item xs={7}>
           <div className={classes.inputField}>
             <TextField
               id="drugTextField"
@@ -174,6 +180,7 @@ export default function SearchV2() {
             </Button>
           </div>
         </Grid>
+        <Grid item xs={1}></Grid>
 
         <Grid item xs={2}></Grid>
 
@@ -191,6 +198,7 @@ export default function SearchV2() {
                   </Grid>
                   <Grid item xs={2}>
                     <Button
+                      style={{padding: "35px"}}
                       key={drug.id}
                       name={drug.name}
                       className={classes.gridBtn}
@@ -202,7 +210,9 @@ export default function SearchV2() {
                         key={drug.id}
                         name={drug.name}
                         onClick={handleDelete}
-                      ></TrashIcon>
+                      >
+                      </TrashIcon>
+                      
                     </Button>
                   </Grid>
                 </Grid>
@@ -230,14 +240,13 @@ export default function SearchV2() {
           </Grid>
           <Grid item xs={2}></Grid>
         </Grid>
-
+        <hr></hr>
       </div>
 
       <Grid item xs={12}>
         <ul>
           {conflicts.length ? (
             <div>
-              <hr></hr>
               {conflicts.map(conflict => (
                 <Grid container spacing={12}>
                   <Grid item xs={8}>
@@ -245,18 +254,17 @@ export default function SearchV2() {
                       <h3 key={conflict.id}>{conflict.details}</h3>
                     </Paper>
                   </Grid>
-                  <Grid item xs={2}>
+                  <Grid item xs={3}>
                     <Paper className={classes.high}>
                       <h3 key={conflict.id}>Severity: {conflict.threat}</h3>
                     </Paper>
                   </Grid>
-                  <Grid item xs={2}></Grid>
+                  <Grid item xs={1}></Grid>
                 </Grid>
               ))}
             </div>
           ) : (
               <div>
-                <hr></hr>
                 <h3>No Conflicts Found</h3>
               </div>
             )}
