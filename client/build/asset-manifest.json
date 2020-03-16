@@ -1,13 +1,15 @@
 {
-  "main.css": "/static/css/main.885667e9.chunk.css",
-  "main.js": "/static/js/main.00ef2e68.chunk.js",
-  "main.js.map": "/static/js/main.00ef2e68.chunk.js.map",
+  "main.css": "/static/css/main.7fa8de8a.chunk.css",
+  "main.js": "/static/js/main.6ac8fe27.chunk.js",
+  "main.js.map": "/static/js/main.6ac8fe27.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
   "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
-  "static/js/2.ff87c9fa.chunk.js": "/static/js/2.ff87c9fa.chunk.js",
-  "static/js/2.ff87c9fa.chunk.js.map": "/static/js/2.ff87c9fa.chunk.js.map",
+  "static/js/2.236b1210.chunk.js": "/static/js/2.236b1210.chunk.js",
+  "static/js/2.236b1210.chunk.js.map": "/static/js/2.236b1210.chunk.js.map",
   "index.html": "/index.html",
-  "precache-manifest.c533b6af48fb7903dc0700debdffbd5f.js": "/precache-manifest.c533b6af48fb7903dc0700debdffbd5f.js",
+  "precache-manifest.43bad28b6cd8ff76e35dd1cab42d2b6e.js": "/precache-manifest.43bad28b6cd8ff76e35dd1cab42d2b6e.js",
   "service-worker.js": "/service-worker.js",
-  "static/css/main.885667e9.chunk.css.map": "/static/css/main.885667e9.chunk.css.map"
+  "static/css/main.7fa8de8a.chunk.css.map": "/static/css/main.7fa8de8a.chunk.css.map",
+  "static/media/drugglerBackgroundImage.jpeg": "/static/media/drugglerBackgroundImage.3aeb39e2.jpeg",
+  "static/media/pillsIcon.png": "/static/media/pillsIcon.c235a917.png"
 }
