@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
     overflow: "auto"
   },
   input: {
-    width: "100%"
+    width: "100%",
   },
   high: {
     backgroundColor: "#ff0000",
@@ -184,7 +184,7 @@ export default function SearchV2() {
         <Grid item xs={2}></Grid>
 
         <Grid item xs={2}></Grid>
-        <Grid item xs={7}>
+        <Grid item xs={5}>
           <div className={classes.inputField}>
             <TextField
               id="drugTextField"
@@ -209,7 +209,7 @@ export default function SearchV2() {
             </Button>
           </div>
         </Grid>
-        <Grid item xs={1}></Grid>
+        <Grid item xs={3}></Grid>
 
         <Grid item xs={2}></Grid>
 
