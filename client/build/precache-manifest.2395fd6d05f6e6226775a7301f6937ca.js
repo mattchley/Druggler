@@ -1,19 +1,19 @@
 self.__precacheManifest = [
   {
-    "revision": "3f79828f89d072b2818d",
+    "revision": "9b71696cac8cce616f25",
     "url": "/static/css/main.7fa8de8a.chunk.css"
   },
   {
-    "revision": "3f79828f89d072b2818d",
-    "url": "/static/js/main.ae817746.chunk.js"
+    "revision": "9b71696cac8cce616f25",
+    "url": "/static/js/main.17564f07.chunk.js"
   },
   {
     "revision": "42ac5946195a7306e2a5",
     "url": "/static/js/runtime~main.a8a9905a.js"
   },
   {
-    "revision": "af3ad2e9a54df850c63b",
-    "url": "/static/js/2.85ddd950.chunk.js"
+    "revision": "0ac73b58b1d37362a0b5",
+    "url": "/static/js/2.c8e4bfa3.chunk.js"
   },
   {
     "revision": "c235a91704390808d5a967073f59ec19",
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/static/media/drugglerBackgroundImage.3aeb39e2.jpeg"
   },
   {
-    "revision": "0dc2c88616047ff2a265d3a26a395f94",
+    "revision": "dc9acfdfbffb97c5eb388dc68617f8f0",
     "url": "/index.html"
   }
 ];
