@@ -7,6 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import TrashIcon from "material-ui/svg-icons/action/delete";
 import { ConnectionStates } from "mongoose";
+import { motion } from 'framer-motion';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -59,7 +60,7 @@ const useStyles = makeStyles(theme => ({
     overflow: "auto"
   },
   input: {
-    width: "100%"
+    width: "100%",
   },
   high: {
     backgroundColor: "#ff0000",
@@ -169,11 +170,24 @@ export default function SearchV2() {
   };
 
   return (
-    <div>
+    <div style={{ overflowX: "hidden", overflowY: "hidden" }}>
       <Grid container spacing={12}>
         <Grid item xs={12} container direction="column" justify="center">
           <div className={classes.title}>
-            <h1>Check Drug Interactions</h1>
+            <motion.div
+              animate={{
+                scale: [1, 1.2, 1, 1.2, 1],
+              }}
+              transition={{
+                duration: 8,
+                ease: "easeInOut",
+                times: [0, 0.25, 0.5, 0.75, 1],
+                loop: Infinity,
+                repeatDelay: 0,
+              }}
+            >
+              <h1>Check Drug Interactions</h1>
+            </motion.div>
             {/* <p>Add two or more drugs to see their interactions.</p> */}
           </div>
         </Grid>
@@ -184,7 +198,7 @@ export default function SearchV2() {
         <Grid item xs={2}></Grid>
 
         <Grid item xs={2}></Grid>
-        <Grid item xs={7}>
+        <Grid item xs={5}>
           <div className={classes.inputField}>
             <TextField
               id="drugTextField"
@@ -198,6 +212,7 @@ export default function SearchV2() {
         </Grid>
         <Grid item xs={2}>
           <div className={classes.inputField}>
+
             <Button
               className={classes.btn}
               type="button"
@@ -209,7 +224,7 @@ export default function SearchV2() {
             </Button>
           </div>
         </Grid>
-        <Grid item xs={1}></Grid>
+        <Grid item xs={3}></Grid>
 
         <Grid item xs={2}></Grid>
 

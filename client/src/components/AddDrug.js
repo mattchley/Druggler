@@ -8,13 +8,15 @@ import API from "../utils/API";
 import Auth from "../utils/Auth";
 import { Table, TableBody, TableRow } from "material-ui/Table";
 import TableCell from "@material-ui/core/TableCell";
-const moment = require("moment");
+import { motion } from 'framer-motion';
 
+
+const moment = require("moment");
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
-  },  
+  },
   addDrug: {
     padding: theme.spacing(2),
     textAlign: "center",
@@ -36,6 +38,13 @@ const useStyles = makeStyles(theme => ({
     fontSize: "30px",
     fontFamily: "Constantia",
   },
+  titleText: {
+    textAlign: "center",
+    color: "white",
+    fontWeight: "800",
+    fontSize: "30px",
+    fontFamily: "Constantia",
+  },
   title2: {
     padding: theme.spacing(2),
     textAlign: "center",
@@ -44,7 +53,8 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "800",
     fontSize: "30px",
     fontFamily: "Constantia",
-    margin: "5%"
+    margin: "5%",
+    marginBottom: "0"
   },
   title3: {
     padding: theme.spacing(2),
@@ -128,6 +138,12 @@ export default function AddDrug() {
     if (drugDetails.lastTakenDate && drugDetails.frequency && drugDetails.lastTakenTime) {
       console.log("before API front end")
       console.log("current user, ", user._id)
+
+      if (isNaN(drugDetails.frequency)) {
+        alert("Must input a number for how often the drug should be taken.");
+        return false;
+      }
+
       API.saveDrug(
         {
           name: drugDetails.name,
@@ -163,10 +179,10 @@ export default function AddDrug() {
     let currentDate = timeArray[0]
     let currentTimeArray = timeArray[1].split(":")
     let presentHourMin = `${currentTimeArray[0]}:${currentTimeArray[1]}`
-    API.drugTaken(id,{
+    API.drugTaken(id, {
       lastTakenDate: currentDate,
       lastTakenTime: presentHourMin
-    },Auth.getToken())
+    }, Auth.getToken())
       .then(res => {
         setAddedDrug(count++)
       })
@@ -174,7 +190,7 @@ export default function AddDrug() {
   }
 
   //all tracker related functions
-  
+
   const getDrugTime = async (drugData) => {
     const drugT = await drugData.map(drug => ({
       id: drug._id,
@@ -184,30 +200,30 @@ export default function AddDrug() {
     console.log(drugT);
     const allFutureDrug = await drugT.map(drug => ({
       id: drug.id,
-      prediction: futureTimeCalcuation(drug.combinedTime,drug.frequency)
+      prediction: futureTimeCalcuation(drug.combinedTime, drug.frequency)
     }))
-    return(allFutureDrug);
+    return (allFutureDrug);
   }
-  const compareTime = async(drugData) => {
+  const compareTime = async (drugData) => {
     const currentTime = moment().format('YYYY-MM-DD hh:mm a');
     let myFutureTime = await getDrugTime(drugData);
     console.log("Current time: ", currentTime)
     console.log(myFutureTime);
     let drugQuarter = await myFutureTime.map(drug => {
-      let quarterOneMet =  moment(currentTime).isBefore(drug.prediction[0])
-      let quarterTwoMet =  moment(currentTime).isBetween(drug.prediction[0],drug.prediction[1],"minutes","[)")
-      let quarterThreeMet =  moment(currentTime).isBetween(drug.prediction[1],drug.prediction[2],"minutes","[)")
-      let quarterFourMet =  moment(currentTime).isBetween(drug.prediction[2],drug.prediction[3],"minutes","[)")
-      let timesUp =  moment(currentTime).isBetween(drug.prediction[3],currentTime,"minutes","[]")
+      let quarterOneMet = moment(currentTime).isBefore(drug.prediction[0])
+      let quarterTwoMet = moment(currentTime).isBetween(drug.prediction[0], drug.prediction[1], "minutes", "[)")
+      let quarterThreeMet = moment(currentTime).isBetween(drug.prediction[1], drug.prediction[2], "minutes", "[)")
+      let quarterFourMet = moment(currentTime).isBetween(drug.prediction[2], drug.prediction[3], "minutes", "[)")
+      let timesUp = moment(currentTime).isBetween(drug.prediction[3], currentTime, "minutes", "[]")
       console.log(drug.id)
       console.log("Quarter 1 Met: ", quarterOneMet)
       console.log("Quarter 2 Met: ", quarterTwoMet)
       console.log("Quarter 3 Met: ", quarterThreeMet)
       console.log("Quarter 4 Met: ", quarterFourMet)
 
-      if(quarterOneMet) {
+      if (quarterOneMet) {
         return "quarterOne"
-      }else if(quarterTwoMet) {
+      } else if (quarterTwoMet) {
         return "quarterTwo"
       } else if (quarterThreeMet) {
         return "quarterThree"
@@ -217,47 +233,47 @@ export default function AddDrug() {
         return "eatNow"
       }
     })
-    return(drugQuarter)
-    
-  }  
+    return (drugQuarter)
+
+  }
   const updatingallDrugs = async (drugsData) => {
     let finalDrugs = []
     await compareTime(drugsData)
-    .then(res => {
-    finalDrugs = drugsData.map((drug, index)=> ({ ...drug, currentQuarter: res[index] }));
-    }).catch(err=> console.log(err))
+      .then(res => {
+        finalDrugs = drugsData.map((drug, index) => ({ ...drug, currentQuarter: res[index] }));
+      }).catch(err => console.log(err))
     console.log("FINALLLLL: ", finalDrugs)
     return finalDrugs
   }
-  
+
   // updatingallDrugs().then(res => console.log(res));
 
-  const futureTimeCalcuation = (initialTime,frequency) => {
-    
-    const quarterFreq = hourToMinConverter(frequency/4);
+  const futureTimeCalcuation = (initialTime, frequency) => {
+
+    const quarterFreq = hourToMinConverter(frequency / 4);
     console.log(quarterFreq)
 
     const futurePrediction = []
 
-    let firstQuarter = momentCalculation(initialTime,quarterFreq)
+    let firstQuarter = momentCalculation(initialTime, quarterFreq)
     console.log("First Q: ", typeof firstQuarter)
     futurePrediction.push(firstQuarter)
 
-    let secondQuarter = momentCalculation(firstQuarter,quarterFreq)
+    let secondQuarter = momentCalculation(firstQuarter, quarterFreq)
     console.log("Added min 2: ", secondQuarter)
     futurePrediction.push(secondQuarter)
 
-    let thirdQuarter = momentCalculation(secondQuarter,quarterFreq)
+    let thirdQuarter = momentCalculation(secondQuarter, quarterFreq)
     console.log("Added min 3: ", thirdQuarter);
     futurePrediction.push(thirdQuarter)
-    let takeNow = momentCalculation(thirdQuarter,quarterFreq)
+    let takeNow = momentCalculation(thirdQuarter, quarterFreq)
     console.log("Take now: ", takeNow);
     futurePrediction.push(takeNow);
     console.log("Future Prediction :", futurePrediction);
-    
+
     return futurePrediction;
   }
-  
+
   const momentCalculation = (time, frequency) => {
     let futureTime = moment(time).add(frequency, "minutes").format('YYYY-MM-DD hh:mm a')
     return futureTime;
@@ -265,18 +281,33 @@ export default function AddDrug() {
 
 
   const hourToMinConverter = (hour) => {
-    const min = (hour - Math.floor(hour))*60;
-    const hr = Math.floor(hour)*60;
+    const min = (hour - Math.floor(hour)) * 60;
+    const hr = Math.floor(hour) * 60;
     const totalMin = hr + min;
     return totalMin;
   }
 
 
   return (
-    <div className={classes.root}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} className={classes.title2}>
-          <Paper className={classes.title}>My Pills Tracker</Paper>
+    <div className={classes.root}
+      style={{ overflowX: "hidden", overflowY: "hidden" }}>
+      <Grid container spacing={2} >
+        <Grid item xs={12} className={classes.title2} >
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1, 1.2, 1],
+            }}
+            transition={{
+              duration: 8,
+              ease: "easeInOut",
+              times: [0, 0.25, 0.5, 0.75, 1],
+              loop: Infinity,
+              repeatDelay: 0,
+            }}
+          >
+            <p className={classes.titleText}>My Pills Tracker</p>
+          </motion.div>
+
           <Table>
             <TableBody displayRowCheckbox={false}>
               <TableRow>
@@ -329,6 +360,7 @@ export default function AddDrug() {
         </Grid>
         <Grid item xs={4}></Grid>
       </Grid>
+      <div style={{ marginTop: "0px", marginBottom: "40px"}}> </div>
     </div>
   );
 }
