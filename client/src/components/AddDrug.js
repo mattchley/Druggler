@@ -53,7 +53,8 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "800",
     fontSize: "30px",
     fontFamily: "Constantia",
-    margin: "5%"
+    margin: "5%",
+    marginBottom: "0"
   },
   title3: {
     padding: theme.spacing(2),
@@ -290,8 +291,8 @@ export default function AddDrug() {
   return (
     <div className={classes.root}
       style={{ overflowX: "hidden", overflowY: "hidden" }}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} className={classes.title2}>
+      <Grid container spacing={2} >
+        <Grid item xs={12} className={classes.title2} >
           <motion.div
             animate={{
               scale: [1, 1.2, 1, 1.2, 1],
@@ -359,6 +360,7 @@ export default function AddDrug() {
         </Grid>
         <Grid item xs={4}></Grid>
       </Grid>
+      <div style={{ marginTop: "0px", marginBottom: "40px"}}> </div>
     </div>
   );
 }
