@@ -8,8 +8,7 @@ import API from "../utils/API";
 import Auth from "../utils/Auth";
 import { Table, TableBody, TableRow } from "material-ui/Table";
 import TableCell from "@material-ui/core/TableCell";
-import { motion } from 'framer-motion';
-
+import { motion } from "framer-motion";
 
 const moment = require("moment");
 
@@ -36,14 +35,14 @@ const useStyles = makeStyles(theme => ({
     color: "white",
     fontWeight: "800",
     fontSize: "30px",
-    fontFamily: "Constantia",
+    fontFamily: "Constantia"
   },
   titleText: {
     textAlign: "center",
     color: "white",
     fontWeight: "800",
     fontSize: "30px",
-    fontFamily: "Constantia",
+    fontFamily: "Constantia"
   },
   title2: {
     padding: theme.spacing(2),
@@ -62,14 +61,14 @@ const useStyles = makeStyles(theme => ({
     color: "white",
     fontWeight: "800",
     fontSize: "30px",
-    fontFamily: "Constantia",
+    fontFamily: "Constantia"
   },
   pillGrid2: {
     textAlign: "left",
     color: "midnightblue",
     fontWeight: "bold",
     fontSize: "14px",
-    width: "20%",
+    width: "20%"
   },
   removeCheckbox: {
     displayRowCheckbox: "false"
@@ -108,19 +107,16 @@ export default function AddDrug() {
         Auth.getToken()
       );
       console.log(currentDrugs);
-      setAllDrugs(currentDrugs.data)
+      setAllDrugs(currentDrugs.data);
       API.saveDrugtoUser(currentUser.data, Auth.getToken())
         .then(res => console.log(res))
-        .catch(err => console.log(err))
-      let finalDrugArray = await updatingallDrugs(currentDrugs.data)
-      setDrugQuarter(finalDrugArray)
-    }
+        .catch(err => console.log(err));
+      let finalDrugArray = await updatingallDrugs(currentDrugs.data);
+      setDrugQuarter(finalDrugArray);
+    };
 
     loadData();
   }, [addedDrug]);
-
-
-
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -130,14 +126,19 @@ export default function AddDrug() {
 
   const handleFormSubmit = event => {
     event.preventDefault();
-    console.log("Drug Details: ",
+    console.log(
+      "Drug Details: ",
       drugDetails.lastTakenDate,
       drugDetails.lastTakenTime,
       drugDetails.frequency
     );
-    if (drugDetails.lastTakenDate && drugDetails.frequency && drugDetails.lastTakenTime) {
-      console.log("before API front end")
-      console.log("current user, ", user._id)
+    if (
+      drugDetails.lastTakenDate &&
+      drugDetails.frequency &&
+      drugDetails.lastTakenTime
+    ) {
+      console.log("before API front end");
+      console.log("current user, ", user._id);
 
       if (isNaN(drugDetails.frequency)) {
         alert("Must input a number for how often the drug should be taken.");
@@ -171,138 +172,166 @@ export default function AddDrug() {
       })
       .catch(err => console.log(err));
   };
-  let count = 0
+  let count = 0;
 
-  const handleLastTakenBtn = (id) => {
-    let currentTime = moment().format()
+  const handleLastTakenBtn = id => {
+    let currentTime = moment().format();
     let timeArray = currentTime.split("T");
-    let currentDate = timeArray[0]
-    let currentTimeArray = timeArray[1].split(":")
-    let presentHourMin = `${currentTimeArray[0]}:${currentTimeArray[1]}`
-    API.drugTaken(id, {
-      lastTakenDate: currentDate,
-      lastTakenTime: presentHourMin
-    }, Auth.getToken())
+    let currentDate = timeArray[0];
+    let currentTimeArray = timeArray[1].split(":");
+    let presentHourMin = `${currentTimeArray[0]}:${currentTimeArray[1]}`;
+    API.drugTaken(
+      id,
+      {
+        lastTakenDate: currentDate,
+        lastTakenTime: presentHourMin
+      },
+      Auth.getToken()
+    )
       .then(res => {
-        setAddedDrug(count++)
+        setAddedDrug(count++);
       })
-      .catch(err => console.log(err))
-  }
+      .catch(err => console.log(err));
+  };
 
   //all tracker related functions
 
-  const getDrugTime = async (drugData) => {
+  const getDrugTime = async drugData => {
     const drugT = await drugData.map(drug => ({
       id: drug._id,
       combinedTime: `${drug.lastTakenDate} ${drug.lastTakenTime}`,
       frequency: parseInt(drug.frequency)
-    }))
+    }));
     console.log(drugT);
     const allFutureDrug = await drugT.map(drug => ({
       id: drug.id,
       prediction: futureTimeCalcuation(drug.combinedTime, drug.frequency)
-    }))
-    return (allFutureDrug);
-  }
-  const compareTime = async (drugData) => {
-    const currentTime = moment().format('YYYY-MM-DD hh:mm a');
+    }));
+    return allFutureDrug;
+  };
+  const compareTime = async drugData => {
+    const currentTime = moment().format("YYYY-MM-DD hh:mm a");
     let myFutureTime = await getDrugTime(drugData);
-    console.log("Current time: ", currentTime)
+    console.log("Current time: ", currentTime);
     console.log(myFutureTime);
     let drugQuarter = await myFutureTime.map(drug => {
-      let quarterOneMet = moment(currentTime).isBefore(drug.prediction[0])
-      let quarterTwoMet = moment(currentTime).isBetween(drug.prediction[0], drug.prediction[1], "minutes", "[)")
-      let quarterThreeMet = moment(currentTime).isBetween(drug.prediction[1], drug.prediction[2], "minutes", "[)")
-      let quarterFourMet = moment(currentTime).isBetween(drug.prediction[2], drug.prediction[3], "minutes", "[)")
-      let timesUp = moment(currentTime).isBetween(drug.prediction[3], currentTime, "minutes", "[]")
-      console.log(drug.id)
-      console.log("Quarter 1 Met: ", quarterOneMet)
-      console.log("Quarter 2 Met: ", quarterTwoMet)
-      console.log("Quarter 3 Met: ", quarterThreeMet)
-      console.log("Quarter 4 Met: ", quarterFourMet)
+      let quarterOneMet = moment(currentTime).isBefore(drug.prediction[0]);
+      let quarterTwoMet = moment(currentTime).isBetween(
+        drug.prediction[0],
+        drug.prediction[1],
+        "minutes",
+        "[)"
+      );
+      let quarterThreeMet = moment(currentTime).isBetween(
+        drug.prediction[1],
+        drug.prediction[2],
+        "minutes",
+        "[)"
+      );
+      let quarterFourMet = moment(currentTime).isBetween(
+        drug.prediction[2],
+        drug.prediction[3],
+        "minutes",
+        "[)"
+      );
+      let timesUp = moment(currentTime).isBetween(
+        drug.prediction[3],
+        currentTime,
+        "minutes",
+        "[]"
+      );
+      console.log(drug.id);
+      console.log("Quarter 1 Met: ", quarterOneMet);
+      console.log("Quarter 2 Met: ", quarterTwoMet);
+      console.log("Quarter 3 Met: ", quarterThreeMet);
+      console.log("Quarter 4 Met: ", quarterFourMet);
 
       if (quarterOneMet) {
-        return "quarterOne"
+        return "quarterOne";
       } else if (quarterTwoMet) {
-        return "quarterTwo"
+        return "quarterTwo";
       } else if (quarterThreeMet) {
-        return "quarterThree"
+        return "quarterThree";
       } else if (quarterFourMet) {
-        return "quarterFour"
+        return "quarterFour";
       } else if (timesUp) {
-        return "eatNow"
+        return "eatNow";
       }
-    })
-    return (drugQuarter)
-
-  }
-  const updatingallDrugs = async (drugsData) => {
-    let finalDrugs = []
+    });
+    return drugQuarter;
+  };
+  const updatingallDrugs = async drugsData => {
+    let finalDrugs = [];
     await compareTime(drugsData)
       .then(res => {
-        finalDrugs = drugsData.map((drug, index) => ({ ...drug, currentQuarter: res[index] }));
-      }).catch(err => console.log(err))
-    console.log("FINALLLLL: ", finalDrugs)
-    return finalDrugs
-  }
+        finalDrugs = drugsData.map((drug, index) => ({
+          ...drug,
+          currentQuarter: res[index]
+        }));
+      })
+      .catch(err => console.log(err));
+    console.log("FINALLLLL: ", finalDrugs);
+    return finalDrugs;
+  };
 
   // updatingallDrugs().then(res => console.log(res));
 
   const futureTimeCalcuation = (initialTime, frequency) => {
-
     const quarterFreq = hourToMinConverter(frequency / 4);
-    console.log(quarterFreq)
+    console.log(quarterFreq);
 
-    const futurePrediction = []
+    const futurePrediction = [];
 
-    let firstQuarter = momentCalculation(initialTime, quarterFreq)
-    console.log("First Q: ", typeof firstQuarter)
-    futurePrediction.push(firstQuarter)
+    let firstQuarter = momentCalculation(initialTime, quarterFreq);
+    console.log("First Q: ", typeof firstQuarter);
+    futurePrediction.push(firstQuarter);
 
-    let secondQuarter = momentCalculation(firstQuarter, quarterFreq)
-    console.log("Added min 2: ", secondQuarter)
-    futurePrediction.push(secondQuarter)
+    let secondQuarter = momentCalculation(firstQuarter, quarterFreq);
+    console.log("Added min 2: ", secondQuarter);
+    futurePrediction.push(secondQuarter);
 
-    let thirdQuarter = momentCalculation(secondQuarter, quarterFreq)
+    let thirdQuarter = momentCalculation(secondQuarter, quarterFreq);
     console.log("Added min 3: ", thirdQuarter);
-    futurePrediction.push(thirdQuarter)
-    let takeNow = momentCalculation(thirdQuarter, quarterFreq)
+    futurePrediction.push(thirdQuarter);
+    let takeNow = momentCalculation(thirdQuarter, quarterFreq);
     console.log("Take now: ", takeNow);
     futurePrediction.push(takeNow);
     console.log("Future Prediction :", futurePrediction);
 
     return futurePrediction;
-  }
+  };
 
   const momentCalculation = (time, frequency) => {
-    let futureTime = moment(time).add(frequency, "minutes").format('YYYY-MM-DD hh:mm a')
+    let futureTime = moment(time)
+      .add(frequency, "minutes")
+      .format("YYYY-MM-DD hh:mm a");
     return futureTime;
-  }
+  };
 
-
-  const hourToMinConverter = (hour) => {
+  const hourToMinConverter = hour => {
     const min = (hour - Math.floor(hour)) * 60;
     const hr = Math.floor(hour) * 60;
     const totalMin = hr + min;
     return totalMin;
-  }
-
+  };
 
   return (
-    <div className={classes.root}
-      style={{ overflowX: "hidden", overflowY: "hidden" }}>
-      <Grid container spacing={2} >
-        <Grid item xs={12} className={classes.title2} >
+    <div
+      className={classes.root}
+      style={{ overflowX: "hidden", overflowY: "hidden" }}
+    >
+      <Grid container spacing={2}>
+        <Grid item xs={12} className={classes.title2}>
           <motion.div
             animate={{
-              scale: [1, 1.2, 1, 1.2, 1],
+              scale: [1, 1.2, 1, 1.2, 1]
             }}
             transition={{
               duration: 8,
               ease: "easeInOut",
               times: [0, 0.25, 0.5, 0.75, 1],
               loop: Infinity,
-              repeatDelay: 0,
+              repeatDelay: 0
             }}
           >
             <p className={classes.titleText}>My Pills Tracker</p>
@@ -312,22 +341,14 @@ export default function AddDrug() {
             <TableBody displayRowCheckbox={false}>
               <TableRow>
                 <TableRow>
-                  <TableCell className={classes.pillGrid2}>
-                    Pill Name
-                    </TableCell>
-                  <TableCell className={classes.pillGrid2}>
-                    Last Date
-                    </TableCell>
-                  <TableCell className={classes.pillGrid2}>
-                    Last Time
-                    </TableCell>
+                  <TableCell className={classes.pillGrid2}>Pill Name</TableCell>
+                  <TableCell className={classes.pillGrid2}>Last Date</TableCell>
+                  <TableCell className={classes.pillGrid2}>Last Time</TableCell>
                   <TableCell className={classes.pillGrid2}>
                     Frequency (hours)
-                    </TableCell>
+                  </TableCell>
                   <TableCell className={classes.pillGrid2}>Delete?</TableCell>
-                  <TableCell className={classes.pillGrid2}>
-                    Take Pill
-                    </TableCell>
+                  <TableCell className={classes.pillGrid2}>Take Pill</TableCell>
                 </TableRow>
                 {drugQuarter.map(drug => (
                   <ActiveDrugs
@@ -360,7 +381,7 @@ export default function AddDrug() {
         </Grid>
         <Grid item xs={4}></Grid>
       </Grid>
-      <div style={{ marginTop: "0px", marginBottom: "40px"}}> </div>
+      <div style={{ marginTop: "0px", marginBottom: "40px" }}> </div>
     </div>
   );
 }
