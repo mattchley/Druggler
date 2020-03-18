@@ -2,11 +2,11 @@
 
 **Description**
 
-Druggler is a web based application that allows users to track their medications and when they next need to take their prescription, as well as allowing users to search for interactions between different drugs. The goal of the application is to make it easy for users to track their medications and when they need to take them. Users are able to sign up and create a unique profile that allows the user to add, edit and delete prescription drugs from their tracker dashboard.
+Druggler is a web based application that allows users to track when they need to take their medications, as well as allowing users to search for interactions between different drugs. Users are able to sign up and create a unique profile that allows the user to add, edit and delete prescription drugs from their pill tracker dashboard.
 
 **User Story**
 
-Given that I am someone who takes several medications on a regular basis, I want to be able to track those medications and when I need to take them. I also want to be able to see the types of interactions that can occur between different medications.
+Given that I am someone who takes prescription drugs on a regular basis, I want to be able to track those medications and when I need to take them. I also want to be able to see the types of interactions that can occur between different medications.
 
 **Build status**
 
@@ -108,12 +108,15 @@ const updatingallDrugs = async drugsData => {
 ![Pill tracker](images/pilltracker.jpg)
 
 **Installation**
-No installation necessary. Project is hosted here: https://druggler.herokuapp.com/ GitHub repo: https://github.com/uchrissd/dungeon-bud
+No installation necessary. Project is hosted here: https://druggler.herokuapp.com/ GitHub repo: https://github.com/mattchley/DrugBud
 
 **Future development**
 
-There is additional functionality we identified for future development. For instance, the ability to rank pills in order of when they should be taken, not just by color coding. Allowing users to set their drugs after searching for interactions.
+There is additional functionality we identified for future development. For instance, the ability to rank pills in order of when they should be taken with a real-time timer, not just by color coding. Adding auto-type functionality to help users find and spell their pills correctly. Allowing users to set their drugs after searching for interactions. Implementing PWA.
 
 **Credits**
 
-Mark Berntein (Github: #1Mark-Bernstein), Jocelyn Chang (Github: jocelync1094), Matt Atchley(Github: mattchley), Chris Underwood (Github: uchrisd)
+Mark Berntein (Github: Mark-Bernstein)
+Jocelyn Chang (Github: jocelync1094)
+Matt Atchley(Github: mattchley)
+Chris Underwood (Github: uchrisd)
