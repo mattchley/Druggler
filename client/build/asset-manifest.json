@@ -1,15 +1,14 @@
 {
   "main.css": "/static/css/main.7fa8de8a.chunk.css",
-  "main.js": "/static/js/main.17564f07.chunk.js",
-  "main.js.map": "/static/js/main.17564f07.chunk.js.map",
+  "main.js": "/static/js/main.a5414966.chunk.js",
+  "main.js.map": "/static/js/main.a5414966.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
   "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
-  "static/js/2.c8e4bfa3.chunk.js": "/static/js/2.c8e4bfa3.chunk.js",
-  "static/js/2.c8e4bfa3.chunk.js.map": "/static/js/2.c8e4bfa3.chunk.js.map",
+  "static/js/2.677e8f4b.chunk.js": "/static/js/2.677e8f4b.chunk.js",
+  "static/js/2.677e8f4b.chunk.js.map": "/static/js/2.677e8f4b.chunk.js.map",
   "index.html": "/index.html",
-  "precache-manifest.2395fd6d05f6e6226775a7301f6937ca.js": "/precache-manifest.2395fd6d05f6e6226775a7301f6937ca.js",
+  "precache-manifest.46b70a006dd1ead7aa75ec7d6fa72a43.js": "/precache-manifest.46b70a006dd1ead7aa75ec7d6fa72a43.js",
   "service-worker.js": "/service-worker.js",
   "static/css/main.7fa8de8a.chunk.css.map": "/static/css/main.7fa8de8a.chunk.css.map",
-  "static/media/drugglerBackgroundImage.jpeg": "/static/media/drugglerBackgroundImage.3aeb39e2.jpeg",
   "static/media/pillsIcon.png": "/static/media/pillsIcon.c235a917.png"
 }
