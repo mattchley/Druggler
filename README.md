@@ -1,29 +1,119 @@
-# Create React Express App
+# Druggler
 
-## About This Boilerplate
+**Description**
 
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
+Druggler is a web based application that allows users to track their medications and when they next need to take their prescription, as well as allowing users to search for interactions between different drugs. The goal of the application is to make it easy for users to track their medications and when they need to take them. Users are able to sign up and create a unique profile that allows the user to add, edit and delete prescription drugs from their tracker dashboard.
 
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+**User Story**
 
-## Starting the app locally
+Given that I am someone who takes several medications on a regular basis, I want to be able to track those medications and when I need to take them. I also want to be able to see the types of interactions that can occur between different medications.
 
-Start by installing front and backend dependencies. While in this directory, run the following command:
+**Build status**
 
+The build status is complete.
+
+**Code style**
+
+Drugglers is a MERN application using MongoDB, Express, React and Node.js. Our database uses two collections to establish an association between a user’s profile and the drugs they have added to their pill tracker dashboard. For UI, our team used the Material-UI library to speed up component building.
+
+**Code example**
+
+```javascript
+//all tracker related functions
+
+const getDrugTime = async drugData => {
+  const drugT = await drugData.map(drug => ({
+    id: drug._id,
+    combinedTime: `${drug.lastTakenDate} ${drug.lastTakenTime}`,
+    frequency: parseInt(drug.frequency)
+  }));
+  console.log(drugT);
+  const allFutureDrug = await drugT.map(drug => ({
+    id: drug.id,
+    prediction: futureTimeCalcuation(drug.combinedTime, drug.frequency)
+  }));
+  return allFutureDrug;
+};
+const compareTime = async drugData => {
+  const currentTime = moment().format("YYYY-MM-DD hh:mm a");
+  let myFutureTime = await getDrugTime(drugData);
+  console.log("Current time: ", currentTime);
+  console.log(myFutureTime);
+  let drugQuarter = await myFutureTime.map(drug => {
+    let quarterOneMet = moment(currentTime).isBefore(drug.prediction[0]);
+    let quarterTwoMet = moment(currentTime).isBetween(
+      drug.prediction[0],
+      drug.prediction[1],
+      "minutes",
+      "[)"
+    );
+    let quarterThreeMet = moment(currentTime).isBetween(
+      drug.prediction[1],
+      drug.prediction[2],
+      "minutes",
+      "[)"
+    );
+    let quarterFourMet = moment(currentTime).isBetween(
+      drug.prediction[2],
+      drug.prediction[3],
+      "minutes",
+      "[)"
+    );
+    let timesUp = moment(currentTime).isBetween(
+      drug.prediction[3],
+      currentTime,
+      "minutes",
+      "[]"
+    );
+    console.log(drug.id);
+    console.log("Quarter 1 Met: ", quarterOneMet);
+    console.log("Quarter 2 Met: ", quarterTwoMet);
+    console.log("Quarter 3 Met: ", quarterThreeMet);
+    console.log("Quarter 4 Met: ", quarterFourMet);
+
+    if (quarterOneMet) {
+      return "quarterOne";
+    } else if (quarterTwoMet) {
+      return "quarterTwo";
+    } else if (quarterThreeMet) {
+      return "quarterThree";
+    } else if (quarterFourMet) {
+      return "quarterFour";
+    } else if (timesUp) {
+      return "eatNow";
+    }
+  });
+  return drugQuarter;
+};
+const updatingallDrugs = async drugsData => {
+  let finalDrugs = [];
+  await compareTime(drugsData)
+    .then(res => {
+      finalDrugs = drugsData.map((drug, index) => ({
+        ...drug,
+        currentQuarter: res[index]
+      }));
+    })
+    .catch(err => console.log(err));
+  console.log("FINALLLLL: ", finalDrugs);
+  return finalDrugs;
+};
 ```
-npm install
-```
 
-This should install node modules within the server and the client folder.
+**Screenshots**
 
-After both installations complete, run the following command in your terminal:
+![Sign up page](images/login.jpg)
+![Login](images/login2.jpg)
+![Interactions page](images/interactions.jpg)
+![Pill tracker](images/pilltracker.jpg)
 
-```
-npm start
-```
+**Installation**
+No installation necessary. Project is hosted here: https://druggler.herokuapp.com/ GitHub repo: https://github.com/uchrissd/dungeon-bud
 
-Your app should now be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
+**Future development**
 
-## Deployment (Heroku)
+There is additional functionality we identified for future development. For instance, the ability to rank pills in order of when they should be taken, not just by color coding. Allowing users to set their drugs after searching for interactions.
 
-To deploy, simply add and commit your changes, and push to Heroku. As is, the NPM scripts should take care of the rest.
+**Credits**
+
+Mark Berntein (Github: #1Mark-Bernstein), Jocelyn Chang (Github: jocelync1094), Matt Atchley(Github: mattchley), Chris Underwood (Github: uchrisd)
