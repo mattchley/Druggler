@@ -6,8 +6,7 @@ import TableCell from "@material-ui/core/TableCell";
 import { makeStyles } from "@material-ui/core/styles";
 import { black } from "material-ui/styles/colors";
 import Button from "@material-ui/core/Button";
-
-
+import { motion } from 'framer-motion';
 
 const ActiveDrugs = props => {
 
@@ -36,8 +35,6 @@ const ActiveDrugs = props => {
     addDrug: {
       padding: theme.spacing(2),
       textAlign: "center",
-      color: theme.palette.text.primary,
-      // backgroundColor: theme.palette.text.hint,
       backgroundColor: "black",
       color: "white",
       fontWeight: "900",
@@ -88,33 +85,59 @@ const ActiveDrugs = props => {
 
   const classes = useStyles(x);
 
+  const variants = {
+    hidden: { opacity: 0, scale: 0 },
+    visible: { opacity: 1, scale: 1 },
+  }
+
   return (
-    <div>
-      <TableRow className={`${classes.pillGrid3} ${classes.foo}`}>
-        <TableCell className={classes.pillGrid2} >
-          {props.name}
-        </TableCell>
-        <TableCell className={classes.pillGrid2} >
-          {props.lastTakenDate}
-        </TableCell>
-        <TableCell className={classes.pillGrid2} >
-          {props.lastTakenTime}
-        </TableCell>
-        <TableCell className={classes.pillGrid2} >
-          {props.frequency}
-        </TableCell>
-        <TableCell className={classes.pillGrid2} >
-          <Button variant="contained">
-            <TrashIcon onClick={() => props.handleDrugRemove(props.id)}></TrashIcon>
-          </Button>
-        </TableCell>
-        <TableCell className={classes.pillGridCell}>
-          <Button variant="contained">
-            <CheckIcon onClick={() => props.handleDrugTaken(props.id)} ></CheckIcon>
-          </Button>
-        </TableCell>
-      </TableRow>
-    </div>
+    <div style={{overflow: "hidden"}}>
+      <motion.div initial="hidden"
+        animate="visible"
+        variants={variants}
+        transition={{ ease: "easeOut", duration: 2 }}
+      >
+        <motion.div
+          animate={{
+            scale: [1, 1.5, 1.5, 1, 1],
+            rotate: [0, 0, 0, 0, 0],
+          }}
+          transition={{
+            duration: 2,
+            ease: "easeOut",
+            times: [0, 0, 0, 0.6, 1],
+            loop: 0,
+            repeatDelay: 0
+          }}>
+          <TableRow className={`${classes.pillGrid3} ${classes.foo}`}>
+            <TableCell className={classes.pillGrid2} >
+              {props.name}
+            </TableCell>
+            <TableCell className={classes.pillGrid2} >
+              {props.lastTakenDate}
+            </TableCell>
+            <TableCell className={classes.pillGrid2} >
+              {props.lastTakenTime}
+            </TableCell>
+            <TableCell className={classes.pillGrid2} >
+              {props.frequency}
+            </TableCell>
+            <TableCell className={classes.pillGrid2} >
+              <Button variant="contained">
+                <TrashIcon onClick={() => props.handleDrugRemove(props.id)}></TrashIcon>
+              </Button>
+            </TableCell>
+            <TableCell className={classes.pillGridCell}>
+              <Button variant="contained">
+                <CheckIcon onClick={() => props.handleDrugTaken(props.id)} ></CheckIcon>
+              </Button>
+            </TableCell>
+          </TableRow>
+        </motion.div>
+
+      </motion.div>
+
+    </div >
   );
 };
 export default ActiveDrugs;

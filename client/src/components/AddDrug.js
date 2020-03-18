@@ -8,6 +8,8 @@ import API from "../utils/API";
 import Auth from "../utils/Auth";
 import { Table, TableBody, TableRow } from "material-ui/Table";
 import TableCell from "@material-ui/core/TableCell";
+import { motion } from "framer-motion";
+
 const moment = require("moment");
 
 const useStyles = makeStyles(theme => ({
@@ -35,6 +37,13 @@ const useStyles = makeStyles(theme => ({
     fontSize: "30px",
     fontFamily: "Constantia"
   },
+  titleText: {
+    textAlign: "center",
+    color: "white",
+    fontWeight: "800",
+    fontSize: "30px",
+    fontFamily: "Constantia"
+  },
   title2: {
     padding: theme.spacing(2),
     textAlign: "center",
@@ -43,7 +52,8 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "800",
     fontSize: "30px",
     fontFamily: "Constantia",
-    margin: "5%"
+    margin: "5%",
+    marginBottom: "0"
   },
   title3: {
     padding: theme.spacing(2),
@@ -129,6 +139,12 @@ export default function AddDrug() {
     ) {
       console.log("before API front end");
       console.log("current user, ", user._id);
+
+      if (isNaN(drugDetails.frequency)) {
+        alert("Must input a number for how often the drug should be taken.");
+        return false;
+      }
+
       API.saveDrug(
         {
           name: drugDetails.name,
@@ -300,10 +316,27 @@ export default function AddDrug() {
   };
 
   return (
-    <div className={classes.root}>
+    <div
+      className={classes.root}
+      style={{ overflowX: "hidden", overflowY: "hidden" }}
+    >
       <Grid container spacing={2}>
         <Grid item xs={12} className={classes.title2}>
-          <Paper className={classes.title}>My Pills Tracker</Paper>
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1, 1.2, 1]
+            }}
+            transition={{
+              duration: 8,
+              ease: "easeInOut",
+              times: [0, 0.25, 0.5, 0.75, 1],
+              loop: Infinity,
+              repeatDelay: 0
+            }}
+          >
+            <p className={classes.titleText}>My Pills Tracker</p>
+          </motion.div>
+
           <Table>
             <TableBody displayRowCheckbox={false}>
               <TableRow>
@@ -348,6 +381,7 @@ export default function AddDrug() {
         </Grid>
         <Grid item xs={4}></Grid>
       </Grid>
+      <div style={{ marginTop: "0px", marginBottom: "40px" }}> </div>
     </div>
   );
 }

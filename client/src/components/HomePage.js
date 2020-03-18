@@ -4,7 +4,7 @@ import Auth from '../utils/Auth';
 import Button from "@material-ui/core/Button";
 import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import DrugglerImage from '../images/drugglerBackgroundImage.jpeg';
+import { motion } from 'framer-motion';
 
 const HomePage = (props) => {
 
@@ -20,7 +20,7 @@ const HomePage = (props) => {
       color: 'white',
       fontWeight: '800',
       height: 48,
-      padding: '30px 30px',
+      padding: '25px 25px',
       boxShadow: '3px 30px 5px 2px rgba(255, 105, 135, .8)',
     },
     login: {
@@ -30,7 +30,7 @@ const HomePage = (props) => {
       color: 'white',
       fontWeight: '800',
       height: 48,
-      padding: '30px 30px',
+      padding: '25px 25px',
       boxShadow: '3px 30px 5px 2px rgba(255, 105, 135, .8)',
     },
     label: {
@@ -44,52 +44,85 @@ const HomePage = (props) => {
   const classes = useStyles();
 
   return (
-    <div className="container">
-      <div>
-        <h1 style={{ color: '#23395d', paddingBottom: '50px' }}>
-          Welcome to Druggler!
-        </h1>
-        <h2 style={{ color: '#23395d' }}>
-          Having trouble juggling all of your drugs?  Try Druggler!
-        </h2>
-        <img
-          src={DrugglerImage}
-          height="30%"
-          width="50%"
-          style={{ borderRadius: "100%", maxWidth: "300px", height: "200px" }}
-        ></img>
-        <hr></hr>
-        <h3 style={{ color: '#23395d' }}>
-          Don't have an account? Sign up!
-        </h3>
-      </div>
+    <div>
+
       {Auth.isUserAuthenticated() ? (
-        <CardText style={{ fontSize: '16px', color: 'green' }}>Welcome! You are logged in.</CardText>
+
+        <div className="container">
+          <CardText style={{ fontSize: '16px', color: 'green' }}>Welcome! You are logged in.</CardText>
+        </div>
+
       ) : (
-          <div>
-            <CardText style={{ fontSize: '16px', color: 'green' }}>You are not logged in.</CardText>
-            <Card className="container">
+          <div className="container">
+            <div>
+              <motion.div
+                animate={{
+                  scale: [1, 1.25, 1.5, 1.25, 1],
+                }}
+                transition={{
+                  duration: 5,
+                  ease: "easeInOut",
+                  times: [0, 0.25, 0.5, 0.75, 1],
+                  loop: Infinity,
+                  repeatDelay: 0,
+                }}
+              >
+                <h1 style={{ color: '#23395d', paddingBottom: '20px' }}>
+                  Welcome to Druggler!
+                </h1>
+              </motion.div>
+              <h2 style={{ color: '#23395d' }}>
+                Having trouble juggling all of your drugs?  Try Druggler!
+              </h2>
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/wEudPZ4jTrQ"
+                frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+              </iframe>
 
-            </Card>
-            <Button
-              classes={{ root: classes.login, label: classes.label }}
-              size="large"
-              variant="contained"
-              component={RouterLink} to="/login"
-              style={{ width: "30%" }}
-            >
-              Login
+              <h3 style={{ color: '#23395d' }}>
+                Don't have an account? Sign up!
+              </h3>
+
+              <motion.div
+                animate={{
+                  scale: [1, 1.25, 1.5, 1.25, 1],
+                  rotate: [-3, 3, -3, 3, -3],
+                }}
+                transition={{
+                  duration: 5,
+                  ease: "easeInOut",
+                  times: [0, 0.25, 0.5, 0.75, 1],
+                  loop: Infinity,
+                  repeatDelay: 0,
+                }}
+              >
+                <Button
+                  classes={{ root: classes.login, label: classes.label }}
+                  size="large"
+                  variant="contained"
+                  component={RouterLink} to="/login"
+                  style={{ width: "30%" }}
+                >
+                  Login
                 </Button>
 
-            <Button
-              size="large"
-              classes={{ root: classes.signUp, label: classes.label }}
-              variant="contained"
-              component={RouterLink} to="/signup"
-              style={{ width: "30%" }}
-            >
-              Sign up
+                <Button
+                  size="large"
+                  classes={{ root: classes.signUp, label: classes.label }}
+                  variant="contained"
+                  component={RouterLink} to="/signup"
+                  style={{ width: "30%" }}
+                >
+                  Sign up
                 </Button>
+              </motion.div>
+              <div style={{ margin: "50px" }}> </div>
+              <CardText style={{ fontSize: '16px', color: 'green', }}>You are not logged in.</CardText>
+            </div>
           </div>
         )}
     </div>
