@@ -104,13 +104,13 @@ const App = () => {
               </div>
             ) : (
                 <div className="header">
-                  <img
+                  {/* <img
                     src={PillsIcon}
                     className="navTitle"
                     alt="Druggler Icon"
                     height="30px"
                     width="50px"
-                    style={{ paddingLeft: "30px", margin: "0px", marginTop: "20px" }}></img>
+                    style={{ paddingLeft: "30px", margin: "0px", marginTop: "20px" }}></img> */}
                   {/* <div className="navTitle" style={{ margin: "0px" }} >druggler</div> */}
                   {/* <img
                     src={PillsIcon}
