@@ -173,8 +173,8 @@ export default function SearchV2() {
     <div style={{ overflowX: "hidden", overflowY: "hidden" }}>
       <Grid container spacing={12}>
         <Grid item xs={12} container direction="column" justify="center">
-          <div className={classes.title}>
-            <motion.div
+          {/* <div className={classes.title}> */}
+            {/* <motion.div
               animate={{
                 scale: [1, 1.2, 1, 1.2, 1],
               }}
@@ -185,11 +185,11 @@ export default function SearchV2() {
                 loop: Infinity,
                 repeatDelay: 0,
               }}
-            >
+            > */}
               <h1>Check Drug Interactions</h1>
-            </motion.div>
+            {/* </motion.div> */}
             {/* <p>Add two or more drugs to see their interactions.</p> */}
-          </div>
+          {/* </div> */}
         </Grid>
         <Grid item xs={2}></Grid>
         <Grid item xs={8}>

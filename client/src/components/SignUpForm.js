@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import '../css/login.css';
 
 const SignUpForm = ({
   onSubmit,
@@ -11,9 +12,9 @@ const SignUpForm = ({
   errors,
   user,
 }) => (
-    <Card className="container">
+    <div className="container2" >
       <form action="/" onSubmit={onSubmit}>
-        <h2 className="card-heading">Sign Up</h2>
+        <h2 className="card-heading">druggler</h2>
 
         {errors.summary && <p className="error-message">{errors.summary}</p>}
 
@@ -52,9 +53,9 @@ const SignUpForm = ({
           <RaisedButton type="submit" label="Create New Account" primary />
         </div>
 
-        <CardText>Already have an account? <Link to={'/login'}>Log in</Link></CardText>
+        <p>Already have an account? <Link to={'/login'}>Log in</Link></p>
       </form>
-    </Card>
+    </div>
   );
 
 SignUpForm.propTypes = {

@@ -11,14 +11,12 @@
     margin-right: 23%; */
     background-color: seagreen;
     width: 100%;
-    height: 90.2%;
+    height: 100%;
 }
 
 .card-heading {
     background-color: seagreen;
     padding: 5%;
-    margin-top: 0;
-    margin-bottom: 0;
     color: white;
 }
 

@@ -92,7 +92,7 @@ const ActiveDrugs = props => {
 
   return (
     <div style={{overflow: "hidden"}}>
-      <motion.div initial="hidden"
+      {/* <motion.div initial="hidden"
         animate="visible"
         variants={variants}
         transition={{ ease: "easeOut", duration: 2 }}
@@ -108,7 +108,7 @@ const ActiveDrugs = props => {
             times: [0, 0, 0, 0.6, 1],
             loop: 0,
             repeatDelay: 0
-          }}>
+          }}> */}
           <TableRow className={`${classes.pillGrid3} ${classes.foo}`}>
             <TableCell className={classes.pillGrid2} >
               {props.name}
@@ -133,9 +133,9 @@ const ActiveDrugs = props => {
               </Button>
             </TableCell>
           </TableRow>
-        </motion.div>
+        {/* </motion.div>
 
-      </motion.div>
+      </motion.div> */}
 
     </div >
   );
