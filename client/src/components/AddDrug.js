@@ -322,7 +322,7 @@ export default function AddDrug() {
     >
       <Grid container spacing={2}>
         <Grid item xs={12} className={classes.title2}>
-          <motion.div
+          {/* <motion.div
             animate={{
               scale: [1, 1.2, 1, 1.2, 1]
             }}
@@ -333,9 +333,9 @@ export default function AddDrug() {
               loop: Infinity,
               repeatDelay: 0
             }}
-          >
+          > */}
             <p className={classes.titleText}>My Pills Tracker</p>
-          </motion.div>
+          {/* </motion.div> */}
 
           <Table>
             <TableBody displayRowCheckbox={false}>

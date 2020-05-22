@@ -3,10 +3,18 @@ p {
     font-weight: 400;
     font-family: 'Darker Grotesque', sans-serif;
 }
-.appBar {
+
+/* .appBar {
     height: 60px;
     padding-top: 10px;
     padding-bottom: 10px;
+} */
+
+.appBar2 {
+    height: 60px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: seagreen;
 }
 
 .navTitle {
@@ -15,7 +23,7 @@ p {
     font-size: 30pt;
     float: left;
     margin-left: 5%;
-    color: rgb(34, 68, 48);
+    color: white;
 }
 
 .navButton {
@@ -27,7 +35,7 @@ p {
     margin-top: 15px;
     bottom: 0px;
     flex-wrap: wrap;
-    color:  rgb(17, 0, 255);
+    color:  white;
     text-decoration: none;
 }
 
@@ -72,6 +80,12 @@ p {
 
 @media only screen and (max-width: 700px) {
     .appBar {
+        height: 40px;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .appBar2 {
         height: 40px;
     }
 }

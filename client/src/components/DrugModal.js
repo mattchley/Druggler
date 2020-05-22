@@ -48,9 +48,9 @@ export default function SimpleModal(props) {
 
   return (
     <div>
-      <motion.div
+      {/* <motion.div
         animate={{
-          scale: [1, 1.2, 1, 1.2, 1],
+          scale: [1, 1.1, 1, 1.1, 1],
         }}
         transition={{
           duration: 8,
@@ -59,7 +59,7 @@ export default function SimpleModal(props) {
           loop: Infinity,
           repeatDelay: 0,
         }}
-      >
+      > */}
         <Button
           className={classes.button}
           type="button"
@@ -69,7 +69,7 @@ export default function SimpleModal(props) {
         >
           Add Drug
       </Button>
-      </motion.div>
+      {/* </motion.div> */}
 
 
       <Modal

@@ -43,34 +43,34 @@ const App = () => {
   // const location = useLocation();
 
   return (
-    <div className="body" style={{ height: "100vh" }}>
+    <div className="body" style={{ height: "100vh", }}>
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Router>
-          <div className="appBar">
+          <div className="appBar2">
             {authenticated ? (
               <div>
-                <motion.div
+                {/* <motion.div
                   initial="hidden"
                   animate="visible"
                   variants={variants}
                   transition={{ ease: "easeOut", duration: 2 }}
-                >
+                > */}
                   <img
                     src={PillsIcon}
                     className="navTitle"
                     alt="Druggler Icon"
                     height="30px"
                     width="50px"
-                    style={{ margin: "0px", marginTop: "20px" }}></img>
+                    style={{ paddingLeft: "30px", margin: "0px", marginTop: "20px" }}></img>
 
-                  <div className="navTitle" style={{ margin: "0px" }}>Druggler</div>
-                  <img
+                  <div className="navTitle" style={{ margin: "0px" }}>druggler</div>
+                  {/* <img
                     src={PillsIcon}
                     className="navTitle"
                     alt="Druggler Icon"
                     height="30px"
                     width="50px"
-                    style={{ margin: "0px", marginTop: "20px" }}></img>
+                    style={{ margin: "0px", marginTop: "20px" }}></img> */}
 
                   <motion.div whileHover={{ y: 4 }} >
                     <Link
@@ -100,25 +100,25 @@ const App = () => {
                       {" "}Interactions{" "}
                     </Link>
                   </motion.div>
-                </motion.div>
+                {/* </motion.div> */}
               </div>
             ) : (
-                <div>
+                <div className="header">
                   <img
                     src={PillsIcon}
                     className="navTitle"
                     alt="Druggler Icon"
                     height="30px"
                     width="50px"
-                    style={{ marginTop: "20px" }}></img>
-                  <div className="navTitle" >Druggler</div>
-                  <img
+                    style={{ paddingLeft: "30px", margin: "0px", marginTop: "20px" }}></img>
+                  {/* <div className="navTitle" style={{ margin: "0px" }} >druggler</div> */}
+                  {/* <img
                     src={PillsIcon}
                     className="navTitle"
                     alt="Druggler Icon"
                     height="30px"
                     width="50px"
-                    style={{ marginTop: "20px" }}></img>
+                    style={{ marginTop: "20px" }}></img> */}
                 </div>
               )}
           </div>

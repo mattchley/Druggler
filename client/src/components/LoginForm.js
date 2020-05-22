@@ -14,9 +14,9 @@ const LoginForm = ({
   user,
   toggleAuthenticateStatus
 }) => (
-    <Card className="container">
+    <div className="container2">
       <form action="/" onSubmit={onSubmit}>
-        <h2 className="card-heading">Login</h2>
+        <h2 className="card-heading">druggler</h2>
 
         {successMessage && <p className="success-message">{successMessage}</p>}
         {errors.summary && <p className="error-message">{errors.summary}</p>}
@@ -51,9 +51,9 @@ const LoginForm = ({
           />
         </div>
 
-        <CardText>Don't have an account? <Link to={'/signup'}>Create one</Link>.</CardText>
+        <p>Don't have an account? <Link to={'/signup'}>Create one</Link>.</p>
       </form>
-    </Card>
+    </div>
   );
 
 LoginForm.propTypes = {

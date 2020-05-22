@@ -14,24 +14,31 @@ const HomePage = (props) => {
 
   const useStyles = makeStyles({
     signUp: {
-      background: 'linear-gradient(180deg, seagreen 100%, black 10%)',
+      background: "seagreen",
+      '&:hover': {
+        background: "#7DCEA0",
+      },
       borderRadius: 60,
       border: 0,
       color: 'white',
       fontWeight: '800',
       height: 48,
       padding: '25px 25px',
-      boxShadow: '3px 30px 5px 2px rgba(255, 105, 135, .8)',
+      // boxShadow: '3px 30px 5px 2px rgba(255, 105, 135, .8)',
     },
     login: {
-      background: 'linear-gradient(180deg, #23395d 100%, black 10%)',
+      background: "#424949",
+      '&:hover': {
+        background: "#909497",
+      },
       borderRadius: 60,
       border: 0,
       color: 'white',
       fontWeight: '800',
       height: 48,
       padding: '25px 25px',
-      boxShadow: '3px 30px 5px 2px rgba(255, 105, 135, .8)',
+      marginRight: '20px',
+      // boxShadow: '3px 30px 5px 2px rgba(255, 105, 135, .8)',
     },
     label: {
       textTransform: 'capitalize',
@@ -55,7 +62,7 @@ const HomePage = (props) => {
       ) : (
           <div className="container">
             <div>
-              <motion.div
+              {/* <motion.div
                 animate={{
                   scale: [1, 1.25, 1.5, 1.25, 1],
                 }}
@@ -66,11 +73,11 @@ const HomePage = (props) => {
                   loop: Infinity,
                   repeatDelay: 0,
                 }}
-              >
+              > */}
                 <h1 style={{ color: '#23395d', paddingBottom: '20px' }}>
                   Welcome to Druggler!
                 </h1>
-              </motion.div>
+              {/* </motion.div> */}
               <h2 style={{ color: '#23395d' }}>
                 Having trouble juggling all of your drugs?  Try Druggler!
               </h2>
@@ -87,7 +94,7 @@ const HomePage = (props) => {
                 Don't have an account? Sign up!
               </h3>
 
-              <motion.div
+              {/* <motion.div
                 animate={{
                   scale: [1, 1.25, 1.5, 1.25, 1],
                   rotate: [-3, 3, -3, 3, -3],
@@ -99,7 +106,7 @@ const HomePage = (props) => {
                   loop: Infinity,
                   repeatDelay: 0,
                 }}
-              >
+              > */}
                 <Button
                   classes={{ root: classes.login, label: classes.label }}
                   size="large"
@@ -109,7 +116,7 @@ const HomePage = (props) => {
                 >
                   Login
                 </Button>
-
+              
                 <Button
                   size="large"
                   classes={{ root: classes.signUp, label: classes.label }}
@@ -119,7 +126,7 @@ const HomePage = (props) => {
                 >
                   Sign up
                 </Button>
-              </motion.div>
+              {/* </motion.div> */}
               <div style={{ margin: "50px" }}> </div>
               <CardText style={{ fontSize: '16px', color: 'green', }}>You are not logged in.</CardText>
             </div>
