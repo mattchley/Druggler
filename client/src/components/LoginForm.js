@@ -35,15 +35,15 @@ const LoginForm = ({
 }) => (
   <div className="container2">
     <form action="/" onSubmit={onSubmit}>
+      
+      <h1 className="card-heading">Druggler</h1>
       <img
         src={PillsIcon}
-        className="navTitle"
         alt="Druggler Icon"
         height="30px"
         width="50px"
         style={{ margin: "0px", marginTop: "20px" }}
       ></img>
-      <h1 className="card-heading">druggler</h1>
 
       {successMessage && <p className="success-message">{successMessage}</p>}
       {errors.summary && <p className="error-message">{errors.summary}</p>}
@@ -77,7 +77,7 @@ const LoginForm = ({
         />
       </div>
 
-      <div style={{ marginBottom: "30px" }}></div>
+      <div style={{ marginBottom: "40px" }}></div>
 
       <div className="button-line">
         <RaisedButton
@@ -89,12 +89,14 @@ const LoginForm = ({
         />
       </div>
 
+      <div style={{ marginBottom: "50px" }}></div>
+
       <p>
         Don't have an account?
-        <Link to={"/signup"} style={{ color: "white", marginLeft: "10px" }}>
-          Create one
+        <Link to={"/signup"} style={{ color: "black", marginLeft: "10px" }}>
+          Create one.
         </Link>
-        .
+        
       </p>
     </form>
   </div>
