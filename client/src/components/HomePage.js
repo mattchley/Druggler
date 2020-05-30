@@ -58,7 +58,7 @@ const HomePage = (props) => {
           </CardText>
         </div>
       ) : (
-        <div className="container">
+        <div className="container" style={{ paddingTop: "50px" }}>
           <div>
             {/* <motion.div
                 animate={{
@@ -79,7 +79,18 @@ const HomePage = (props) => {
                 fontWeight: "bold",
               }}
             >
-              Welcome to Druggler
+              Welcome to
+            </h1>
+
+            <h1
+              className="druggler"
+              style={{
+                color: "seagreen",
+                paddingBottom: "30px",
+                fontWeight: "bold",
+              }}
+            >
+              Druggler{" "}
             </h1>
             {/* </motion.div> */}
             {/* <h2 style={{ color: "seagreen" }}>

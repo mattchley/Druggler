@@ -2,9 +2,12 @@
   text-align: center;
   margin-left: 23%;
   margin-right: 23%;
-  font-family: "Ubuntu", sans-serif;
-
+  font-family: "Roboto", sans-serif;
   /* background-color: black; */
+}
+
+.druggler {
+  font-family: "Ubuntu", sans-serif;
 }
 
 .container2 {
@@ -14,7 +17,7 @@
   background-color: seagreen;
   width: 100%;
   height: 90.2%;
-  font-family: "Ubuntu", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .card-heading {
@@ -37,7 +40,7 @@
 
 p {
   color: white;
-  font-family: "Ubuntu", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .navTitle {
