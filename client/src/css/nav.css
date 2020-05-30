@@ -1,7 +1,7 @@
 p {
   font-size: 20px;
   font-weight: 400;
-  font-family: "Ubuntu", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 /* .appBar {
@@ -42,7 +42,7 @@ p {
   }
 }
 .navButton {
-  font-family: "Darker grotesque", sans-serif;
+  ffont-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 16pt;
   float: right;
