@@ -58,7 +58,7 @@ const HomePage = (props) => {
           </CardText>
         </div>
       ) : (
-        <div className="container" style={{ paddingTop: "50px" }}>
+        <div className="container" style={{ paddingTop: "20px" }}>
           <div>
             {/* <motion.div
                 animate={{
@@ -75,19 +75,24 @@ const HomePage = (props) => {
             <h1
               style={{
                 color: "seagreen",
-                paddingBottom: "30px",
+                padding: "0px",
                 fontWeight: "bold",
+                fontSize: "25px",
+                margin: "0px"
               }}
             >
-              Welcome to
+              Welcome
             </h1>
 
             <h1
               className="druggler"
               style={{
                 color: "seagreen",
-                paddingBottom: "30px",
+                paddingBottom: "0px",
                 fontWeight: "bold",
+                fontSize: "60px",
+                marginBottom: "35px",
+                marginTop: "15px"
               }}
             >
               Druggler{" "}
@@ -108,8 +113,8 @@ const HomePage = (props) => {
             <h3
               style={{
                 color: "seagreen",
-                paddingBottom: "30px",
-                paddingTop: "30px",
+                paddingBottom: "10px",
+                paddingTop: "10px",
               }}
             >
               Don't have an account? Sign up!
@@ -150,7 +155,7 @@ const HomePage = (props) => {
               Sign up
             </Button>
             {/* </motion.div> */}
-            <div style={{ margin: "50px" }}> </div>
+            <div style={{ margin: "20px" }}> </div>
             <CardText style={{ fontSize: "16px", color: "green" }}>
               You are not logged in.
             </CardText>
