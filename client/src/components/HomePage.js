@@ -72,26 +72,14 @@ const HomePage = (props) => {
                   repeatDelay: 0,
                 }}
               > */}
-            <h2
-              style={{
-                color: "seagreen",
-                padding: "0px",
-                fontWeight: "bold",
-                fontSize: "35px",
-              }}
-            >
-              Welcome
-            </h2>
-
             <h1
               style={{
                 color: "seagreen",
                 paddingBottom: "30px",
                 fontWeight: "bold",
-                fontSize: "55px",
               }}
             >
-              Druggler
+              Welcome to Druggler
             </h1>
             {/* </motion.div> */}
             {/* <h2 style={{ color: "seagreen" }}>
