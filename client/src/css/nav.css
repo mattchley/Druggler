@@ -1,7 +1,7 @@
 p {
-    font-size: 20px;
-    font-weight: 400;
-    font-family: 'Darker Grotesque', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  font-family: "Ubuntu", sans-serif;
 }
 
 /* .appBar {
@@ -17,52 +17,51 @@ p {
 } */
 
 .appBar2 {
-    height: 60px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background-color: seagreen;
+  height: 60px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: seagreen;
 }
 @media only screen and (max-width: 700px) {
-    .appBar2 {
-        height: 40px;
-    }
+  .appBar2 {
+    height: 40px;
+  }
 }
 
 .navTitle {
-    font-family: 'Constantia';
-    font-weight: 800;
-    font-size: 30pt;
-    float: left;
-    margin-left: 5%;
-    color: seagreen;
-    
+  font-family: "Constantia";
+  font-weight: 800;
+  font-size: 30pt;
+  float: left;
+  margin-left: 5%;
+  color: seagreen;
 }
 @media only screen and (max-width: 700px) {
-    .navTitle {
-        font-size: 22pt;
-    }
+  .navTitle {
+    font-size: 22pt;
+  }
 }
-.navButton{
-    font-family: 'Darker grotesque', sans-serif;
-    font-weight: 400;
-    font-size: 16pt;
-    float: right;
-    margin-right: 5%;
-    margin-top: 15px;
-    bottom: 0px;
-    flex-wrap: wrap;
-    text-decoration: none;
-    color: #23395d;
+.navButton {
+  font-family: "Darker grotesque", sans-serif;
+  font-weight: 400;
+  font-size: 16pt;
+  float: right;
+  margin-right: 5%;
+  margin-top: 15px;
+  bottom: 0px;
+  flex-wrap: wrap;
+  text-decoration: none;
+  color: #23395d;
 }
 @media only screen and (max-width: 700px) {
-    .navButton {
-        font-size: 14pt;
-    }
+  .navButton {
+    font-size: 14pt;
+  }
 }
 @media only screen and (max-width: 480px) {
-    .navButton {
-        font-size: 10pt;
-    }
+  .navButton {
+    font-size: 10pt;
+  }
 }
 /* @media only screen and (max-width: 410px) {
     .link {
@@ -70,9 +69,9 @@ p {
     }
 } */
 @media only screen and (max-width: 521px) {
-    .navTitle {
-        font-size: 16pt;
-    }
+  .navTitle {
+    font-size: 16pt;
+  }
 }
 /* .spacer {
     height: 20px;
@@ -80,7 +79,7 @@ p {
     background-color: white;
 } */
 
-.navButton:hover{
-    cursor: pointer;
-    color: rgb(93, 57, 255);
+.navButton:hover {
+  cursor: pointer;
+  color: rgb(93, 57, 255);
 }
