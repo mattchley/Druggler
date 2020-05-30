@@ -108,6 +108,7 @@ const updatingallDrugs = async drugsData => {
 ![Pill tracker](images/pilltracker.jpg)
 
 **Installation**
+
 No installation necessary. Project is hosted here: https://druggler.herokuapp.com/ GitHub repo: https://github.com/mattchley/DrugBud
 
 **Future development**
