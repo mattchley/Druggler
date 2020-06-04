@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
 function NavBar() {
     const classes = useStyles();
 
+    
     return (
         <div className={classes.root}>
             <motion.div

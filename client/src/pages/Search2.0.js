@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import API from "../utils/API";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import TrashIcon from "material-ui/svg-icons/action/delete";
+import Autocomplete from '@material-ui/lab/Autocomplete'
 import { ConnectionStates } from "mongoose";
 import { motion } from 'framer-motion';
 
@@ -87,10 +88,14 @@ export default function SearchV2() {
   const classes = useStyles();
   const [search, setSearch] = useState({});
   const [drugs, setDrugs] = useState([]);
-  const [conflicts, setConflicts] = useState([]);
-  const [conflicts2, setConflicts2] = useState([]);
+  const [conflicts, setConflicts] = useState([])
+  const [list, setList] = useState([])
 
   // fluconazole astemizole cisapride disopyramide
+  // fluconazole astemizole tylenol
+  useEffect(() => {
+    API.getDrugNameList().then(res => { setList(res.data.displayTermsList.term) })
+  }, []);
 
   const addDrug = e => {
     e.preventDefault();
@@ -105,7 +110,7 @@ export default function SearchV2() {
         setDrugs([
           ...drugs,
           {
-            id: drugs.length,
+            id: res.data.idGroup.rxnormId,
             name: res.data.idGroup.name,
             rxcui: res.data.idGroup.rxnormId
           }
@@ -118,50 +123,56 @@ export default function SearchV2() {
     e.preventDefault();
     loadConflicts();
   };
-
+  // needs a way to connect by filtering out what is minConcept
   const loadConflicts = () => {
     let finalAPICall = "";
     for (let element of drugs) {
       finalAPICall += element.rxcui[0] + "+";
       // maybe have a line that stops "+" at the last one?
     }
-    API.getDrugsConflict(finalAPICall)
-      .then(res => {
-        const interaction =
-          res.data.fullInteractionTypeGroup[1].fullInteractionType;
-        let severityRes = {};
+    async function conflictRes() {
+      const fetch = await API.getDrugsConflict(finalAPICall)
+      let bankConceptArray = await []
+      let bankCommentArray = await []
+      let highConceptArray = await []
+      let highSeverityArray = await []
 
-        const simpleInteraction =
-          res.data.fullInteractionTypeGroup[0].fullInteractionType;
-        let text = {};
-
-        const results =
-          res.data.fullInteractionTypeGroup;
-
-        let holder = [];
-        let holder2 = [];
-
-        for (let index of interaction) {
-          severityRes = index.interactionPair[0].severity;
-          holder.push({
-            id: interaction.length,
-            threat: severityRes
+      const bankConcept = fetch.data.fullInteractionTypeGroup[0].fullInteractionType
+      for (let index of bankConcept) {
+        bankConceptArray.push(
+          index.minConcept[0].rxcui + " and " + index.minConcept[1].rxcui,
+        )
+        bankCommentArray.push({
+          comments: index.comment
+        })
+      }
+      const highConcept = fetch.data.fullInteractionTypeGroup[1].fullInteractionType
+      for (let index of highConcept) {
+        highConceptArray.push(
+          index.minConcept[0].rxcui + " and " + index.minConcept[1].rxcui,
+        )
+        highSeverityArray.push({
+          severity: index.interactionPair[0].severity
+        })
+      }
+      if (highSeverityArray.length < bankCommentArray.length) {
+        for (var i = 1; i < bankCommentArray.length; i++) {
+          highSeverityArray.push({
+            severity: "N/A"
           });
         }
-
-        for (let index of simpleInteraction) {
-          text = index.interactionPair[0].description
-          holder2.push({
-            id: simpleInteraction.length,
-            description: text
-          });
+      }
+      setConflicts([
+        ...conflicts,
+        {
+          BankConcepts: bankConceptArray,
+          BankDescription: bankCommentArray,
+          HighConcepts: highConceptArray,
+          HighSeverity: highSeverityArray,
         }
-        setConflicts(holder);
-        setConflicts2(holder2)
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      ])
+    }
+    conflictRes()
   };
 
   const handleDelete = e => {
@@ -173,23 +184,11 @@ export default function SearchV2() {
     <div style={{ overflowX: "hidden", overflowY: "hidden" }}>
       <Grid container spacing={12}>
         <Grid item xs={12} container direction="column" justify="center">
-          {/* <div className={classes.title}> */}
-            {/* <motion.div
-              animate={{
-                scale: [1, 1.2, 1, 1.2, 1],
-              }}
-              transition={{
-                duration: 8,
-                ease: "easeInOut",
-                times: [0, 0.25, 0.5, 0.75, 1],
-                loop: Infinity,
-                repeatDelay: 0,
-              }}
-            > */}
-              <h1>Check Drug Interactions</h1>
-            {/* </motion.div> */}
-            {/* <p>Add two or more drugs to see their interactions.</p> */}
-          {/* </div> */}
+
+          <h1>Check Drug Interactions</h1>
+
+
+
         </Grid>
         <Grid item xs={2}></Grid>
         <Grid item xs={8}>
@@ -200,14 +199,23 @@ export default function SearchV2() {
         <Grid item xs={2}></Grid>
         <Grid item xs={5}>
           <div className={classes.inputField}>
-            <TextField
+            {/* <TextField
               id="drugTextField"
               className={classes.input}
               type="text"
               label="Enter drug name here"
               variant="filled"
               onChange={e => setSearch(e.target.value.trim())}
-            ></TextField>
+            >
+
+            </TextField> */}
+            <Autocomplete
+              id="drugTextField"
+              options={list}
+              renderInput={(params) => {
+                return <TextField {...params} id="drugTextField" className={classes.input} type="text" label="Enter drug name here" variant="filled" onChange={e => setSearch(e.target.value.trim())} />;
+              }}
+            />
           </div>
         </Grid>
         <Grid item xs={2}>
@@ -221,7 +229,7 @@ export default function SearchV2() {
               color="primary"
             >
               Add Drug
-            </Button>
+                    </Button>
           </div>
         </Grid>
         <Grid item xs={3}></Grid>
@@ -278,34 +286,38 @@ export default function SearchV2() {
               variant="contained"
               color="primary"
             >
-              Submit for conflicts
-          </Button>
+              Submit for conflictRes
+                  </Button>
+
           </Grid>
           <Grid item xs={2}></Grid>
         </Grid>
         <hr></hr>
       </div>
-
       <Grid item xs={12}>
         <div>
-          {conflicts2.length ? (
-            <Grid container spacing={12}>
-              <Grid item xs={8}>
-                {conflicts2.map(conflict2 => (
-                  <Paper className={classes.drugConflict}>
-                    <h3 key={conflict2.id}>{conflict2.description}</h3>
-                  </Paper>
-                ))}
-              </Grid>
-              <Grid item xs={4}>
-                {conflicts.map(conflict => (
-                  <Paper className={classes.high}>
-                    <h3 key={conflict.id}>Severity: {conflict.threat}</h3>
-                  </Paper>
-                ))}
-              </Grid>
-            </Grid>
+          {conflicts.length ? (
+            conflicts.map(obj =>
+              (
+                <Grid container spacing={12}>
+                  <Grid item xs={8}>
+                    {obj.BankDescription.map(x =>
+                      <Paper className={classes.drugConflict}>
+                        <h3>{x.comments}</h3>
+                      </Paper>
+                    )}
+                  </Grid>
+                  <Grid item xs={4}>
+                    {obj.HighSeverity.map(x =>
+                      <Paper className={classes.high}>
+                        <h3>Severity: {x.severity}</h3>
+                      </Paper>
+                    )}
+                  </Grid>
+                </Grid>
 
+              )
+            )
           ) : (
               <div>
                 <h3>No Conflicts Found</h3>
@@ -316,3 +328,5 @@ export default function SearchV2() {
     </div>
   );
 }
+
+
