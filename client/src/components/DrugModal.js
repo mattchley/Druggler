@@ -31,13 +31,14 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2, 4, 3)
   },
   button: {
-    border: "2px solid seagreen",
+    // border: "2px solid seagreen",
     boxShadow: theme.shadows[5],
     width: "80%",
     height: "20%",
     borderRadius: "30px",
     textAlign: "center",
-    backgroundColor: "#23395d"
+    backgroundColor: "seagreen",
+    marginTop: "20px"
   }
 }));
 

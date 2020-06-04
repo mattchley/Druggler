@@ -33,6 +33,7 @@ const SignUpForm = ({ onSubmit, onChange, errors, user }) => (
       {errors.summary && <p className="error-message">{errors.summary}</p>}
 
       <div className="field-line">
+        <span class="material-icons">create</span>
         <TextField
           floatingLabelText="Name"
           name="name"
