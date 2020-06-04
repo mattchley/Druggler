@@ -1,18 +1,115 @@
 import React, { useState, useEffect } from "react";
 import API from "../utils/API";
-import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import TrashIcon from "material-ui/svg-icons/action/delete";
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import Autocomplete from '@material-ui/lab/Autocomplete'
 import { ConnectionStates } from "mongoose";
 import { motion } from 'framer-motion';
+
+
+
+import PropTypes from 'prop-types';
+
+
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
+import { VariableSizeList } from 'react-window';
+import { Typography } from '@material-ui/core';
+
+const LISTBOX_PADDING = 8; // px
+
+function renderRow(props) {
+  const { data, index, style } = props;
+  return React.cloneElement(data[index], {
+    style: {
+      ...style,
+      top: style.top + LISTBOX_PADDING,
+    },
+  });
+}
+
+const OuterElementContext = React.createContext({});
+
+const OuterElementType = React.forwardRef((props, ref) => {
+  const outerProps = React.useContext(OuterElementContext);
+  return <div ref={ref} {...props} {...outerProps} />;
+});
+
+function useResetCache(data) {
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    if (ref.current != null) {
+      ref.current.resetAfterIndex(0, true);
+    }
+  }, [data]);
+  return ref;
+}
+
+// Adapter for react-window
+const ListboxComponent = React.forwardRef(function ListboxComponent(props, ref) {
+  const { children, ...other } = props;
+  const itemData = React.Children.toArray(children);
+  const theme = useTheme();
+  const smUp = useMediaQuery(theme.breakpoints.up('sm'), { noSsr: true });
+  const itemCount = itemData.length;
+  const itemSize = smUp ? 36 : 48;
+
+  const getChildSize = (child) => {
+    if (React.isValidElement(child) && child.type === ListSubheader) {
+      return 48;
+    }
+
+    return itemSize;
+  };
+
+  const getHeight = () => {
+    if (itemCount > 8) {
+      return 8 * itemSize;
+    }
+    return itemData.map(getChildSize).reduce((a, b) => a + b, 0);
+  };
+
+  const gridRef = useResetCache(itemCount);
+
+  return (
+    <div ref={ref}>
+      <OuterElementContext.Provider value={other}>
+        <VariableSizeList
+          itemData={itemData}
+          height={getHeight() + 2 * LISTBOX_PADDING}
+          width="100%"
+          ref={gridRef}
+          outerElementType={OuterElementType}
+          innerElementType="ul"
+          itemSize={(index) => getChildSize(itemData[index])}
+          overscanCount={5}
+          itemCount={itemCount}
+        >
+          {renderRow}
+        </VariableSizeList>
+      </OuterElementContext.Provider>
+    </div>
+  );
+});
+
+ListboxComponent.propTypes = {
+  children: PropTypes.node,
+};
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
+  },
+  listbox: {
+    boxSizing: 'border-box',
+    '& ul': {
+      padding: 0,
+      margin: 0,
+    },
   },
   title: {
     padding: theme.spacing(2),
@@ -45,16 +142,16 @@ const useStyles = makeStyles(theme => ({
     border: "0.1rem solid",
   },
   btn: {
-    // border: "2px solid seagreen",
+    border: "2px solid seagreen",
     boxShadow: theme.shadows[5],
     borderRadius: "30px",
     textAlign: "center",
-    backgroundColor: "seagreen",
+    backgroundColor: "#23395d",
     color: "white",
     fontWeight: "400",
     align: "left",
     overflow: "auto",
-    fontFamily: "Roboto, sans-serif"
+    fontFamily: "Constantia"
   },
   gridBtn: {
     padding: "30px",
@@ -83,6 +180,17 @@ const useStyles = makeStyles(theme => ({
     // border: "1mm ridge rgba(200, 200, 200, .8)"
   }
 }));
+
+
+
+const renderGroup = (params) => [
+  <ListSubheader key={params.key} component="div">
+    {params.group}
+  </ListSubheader>,
+  params.children,
+];
+
+
 
 export default function SearchV2() {
   const classes = useStyles();
@@ -127,6 +235,7 @@ export default function SearchV2() {
   const loadConflicts = () => {
     let finalAPICall = "";
     for (let element of drugs) {
+      console.log(element.rxcui[0])
       finalAPICall += element.rxcui[0] + "+";
       // maybe have a line that stops "+" at the last one?
     }
@@ -187,34 +296,28 @@ export default function SearchV2() {
 
           <h1>Check Drug Interactions</h1>
 
-
-
         </Grid>
         <Grid item xs={2}></Grid>
         <Grid item xs={8}>
-          <p>Add two or more drugs to see their interactions.</p>
+          <p style={{color: "black"}}>Add two or more drugs to see their interactions.</p>
         </Grid>
         <Grid item xs={2}></Grid>
 
         <Grid item xs={2}></Grid>
         <Grid item xs={5}>
           <div className={classes.inputField}>
-            {/* <TextField
-              id="drugTextField"
-              className={classes.input}
-              type="text"
-              label="Enter drug name here"
-              variant="filled"
-              onChange={e => setSearch(e.target.value.trim())}
-            >
-
-            </TextField> */}
             <Autocomplete
               id="drugTextField"
+              disableListWrap
+              className={classes.input}
+              classes={classes}
+              ListboxComponent={ListboxComponent}
+              renderGroup={renderGroup}
               options={list}
-              renderInput={(params) => {
-                return <TextField {...params} id="drugTextField" className={classes.input} type="text" label="Enter drug name here" variant="filled" onChange={e => setSearch(e.target.value.trim())} />;
-              }}
+              groupBy={(option) => option[0].toUpperCase()}
+              renderInput={(params) => <TextField {...params} variant="outlined" label="Enter drug name here" />}
+              renderOption={(option) => <Typography noWrap>{option}</Typography>}
+              onChange={e => setSearch(document.getElementById("drugTextField").value)}
             />
           </div>
         </Grid>
