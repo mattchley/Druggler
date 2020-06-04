@@ -8,7 +8,6 @@ import "../css/login.css";
 import PillsIcon from "../images/pillsIcon.png";
 import { makeStyles } from "@material-ui/core/styles";
 
-
 const style = {
   color: "seagreen",
 };
@@ -18,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
 }));
-
 
 const SignUpForm = ({ onSubmit, onChange, errors, user }) => (
   <div className="container2">
@@ -34,7 +32,7 @@ const SignUpForm = ({ onSubmit, onChange, errors, user }) => (
 
       {errors.summary && <p className="error-message">{errors.summary}</p>}
 
-      {/* <div className="field-line">
+      <div className="field-line">
         <TextField
           floatingLabelText="Name"
           name="name"
@@ -42,15 +40,15 @@ const SignUpForm = ({ onSubmit, onChange, errors, user }) => (
           onChange={onChange}
           value={user.name}
         />
-      </div> */}
+      </div>
 
       <div className="field-line">
-      <span class="material-icons">person_outline</span>
+        <span class="material-icons">person_outline</span>
         <TextField
-        style={{
-          backgroundColor: "seagreen",
-        }}
-        id="input-with-icon-textfield"
+          style={{
+            backgroundColor: "seagreen",
+          }}
+          id="input-with-icon-textfield"
           floatingLabelText="Email"
           name="email"
           errorText={errors.email}
@@ -60,7 +58,7 @@ const SignUpForm = ({ onSubmit, onChange, errors, user }) => (
       </div>
 
       <div className="field-line">
-      <span class="material-icons"> lock </span>
+        <span class="material-icons"> lock </span>
         <TextField
           floatingLabelText="Password"
           type="password"
@@ -74,10 +72,10 @@ const SignUpForm = ({ onSubmit, onChange, errors, user }) => (
       <div style={{ marginBottom: "30px" }}></div>
 
       <div className="button-line">
-        <RaisedButton 
-          type="submit" 
-          label="Create New Account" 
-          primary 
+        <RaisedButton
+          type="submit"
+          label="Create New Account"
+          primary
           style={style}
         />
       </div>

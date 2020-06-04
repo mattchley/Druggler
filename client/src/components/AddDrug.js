@@ -12,9 +12,9 @@ import { motion } from "framer-motion";
 
 const moment = require("moment");
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   addDrug: {
     padding: theme.spacing(2),
@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "900",
     align: "left",
     overflow: "auto",
-    fontFamily: "Comic Sans MS, Comic Sans, cursive"
+    fontFamily: "Comic Sans MS, Comic Sans, cursive",
   },
   title: {
     padding: theme.spacing(2),
@@ -35,14 +35,14 @@ const useStyles = makeStyles(theme => ({
     color: "white",
     fontWeight: "800",
     fontSize: "30px",
-    fontFamily: "Constantia"
+    fontFamily: "Constantia",
   },
   titleText: {
     textAlign: "center",
     color: "white",
     fontWeight: "800",
     fontSize: "30px",
-    fontFamily: "Constantia"
+    fontFamily: "Constantia",
   },
   title2: {
     padding: theme.spacing(2),
@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: "30px",
     fontFamily: "Constantia",
     margin: "5%",
-    marginBottom: "0"
+    marginBottom: "0",
   },
   title3: {
     padding: theme.spacing(2),
@@ -61,19 +61,19 @@ const useStyles = makeStyles(theme => ({
     color: "white",
     fontWeight: "800",
     fontSize: "30px",
-    fontFamily: "Constantia"
+    fontFamily: "Constantia",
   },
   pillGrid2: {
     textAlign: "left",
     color: "midnightblue",
     fontWeight: "bold",
     fontSize: "14px",
-    width: "20%"
+    width: "20%",
   },
   removeCheckbox: {
-    displayRowCheckbox: "false"
+    displayRowCheckbox: "false",
   },
-  modal: {}
+  modal: {},
 }));
 
 export default function AddDrug() {
@@ -109,8 +109,8 @@ export default function AddDrug() {
       console.log(currentDrugs);
       setAllDrugs(currentDrugs.data);
       API.saveDrugtoUser(currentUser.data, Auth.getToken())
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
       let finalDrugArray = await updatingallDrugs(currentDrugs.data);
       setDrugQuarter(finalDrugArray);
     };
@@ -118,13 +118,13 @@ export default function AddDrug() {
     loadData();
   }, [addedDrug]);
 
-  const handleInputChange = e => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setDrugDetails({ ...drugDetails, [name]: value });
     console.log(drugDetails);
   };
 
-  const handleFormSubmit = event => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
     console.log(
       "Drug Details: ",
@@ -151,30 +151,30 @@ export default function AddDrug() {
           lastTakenDate: drugDetails.lastTakenDate,
           lastTakenTime: drugDetails.lastTakenTime,
           frequency: parseInt(drugDetails.frequency),
-          user: user._id
+          user: user._id,
         },
         Auth.getToken()
       )
-        .then(res => {
+        .then((res) => {
           console.log(res);
           setAddedDrug(allDrugs.length + 5);
         })
-        .then(res => handleClose())
+        .then((res) => handleClose())
         // .then(res => handleTableRowColor())
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
   };
 
-  const handleDrugRemove = id => {
+  const handleDrugRemove = (id) => {
     API.removeDrug(id, Auth.getToken())
-      .then(res => {
+      .then((res) => {
         setAddedDrug(allDrugs.length);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
   let count = 0;
 
-  const handleLastTakenBtn = id => {
+  const handleLastTakenBtn = (id) => {
     let currentTime = moment().format();
     let timeArray = currentTime.split("T");
     let currentDate = timeArray[0];
@@ -184,37 +184,37 @@ export default function AddDrug() {
       id,
       {
         lastTakenDate: currentDate,
-        lastTakenTime: presentHourMin
+        lastTakenTime: presentHourMin,
       },
       Auth.getToken()
     )
-      .then(res => {
+      .then((res) => {
         setAddedDrug(count++);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   //all tracker related functions
 
-  const getDrugTime = async drugData => {
-    const drugT = await drugData.map(drug => ({
+  const getDrugTime = async (drugData) => {
+    const drugT = await drugData.map((drug) => ({
       id: drug._id,
       combinedTime: `${drug.lastTakenDate} ${drug.lastTakenTime}`,
-      frequency: parseInt(drug.frequency)
+      frequency: parseInt(drug.frequency),
     }));
     console.log(drugT);
-    const allFutureDrug = await drugT.map(drug => ({
+    const allFutureDrug = await drugT.map((drug) => ({
       id: drug.id,
-      prediction: futureTimeCalcuation(drug.combinedTime, drug.frequency)
+      prediction: futureTimeCalcuation(drug.combinedTime, drug.frequency),
     }));
     return allFutureDrug;
   };
-  const compareTime = async drugData => {
+  const compareTime = async (drugData) => {
     const currentTime = moment().format("YYYY-MM-DD hh:mm a");
     let myFutureTime = await getDrugTime(drugData);
     console.log("Current time: ", currentTime);
     console.log(myFutureTime);
-    let drugQuarter = await myFutureTime.map(drug => {
+    let drugQuarter = await myFutureTime.map((drug) => {
       let quarterOneMet = moment(currentTime).isBefore(drug.prediction[0]);
       let quarterTwoMet = moment(currentTime).isBetween(
         drug.prediction[0],
@@ -260,16 +260,16 @@ export default function AddDrug() {
     });
     return drugQuarter;
   };
-  const updatingallDrugs = async drugsData => {
+  const updatingallDrugs = async (drugsData) => {
     let finalDrugs = [];
     await compareTime(drugsData)
-      .then(res => {
+      .then((res) => {
         finalDrugs = drugsData.map((drug, index) => ({
           ...drug,
-          currentQuarter: res[index]
+          currentQuarter: res[index],
         }));
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
     console.log("FINALLLLL: ", finalDrugs);
     return finalDrugs;
   };
@@ -308,7 +308,7 @@ export default function AddDrug() {
     return futureTime;
   };
 
-  const hourToMinConverter = hour => {
+  const hourToMinConverter = (hour) => {
     const min = (hour - Math.floor(hour)) * 60;
     const hr = Math.floor(hour) * 60;
     const totalMin = hr + min;
@@ -334,7 +334,7 @@ export default function AddDrug() {
               repeatDelay: 0
             }}
           > */}
-            <p className={classes.titleText}>My Pills Tracker</p>
+          <p className={classes.titleText}>My Pills Tracker</p>
           {/* </motion.div> */}
 
           <Table>
@@ -350,7 +350,7 @@ export default function AddDrug() {
                   <TableCell className={classes.pillGrid2}>Delete?</TableCell>
                   <TableCell className={classes.pillGrid2}>Take Pill</TableCell>
                 </TableRow>
-                {drugQuarter.map(drug => (
+                {drugQuarter.map((drug) => (
                   <ActiveDrugs
                     id={drug._id}
                     key={drug._id}
