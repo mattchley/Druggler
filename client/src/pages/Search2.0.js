@@ -44,16 +44,16 @@ const useStyles = makeStyles(theme => ({
     border: "0.1rem solid",
   },
   btn: {
-    border: "2px solid seagreen",
+    // border: "2px solid seagreen",
     boxShadow: theme.shadows[5],
     borderRadius: "30px",
     textAlign: "center",
-    backgroundColor: "#23395d",
+    backgroundColor: "seagreen",
     color: "white",
     fontWeight: "400",
     align: "left",
     overflow: "auto",
-    fontFamily: "Constantia"
+    fontFamily: "Roboto, sans-serif"
   },
   gridBtn: {
     padding: "30px",
