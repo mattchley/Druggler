@@ -34,7 +34,8 @@ const SignUpForm = ({ onSubmit, onChange, errors, user }) => (
 
       {errors.summary && <p className="error-message">{errors.summary}</p>}
 
-      {/* <div className="field-line">
+      <div className="field-line">
+      <span class="material-icons">create</span>
         <TextField
           floatingLabelText="Name"
           name="name"
@@ -42,7 +43,7 @@ const SignUpForm = ({ onSubmit, onChange, errors, user }) => (
           onChange={onChange}
           value={user.name}
         />
-      </div> */}
+      </div>
 
       <div className="field-line">
       <span class="material-icons">person_outline</span>

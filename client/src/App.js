@@ -63,7 +63,7 @@ const App = () => {
                     width="50px"
                     style={{ paddingLeft: "30px", margin: "0px", marginTop: "20px" }}></img>
 
-                  <div className="navTitle" style={{ margin: "0px" }}>druggler</div>
+                  <div className="navTitle" style={{ margin: "0px", fontFamily: "Ubuntu, sans-serif" }}>Druggler</div>
                   {/* <img
                     src={PillsIcon}
                     className="navTitle"
