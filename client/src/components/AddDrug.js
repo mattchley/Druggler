@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "900",
     align: "left",
     overflow: "auto",
-    fontFamily: "Comic Sans MS, Comic Sans, cursive"
+    fontFamily: "Roboto, sans-serif",
   },
   title: {
     padding: theme.spacing(2),
@@ -35,25 +35,25 @@ const useStyles = makeStyles(theme => ({
     color: "white",
     fontWeight: "800",
     fontSize: "30px",
-    fontFamily: "Constantia"
+    fontFamily: "Roboto, sans-serif",
   },
   titleText: {
     textAlign: "center",
     color: "white",
     fontWeight: "800",
     fontSize: "30px",
-    fontFamily: "Constantia"
+    fontFamily: "Roboto, sans-serif"
   },
   title2: {
     padding: theme.spacing(2),
     textAlign: "center",
-    backgroundColor: "#23395d",
+    backgroundColor: "seagreen",
     color: "white",
     fontWeight: "800",
     fontSize: "30px",
-    fontFamily: "Constantia",
-    margin: "5%",
-    marginBottom: "0"
+    fontFamily: "Roboto, sans-serif",
+    margin: "3%",
+    marginBottom: "0",
   },
   title3: {
     padding: theme.spacing(2),
@@ -61,14 +61,14 @@ const useStyles = makeStyles(theme => ({
     color: "white",
     fontWeight: "800",
     fontSize: "30px",
-    fontFamily: "Constantia"
+    fontFamily: "Roboto, sans-serif"
   },
   pillGrid2: {
     textAlign: "left",
     color: "midnightblue",
     fontWeight: "bold",
     fontSize: "14px",
-    width: "20%"
+    width: "20%",
   },
   removeCheckbox: {
     displayRowCheckbox: "false"
@@ -337,7 +337,7 @@ export default function AddDrug() {
             <p className={classes.titleText}>My Pills Tracker</p>
           {/* </motion.div> */}
 
-          <Table>
+          <Table >
             <TableBody displayRowCheckbox={false}>
               <TableRow>
                 <TableRow>

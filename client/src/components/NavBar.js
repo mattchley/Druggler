@@ -31,7 +31,7 @@ function NavBar() {
                 transition={{ ease: "easeOut", duration: 1.5 }}
             >
                 <div className="appBar">
-                    <div className="navTitle">druggler</div>
+                    <div className="navTitle">Druggler</div>
                     <div>
                         <Button
                             className="navButton"
