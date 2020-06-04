@@ -22,11 +22,16 @@
 
 .card-heading {
   background-color: seagreen;
-  padding: 5%;
+  padding-Top: 5%;
+  padding-Bottom: 5%;
+  padding-Left: 2%;
+  margin-Right: 1%;
   margin-top: 0;
   margin-bottom: 0;
   color: white;
   display: inline-block;
+  font-size: 50px;
+  font-family: "Ubuntu", sans-serif;
 }
 
 .button-line {
