@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import TrashIcon from "material-ui/svg-icons/action/delete";
-import Autocomplete from '@material-ui/lab/Autocomplete'
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import { ConnectionStates } from "mongoose";
 import { motion } from 'framer-motion';
 
