@@ -12,9 +12,9 @@ import { motion } from "framer-motion";
 
 const moment = require("moment");
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   addDrug: {
     padding: theme.spacing(2),
@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
     color: "white",
     fontWeight: "800",
     fontSize: "30px",
-    fontFamily: "Roboto, sans-serif"
+    fontFamily: "Roboto, sans-serif",
   },
   title2: {
     padding: theme.spacing(2),
@@ -61,7 +61,7 @@ const useStyles = makeStyles(theme => ({
     color: "white",
     fontWeight: "800",
     fontSize: "30px",
-    fontFamily: "Roboto, sans-serif"
+    fontFamily: "Roboto, sans-serif",
   },
   pillGrid2: {
     textAlign: "left",
@@ -71,9 +71,9 @@ const useStyles = makeStyles(theme => ({
     width: "20%",
   },
   removeCheckbox: {
-    displayRowCheckbox: "false"
+    displayRowCheckbox: "false",
   },
-  modal: {}
+  modal: {},
 }));
 
 export default function AddDrug() {
@@ -109,8 +109,8 @@ export default function AddDrug() {
       //console.log(currentDrugs);
       setAllDrugs(currentDrugs.data);
       API.saveDrugtoUser(currentUser.data, Auth.getToken())
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
       let finalDrugArray = await updatingallDrugs(currentDrugs.data);
       setDrugQuarter(finalDrugArray);
     };
@@ -118,13 +118,13 @@ export default function AddDrug() {
     loadData();
   }, [addedDrug]);
 
-  const handleInputChange = e => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setDrugDetails({ ...drugDetails, [name]: value });
     console.log(drugDetails);
   };
 
-  const handleFormSubmit = event => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
     console.log(
       "Drug Details: ",
@@ -145,48 +145,52 @@ export default function AddDrug() {
       const yearValidate = parseInt(moment().format("YYYY"));
       const monthValidate = parseInt(moment().format("MM"));
       const currentDayValidate = parseInt(moment().format("DD"));
-      let daysValidate = [31,28,31,30,31,30,31,31,30,31,30,31]
+      let daysValidate = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
       let splitDate = dateInput.split("-");
       // Adjust for leap years
-      if(parseInt(splitDate[0]) % 400 === 0 || (parseInt(splitDate[0]) % 100 !== 0 && parseInt(splitDate[0]) % 4 === 0)){
-        daysValidate[1] = 29
+      if (
+        parseInt(splitDate[0]) % 400 === 0 ||
+        (parseInt(splitDate[0]) % 100 !== 0 && parseInt(splitDate[0]) % 4 === 0)
+      ) {
+        daysValidate[1] = 29;
       }
-      
-      console.log("Date Input: ", dateInput)
+
+      console.log("Date Input: ", dateInput);
       console.log("Date Array: ", splitDate);
-      
+
       let dateError = 0;
 
       console.log("YEAR VALIDATION: ", yearValidate);
       console.log("MONTH VALIDATE: ", monthValidate);
-      
 
-      if(parseInt(splitDate[0]) < yearValidate) {
-        if(0 < parseInt(splitDate[1]) < 13){
-        console.log("Different Year. Month is correct");
+      if (parseInt(splitDate[0]) < yearValidate) {
+        if (0 < parseInt(splitDate[1]) < 13) {
+          console.log("Different Year. Month is correct");
         } else {
-        console.log("ERROR WAS ADDED")
-        dateError = dateError + 1
+          console.log("ERROR WAS ADDED");
+          dateError = dateError + 1;
         }
       }
 
-      if(parseInt(splitDate[0]) === yearValidate){
-        if(parseInt(splitDate[1]) > monthValidate){
-        console.log("Same year. Month is NOT correct");
-        console.log("ERROR WAS ADDED")
-        dateError = dateError + 1
-      } else if (parseInt(splitDate[1]) === monthValidate && splitDate[2] > currentDayValidate) {
-        console.log("ERROR WAS ADDED");
-        dateError = dateError + 1;
+      if (parseInt(splitDate[0]) === yearValidate) {
+        if (parseInt(splitDate[1]) > monthValidate) {
+          console.log("Same year. Month is NOT correct");
+          console.log("ERROR WAS ADDED");
+          dateError = dateError + 1;
+        } else if (
+          parseInt(splitDate[1]) === monthValidate &&
+          splitDate[2] > currentDayValidate
+        ) {
+          console.log("ERROR WAS ADDED");
+          dateError = dateError + 1;
+        }
       }
-    }
 
-      
-      if(parseInt(splitDate[2]) <= daysValidate[parseInt(splitDate[1])-1]){
+      if (parseInt(splitDate[2]) <= daysValidate[parseInt(splitDate[1]) - 1]) {
         console.log("Days are correct");
-      }else {
-        console.log("ERROR WAS ADDED")
+      } else {
+        console.log("ERROR WAS ADDED");
         dateError = dateError + 1;
       }
 
@@ -195,50 +199,58 @@ export default function AddDrug() {
       const minuteValidate = parseInt(moment().format("mm"));
       const timeInput = drugDetails.lastTakenTime;
       let timeError = 0;
-      let futureError = 0
+      let futureError = 0;
       const splitTime = timeInput.split(":");
 
       //Unit validation
       if (parseInt(splitTime[0]) >= 25) {
         console.log("ERROR ADDED");
-        timeError = timeError + 1
+        timeError = timeError + 1;
       } else if (parseInt(splitTime[1]) >= 60) {
         console.log("ERROR ADDED");
-        timeError = timeError + 1
+        timeError = timeError + 1;
       }
 
       console.log("INPUT TIME: ", splitTime[0]);
-      console.log("INPUT SECOND: ", splitTime[1])
+      console.log("INPUT SECOND: ", splitTime[1]);
       console.log("CURRENT MIN: ", minuteValidate);
       //Past time validation
-      if(parseInt(splitTime[0]) > hourValidate ){
+      if (parseInt(splitTime[0]) > hourValidate) {
         console.log("ERROR ADDED");
         futureError = futureError + 1;
-      } else if (parseInt(splitTime[0]) === hourValidate && parseInt(splitTime[1]) > minuteValidate) {
+      } else if (
+        parseInt(splitTime[0]) === hourValidate &&
+        parseInt(splitTime[1]) > minuteValidate
+      ) {
         console.log("ERROR ADDED");
         futureError = futureError + 1;
       }
-
 
       console.log("LateTakenDate: ", dateInput.length);
       console.log("DATE ERROR: ", dateError);
 
       if (isNaN(drugDetails.frequency)) {
         alert("Please enter a number in hours.");
-        return false
-       }else if (dateInput.length !== 10 || dateInput[4] !== "-" || dateInput[7] !== "-" || dateError !== 0){
-        alert("Please enter a valid date with format YYYY-MM-DD.")
-        return false
-      }else if (timeInput.length !== 5 || timeInput[2] !== ":" || timeError !== 0) {
+        return false;
+      } else if (
+        dateInput.length !== 10 ||
+        dateInput[4] !== "-" ||
+        dateInput[7] !== "-" ||
+        dateError !== 0
+      ) {
+        alert("Please enter a valid date with format YYYY-MM-DD.");
+        return false;
+      } else if (
+        timeInput.length !== 5 ||
+        timeInput[2] !== ":" ||
+        timeError !== 0
+      ) {
         alert("Please enter a valid time with format XX:XX.");
-        return false
+        return false;
       } else if (futureError !== 0) {
         alert("Cannot enter a future date");
-        return false
+        return false;
       }
-
-      
-
 
       // Saving Drug to Database
       API.saveDrug(
@@ -247,30 +259,30 @@ export default function AddDrug() {
           lastTakenDate: drugDetails.lastTakenDate,
           lastTakenTime: drugDetails.lastTakenTime,
           frequency: parseInt(drugDetails.frequency),
-          user: user._id
+          user: user._id,
         },
         Auth.getToken()
       )
-        .then(res => {
+        .then((res) => {
           //console.log(res);
           setAddedDrug(allDrugs.length + 5);
         })
-        .then(res => handleClose())
+        .then((res) => handleClose())
         // .then(res => handleTableRowColor())
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
   };
 
-  const handleDrugRemove = id => {
+  const handleDrugRemove = (id) => {
     API.removeDrug(id, Auth.getToken())
-      .then(res => {
+      .then((res) => {
         setAddedDrug(allDrugs.length);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
   let count = 0;
 
-  const handleLastTakenBtn = id => {
+  const handleLastTakenBtn = (id) => {
     let currentTime = moment().format();
     let timeArray = currentTime.split("T");
     let currentDate = timeArray[0];
@@ -280,37 +292,37 @@ export default function AddDrug() {
       id,
       {
         lastTakenDate: currentDate,
-        lastTakenTime: presentHourMin
+        lastTakenTime: presentHourMin,
       },
       Auth.getToken()
     )
-      .then(res => {
+      .then((res) => {
         setAddedDrug(count++);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   //all tracker related functions
 
-  const getDrugTime = async drugData => {
-    const drugT = await drugData.map(drug => ({
+  const getDrugTime = async (drugData) => {
+    const drugT = await drugData.map((drug) => ({
       id: drug._id,
       combinedTime: `${drug.lastTakenDate} ${drug.lastTakenTime}`,
-      frequency: parseInt(drug.frequency)
+      frequency: parseInt(drug.frequency),
     }));
     console.log(drugT);
-    const allFutureDrug = await drugT.map(drug => ({
+    const allFutureDrug = await drugT.map((drug) => ({
       id: drug.id,
-      prediction: futureTimeCalcuation(drug.combinedTime, drug.frequency)
+      prediction: futureTimeCalcuation(drug.combinedTime, drug.frequency),
     }));
     return allFutureDrug;
   };
-  const compareTime = async drugData => {
+  const compareTime = async (drugData) => {
     const currentTime = moment().format("YYYY-MM-DD hh:mm a");
     let myFutureTime = await getDrugTime(drugData);
     console.log("Current time: ", currentTime);
     console.log(myFutureTime);
-    let drugQuarter = await myFutureTime.map(drug => {
+    let drugQuarter = await myFutureTime.map((drug) => {
       let quarterOneMet = moment(currentTime).isBefore(drug.prediction[0]);
       let quarterTwoMet = moment(currentTime).isBetween(
         drug.prediction[0],
@@ -356,16 +368,16 @@ export default function AddDrug() {
     });
     return drugQuarter;
   };
-  const updatingallDrugs = async drugsData => {
+  const updatingallDrugs = async (drugsData) => {
     let finalDrugs = [];
     await compareTime(drugsData)
-      .then(res => {
+      .then((res) => {
         finalDrugs = drugsData.map((drug, index) => ({
           ...drug,
-          currentQuarter: res[index]
+          currentQuarter: res[index],
         }));
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
     console.log("FINALLLLL: ", finalDrugs);
     return finalDrugs;
   };
@@ -404,7 +416,7 @@ export default function AddDrug() {
     return futureTime;
   };
 
-  const hourToMinConverter = hour => {
+  const hourToMinConverter = (hour) => {
     const min = (hour - Math.floor(hour)) * 60;
     const hr = Math.floor(hour) * 60;
     const totalMin = hr + min;
@@ -430,10 +442,10 @@ export default function AddDrug() {
               repeatDelay: 0
             }}
           > */}
-            <p className={classes.titleText}>My Pills Tracker</p>
+          <p className={classes.titleText}>My Pills Tracker</p>
           {/* </motion.div> */}
 
-          <Table >
+          <Table>
             <TableBody displayRowCheckbox={false}>
               <TableRow>
                 <TableRow>
@@ -446,7 +458,7 @@ export default function AddDrug() {
                   <TableCell className={classes.pillGrid2}>Delete?</TableCell>
                   <TableCell className={classes.pillGrid2}>Take Pill</TableCell>
                 </TableRow>
-                {drugQuarter.map(drug => (
+                {drugQuarter.map((drug) => (
                   <ActiveDrugs
                     id={drug._id}
                     key={drug._id}

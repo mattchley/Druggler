@@ -21,25 +21,25 @@ Drugglers is a MERN application using MongoDB, Express, React and Node.js. Our d
 ```javascript
 //all tracker related functions
 
-const getDrugTime = async drugData => {
-  const drugT = await drugData.map(drug => ({
+const getDrugTime = async (drugData) => {
+  const drugT = await drugData.map((drug) => ({
     id: drug._id,
     combinedTime: `${drug.lastTakenDate} ${drug.lastTakenTime}`,
-    frequency: parseInt(drug.frequency)
+    frequency: parseInt(drug.frequency),
   }));
   console.log(drugT);
-  const allFutureDrug = await drugT.map(drug => ({
+  const allFutureDrug = await drugT.map((drug) => ({
     id: drug.id,
-    prediction: futureTimeCalcuation(drug.combinedTime, drug.frequency)
+    prediction: futureTimeCalcuation(drug.combinedTime, drug.frequency),
   }));
   return allFutureDrug;
 };
-const compareTime = async drugData => {
+const compareTime = async (drugData) => {
   const currentTime = moment().format("YYYY-MM-DD hh:mm a");
   let myFutureTime = await getDrugTime(drugData);
   console.log("Current time: ", currentTime);
   console.log(myFutureTime);
-  let drugQuarter = await myFutureTime.map(drug => {
+  let drugQuarter = await myFutureTime.map((drug) => {
     let quarterOneMet = moment(currentTime).isBefore(drug.prediction[0]);
     let quarterTwoMet = moment(currentTime).isBetween(
       drug.prediction[0],
@@ -85,27 +85,25 @@ const compareTime = async drugData => {
   });
   return drugQuarter;
 };
-const updatingallDrugs = async drugsData => {
+const updatingallDrugs = async (drugsData) => {
   let finalDrugs = [];
   await compareTime(drugsData)
-    .then(res => {
+    .then((res) => {
       finalDrugs = drugsData.map((drug, index) => ({
         ...drug,
-        currentQuarter: res[index]
+        currentQuarter: res[index],
       }));
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
   console.log("FINALLLLL: ", finalDrugs);
   return finalDrugs;
 };
 ```
 
 **Screenshots**
-
-![Sign up page](images/login.jpg)
-![Login](images/login2.jpg)
-![Interactions page](images/interactions.jpg)
-![Pill tracker](images/pilltracker.jpg)
+![Sign up page](images/druggler-4.jpg)
+![Login](images/druggler-3.jpg)
+![Pill tracker](images/druggler-2.jpg)
 
 **Installation**
 
