@@ -299,7 +299,7 @@ export default function SearchV2() {
         </Grid>
         <Grid item xs={2}></Grid>
         <Grid item xs={8}>
-          <p style={{color: "black"}}>Add two or more drugs and pick from the list to see their interactions.</p>
+          <p style={{ color: "black" }}>Add two or more drugs and pick from the list to see their interactions.</p>
         </Grid>
         <Grid item xs={2}></Grid>
 
@@ -316,8 +316,8 @@ export default function SearchV2() {
               options={list}
               groupBy={(option) => option[0].toUpperCase()}
               renderInput={(params) => <TextField {...params} variant="outlined" label="Enter drug name here" />}
-              renderOption={(option) => <Typography noWrap  style={{color: "black"}}>{option}</Typography>}
-              onChange={e => setSearch(document.getElementById("drugTextField").value)}
+              renderOption={(option) => <Typography noWrap style={{ color: "black" }}>{option}</Typography>}
+              onChange={(event, value) => setSearch(value)}
             />
           </div>
         </Grid>
