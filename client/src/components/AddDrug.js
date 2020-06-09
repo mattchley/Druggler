@@ -101,12 +101,12 @@ export default function AddDrug() {
     const loadData = async () => {
       let currentUser = await API.dashboard(Auth.getToken());
       setUser(currentUser.data.user);
-      console.log(currentUser);
+      //console.log(currentUser);
       let currentDrugs = await API.getAllUserDrugs(
         currentUser.data.user._id,
         Auth.getToken()
       );
-      console.log(currentDrugs);
+      //console.log(currentDrugs);
       setAllDrugs(currentDrugs.data);
       API.saveDrugtoUser(currentUser.data, Auth.getToken())
         .then((res) => console.log(res))
@@ -137,14 +137,122 @@ export default function AddDrug() {
       drugDetails.frequency &&
       drugDetails.lastTakenTime
     ) {
-      console.log("before API front end");
-      console.log("current user, ", user._id);
+      //console.log("before API front end");
+      //console.log("current user, ", user._id);
+
+      // INPUT VALIDATION FOR DATE
+      const dateInput = drugDetails.lastTakenDate;
+      const yearValidate = parseInt(moment().format("YYYY"));
+      const monthValidate = parseInt(moment().format("MM"));
+      const currentDayValidate = parseInt(moment().format("DD"));
+      let daysValidate = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+      let splitDate = dateInput.split("-");
+      // Adjust for leap years
+      if (
+        parseInt(splitDate[0]) % 400 === 0 ||
+        (parseInt(splitDate[0]) % 100 !== 0 && parseInt(splitDate[0]) % 4 === 0)
+      ) {
+        daysValidate[1] = 29;
+      }
+
+      console.log("Date Input: ", dateInput);
+      console.log("Date Array: ", splitDate);
+
+      let dateError = 0;
+
+      console.log("YEAR VALIDATION: ", yearValidate);
+      console.log("MONTH VALIDATE: ", monthValidate);
+
+      if (parseInt(splitDate[0]) < yearValidate) {
+        if (0 < parseInt(splitDate[1]) < 13) {
+          console.log("Different Year. Month is correct");
+        } else {
+          console.log("ERROR WAS ADDED");
+          dateError = dateError + 1;
+        }
+      }
+
+      if (parseInt(splitDate[0]) === yearValidate) {
+        if (parseInt(splitDate[1]) > monthValidate) {
+          console.log("Same year. Month is NOT correct");
+          console.log("ERROR WAS ADDED");
+          dateError = dateError + 1;
+        } else if (
+          parseInt(splitDate[1]) === monthValidate &&
+          splitDate[2] > currentDayValidate
+        ) {
+          console.log("ERROR WAS ADDED");
+          dateError = dateError + 1;
+        }
+      }
+
+      if (parseInt(splitDate[2]) <= daysValidate[parseInt(splitDate[1]) - 1]) {
+        console.log("Days are correct");
+      } else {
+        console.log("ERROR WAS ADDED");
+        dateError = dateError + 1;
+      }
+
+      //TIME INPUT
+      const hourValidate = parseInt(moment().format("HH"));
+      const minuteValidate = parseInt(moment().format("mm"));
+      const timeInput = drugDetails.lastTakenTime;
+      let timeError = 0;
+      let futureError = 0;
+      const splitTime = timeInput.split(":");
+
+      //Unit validation
+      if (parseInt(splitTime[0]) >= 25) {
+        console.log("ERROR ADDED");
+        timeError = timeError + 1;
+      } else if (parseInt(splitTime[1]) >= 60) {
+        console.log("ERROR ADDED");
+        timeError = timeError + 1;
+      }
+
+      console.log("INPUT TIME: ", splitTime[0]);
+      console.log("INPUT SECOND: ", splitTime[1]);
+      console.log("CURRENT MIN: ", minuteValidate);
+      //Past time validation
+      if (parseInt(splitTime[0]) > hourValidate) {
+        console.log("ERROR ADDED");
+        futureError = futureError + 1;
+      } else if (
+        parseInt(splitTime[0]) === hourValidate &&
+        parseInt(splitTime[1]) > minuteValidate
+      ) {
+        console.log("ERROR ADDED");
+        futureError = futureError + 1;
+      }
+
+      console.log("LateTakenDate: ", dateInput.length);
+      console.log("DATE ERROR: ", dateError);
 
       if (isNaN(drugDetails.frequency)) {
-        alert("Must input a number for how often the drug should be taken.");
+        alert("Please enter a number in hours.");
+        return false;
+      } else if (
+        dateInput.length !== 10 ||
+        dateInput[4] !== "-" ||
+        dateInput[7] !== "-" ||
+        dateError !== 0
+      ) {
+        alert("Please enter a valid date with format YYYY-MM-DD.");
+        return false;
+      } else if (
+        timeInput.length !== 5 ||
+        timeInput[2] !== ":" ||
+        timeError !== 0
+      ) {
+        alert("Please enter a valid time with format XX:XX.");
+        return false;
+      } else if (futureError !== 0) {
+        alert("Cannot enter a future date");
         return false;
       }
 
+      // Saving Drug to Database
       API.saveDrug(
         {
           name: drugDetails.name,
@@ -156,7 +264,7 @@ export default function AddDrug() {
         Auth.getToken()
       )
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           setAddedDrug(allDrugs.length + 5);
         })
         .then((res) => handleClose())

@@ -1,6 +1,6 @@
 const Drugs = require("../models/drugs");
 
-// Defining methods for the booksController
+// Defining methods for the drugController
 module.exports = {
   findAll: function(req, res) {
     Drugs.find(req.query)
