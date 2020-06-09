@@ -101,8 +101,9 @@ const updatingallDrugs = async (drugsData) => {
 ```
 
 **Screenshots**
-![Sign up page](images/druggler-4.jpg)
+
 ![Login](images/druggler-3.jpg)
+
 ![Pill tracker](images/druggler-2.jpg)
 
 **Installation**
