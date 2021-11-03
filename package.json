@@ -41,6 +41,6 @@
     "react-scroll": "^1.7.9",
     "react-slick": "^0.23.1",
     "react-windowed-select": "^2.0.2",
-    "validator": "^12.2.0"
+    "validator": "^13.7.0"
   }
 }
