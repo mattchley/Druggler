@@ -30,7 +30,7 @@
     "framer-motion": "^1.9.1",
     "if-env": "^1.0.4",
     "jsonwebtoken": "^8.5.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "mongoose": "^5.9.2",
     "morgan": "^1.9.1",
     "passport": "^0.4.1",
